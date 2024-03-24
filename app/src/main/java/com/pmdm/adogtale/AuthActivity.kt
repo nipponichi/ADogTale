@@ -9,9 +9,8 @@ import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.pmdm.adogtale.model.User
 import com.pmdm.adogtale.ui.ForgotPassActivity
-import com.pmdm.adogtale.ui.SignupActivity
+import com.pmdm.adogtale.ui.SignUpActivity
 import com.pmdm.adogtale.ui.UserProfileActivity
 
 class AuthActivity : AppCompatActivity() {
@@ -25,11 +24,12 @@ class AuthActivity : AppCompatActivity() {
         val btnSingup: Button = findViewById(R.id.btnSignUp)
         val btnRemember: Button = findViewById(R.id.btnRemember)
         firebaseAuth = Firebase.auth
+
         btnLogin.setOnClickListener() {
             signIn(txtEmail.text.toString(), txtPassword.text.toString());
         }
         btnSingup.setOnClickListener() {
-            val intent = Intent(this, SignupActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
         btnRemember.setOnClickListener() {
@@ -39,6 +39,7 @@ class AuthActivity : AppCompatActivity() {
 
     }
 
+    // Login function
     private fun signIn(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->

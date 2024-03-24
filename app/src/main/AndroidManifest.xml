@@ -16,13 +16,22 @@
         android:theme="@style/Theme.ADogTale"
         tools:targetApi="31">
         <activity
+            android:name=".ui.BuddyProfileActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".ui.BuddyProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SignUpActivity2"
+            android:exported="false" />
+        <activity
             android:name=".ui.UserProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ForgotPassActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SignupActivity"
+            android:name=".ui.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".AuthActivity"

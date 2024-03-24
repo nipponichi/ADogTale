@@ -13,7 +13,6 @@ import com.pmdm.adogtale.R
 class UserProfileActivity : AppCompatActivity() {
 
     private lateinit var db: FirebaseFirestore
-    private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -41,8 +40,6 @@ class UserProfileActivity : AppCompatActivity() {
                         surname.setText(it.get("surname") as String?)
                         town.setText(it.get("town") as String?)
                         phone.setText(it.get("phone") as String?)
-
-
                     }
                     .addOnFailureListener { exception ->
                         Log.d("Firestore", "get failed with ", exception)
