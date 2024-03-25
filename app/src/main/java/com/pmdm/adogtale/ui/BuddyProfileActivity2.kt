@@ -1,6 +1,5 @@
 package com.pmdm.adogtale.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +7,6 @@ import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.Profile
-import com.pmdm.adogtale.model.User
 
 class BuddyProfileActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +22,9 @@ class BuddyProfileActivity2 : AppCompatActivity() {
     // Create user profile on Firebase
     private fun createProfileAccount(profile: Profile) {
         var db = FirebaseFirestore.getInstance()
-        db.collection("profile").document(profile.user.email).set(
+        db.collection("profile").document(profile.userEmail).set(
             hashMapOf(
-                "user" to profile.user.email,
+                "user" to profile.userEmail,
                 "name" to profile.name,
                 "age" to profile.age,
             )

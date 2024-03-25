@@ -1,14 +1,20 @@
 package com.pmdm.adogtale.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
+import androidx.appcompat.app.AlertDialog
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pmdm.adogtale.AuthActivity
 import com.pmdm.adogtale.R
+import com.pmdm.adogtale.model.LocalUser
 
 class UserProfileActivity : AppCompatActivity() {
 
@@ -16,43 +22,100 @@ class UserProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
-
-        val email = intent.getStringExtra("email")
-        Toast.makeText(this, email, Toast.LENGTH_SHORT).show()
+        val user = Firebase.auth.currentUser
+        val email = user?.email
         db = FirebaseFirestore.getInstance()
 
-        val txtEmail: TextView = findViewById(R.id.etEmail)
-        val txtPassword1: TextView = findViewById(R.id.etPassword)
-        val txtPassword2: TextView = findViewById(R.id.etConfirmPassword)
-        val username: TextView = findViewById(R.id.etUsername)
-        val name: TextView = findViewById(R.id.etName)
-        val surname: TextView = findViewById(R.id.etSurname)
-        val town: TextView = findViewById(R.id.etTown)
-        val phone: TextView = findViewById(R.id.etPhone)
-        val btnRecover: Button = findViewById(R.id.btnRecover)
+        val btnLogout: Button = findViewById(R.id.btnLogout)
         val btnDelete: Button = findViewById(R.id.btnDelete)
-        btnRecover.setOnClickListener() {
-            if (email != null) {
-                db.collection("user").document(email).get()
-                    .addOnSuccessListener {
-                        username.setText(it.get("username") as String?)
-                        name.setText(it.get("name") as String?)
-                        surname.setText(it.get("surname") as String?)
-                        town.setText(it.get("town") as String?)
-                        phone.setText(it.get("phone") as String?)
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.d("Firestore", "get failed with ", exception)
-                    }
-            }
+        setUserParameters(email)
+
+        btnLogout.setOnClickListener() {
+            logoutUser()
         }
         btnDelete.setOnClickListener() {
-            if (email != null) {
-                db.collection("user").document(email).delete()
+            val builder = AlertDialog.Builder(this)
+
+            builder.setTitle("Eliminar cuenta")
+            builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta?")
+
+            builder.setPositiveButton("Sí") { dialog, which ->
+                db.collection("user").document(email!!).delete()
+                db.collection("profile").document(email!!).delete()
+                deleteUser(user)
+                
             }
+
+            builder.setNegativeButton("No") { dialog, which ->
+                dialog.dismiss()
+            }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+
+
         }
 
 
     }
+    // Fills object User with database account data
+    private fun setUserParameters(email: String?) {
+        if (email != null) {
+            db.collection("user").document(email).get()
+                .addOnSuccessListener {
 
+                    val username = it.get("username") as String?
+                    val name = it.get("name") as String?
+                    val surname = it.get("surname") as String?
+                    val town = it.get("town") as String?
+                    val phone = it.get("phone") as String?
+
+                    val user = LocalUser(username = username, email = email, town = town,
+                        phone = phone,name = name, surname = surname)
+
+                    setTextParameters(user)
+
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("Firestore", "get failed with ", exception)
+                }
+        } else {
+            Toast.makeText(this, "User mail can't be empty", Toast.LENGTH_SHORT).show()
+        }
+    }
+    // Fills text areas with User parameters obtained from database
+    private fun setTextParameters(user: LocalUser) {
+        val txtEmail: TextView = findViewById(R.id.etEmail)
+        val txtUsername: TextView = findViewById(R.id.etUsername)
+        val txtName: TextView = findViewById(R.id.etName)
+        val txtSurname: TextView = findViewById(R.id.etSurname)
+        val txtTown: TextView = findViewById(R.id.etTown)
+        val txtPhone: TextView = findViewById(R.id.etPhone)
+
+        txtEmail.setText(user.email)
+        txtUsername.setText(user.username)
+        txtName.setText(user.name)
+        txtSurname.setText(user.surname)
+        txtTown.setText(user.town)
+        txtPhone.setText(user.phone)
+    }
+    // Logout user from A Dog Tale
+    private fun logoutUser() {
+        val auth = Firebase.auth
+        auth.signOut()
+        Toast.makeText(this,"User disconected", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+    }
+    // Delete user account from auth
+    private fun deleteUser(user: FirebaseUser?) {
+        user?.delete()?.addOnCompleteListener{ task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "User "+ user.email +" has been deleted successful", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+    }
 }

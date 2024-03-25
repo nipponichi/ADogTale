@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.User
+import com.pmdm.adogtale.model.LocalUser
 
 class SignUpActivity2 : AppCompatActivity() {
 
@@ -25,7 +25,7 @@ class SignUpActivity2 : AppCompatActivity() {
         val town: TextView = findViewById(R.id.etTown)
         val phone: TextView = findViewById(R.id.etPhone)
         val btnNext: Button = findViewById(R.id.btnNext)
-        val user = intent.getSerializableExtra("user") as User
+        val user = intent.getSerializableExtra("user") as LocalUser
 
         btnNext.setOnClickListener() {
             val nameStr = name.text.toString()
@@ -46,8 +46,9 @@ class SignUpActivity2 : AppCompatActivity() {
     }
 
     // Create user account on Firebase
-    private fun createUserAccount(user: User) {
-        firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
+    private fun createUserAccount(user: LocalUser) {
+        Toast.makeText(this, "before account " + user.password, Toast.LENGTH_SHORT).show()
+        firebaseAuth.createUserWithEmailAndPassword(user.email, user.password!!)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Created account", Toast.LENGTH_SHORT).show()
@@ -62,7 +63,6 @@ class SignUpActivity2 : AppCompatActivity() {
                         )
                     )
                     val intent = Intent(this, BuddyProfileActivity::class.java)
-                    intent.putExtra("user", user)
                     startActivity(intent)
                 } else {
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()

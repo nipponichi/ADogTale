@@ -120,8 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:inputType="textPassword"
-            android:text="123456" />
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/tvUsername"
@@ -209,16 +208,16 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnRecover"
+            android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recover" />
+            android:text="Logout" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete" />
+            android:text="Delete Account" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

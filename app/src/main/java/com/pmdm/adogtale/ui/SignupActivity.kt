@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.User
+import com.pmdm.adogtale.model.LocalUser
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -25,9 +25,10 @@ class SignUpActivity : AppCompatActivity() {
             var pass2 = txtPassword2.text.toString()
             var email = txtEmail.text.toString()
             var username = username.text.toString()
+
             if (pass1.equals(pass2)) {
                 if (email != null && pass1 != null && pass2 != null && username != null) {
-                    val user = User(username, email, pass1)
+                    val user = LocalUser(username = username, email = email,password = pass1)
                     val intent = Intent(this, SignUpActivity2::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)

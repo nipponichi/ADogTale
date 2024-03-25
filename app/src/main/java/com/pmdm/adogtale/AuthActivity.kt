@@ -45,9 +45,8 @@ class AuthActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
-                    Toast.makeText(baseContext, user?.uid.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Logged in as: " + user?.email.toString(), Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserProfileActivity::class.java)
-                    intent.putExtra("email", email)
                     startActivity(intent)
                 } else {
                     Toast.makeText(baseContext, "Something went wrong", Toast.LENGTH_SHORT).show()
