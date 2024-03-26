@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.pmdm.adogtale.ui.CardSwipeActivity
 import com.pmdm.adogtale.ui.ForgotPassActivity
 import com.pmdm.adogtale.ui.SignUpActivity
 import com.pmdm.adogtale.ui.UserProfileActivity
@@ -46,7 +47,7 @@ class AuthActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     Toast.makeText(baseContext, "Logged in as: " + user?.email.toString(), Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, UserProfileActivity::class.java)
+                    val intent = Intent(this, CardSwipeActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(baseContext, "Something went wrong", Toast.LENGTH_SHORT).show()
