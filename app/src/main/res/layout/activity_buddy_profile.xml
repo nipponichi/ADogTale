@@ -108,51 +108,99 @@ tools:context=".ui.SignUpActivity">
         android:text="4" />
 
     <TextView
+        android:id="@+id/tvGender"
+        android:inputType="none"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Choose your best pictures"
+        android:text="Gender"
         android:textColor="@color/black" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/tilGender"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clTitle">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibPic1"
-            android:layout_width="75dp"
-            android:layout_height="75dp" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibPic2"
-            android:layout_width="75dp"
-            android:layout_height="75dp" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibPic3"
-            android:layout_width="75dp"
-            android:layout_height="75dp" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibPic4"
-            android:layout_width="75dp"
-            android:layout_height="75dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <AutoCompleteTextView
+            android:id="@+id/acGender"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:text="Choose one" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/tvBreed"
+        android:inputType="none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Breed"
+        android:textColor="@color/black" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/tilBreed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clTitle">
+
+        <AutoCompleteTextView
+            android:id="@+id/acBreed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:text="Choose one" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvSomething"
+        android:inputType="none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Something about me"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/etSomething"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="Bone lover"/>
+
+    <TextView
+        android:id="@+id/tvShortDescription"
+        android:inputType="none"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Upload a video (Optional)"
+        android:text="Short description"
         android:textColor="@color/black" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/ibVid1"
-        android:layout_width="75dp"
-        android:layout_height="75dp" />
+    <EditText
+        android:id="@+id/etShortDescription"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        android:text="My name is Spot, I am a happy dog looking for someone"/>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"

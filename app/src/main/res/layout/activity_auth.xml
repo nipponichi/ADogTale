@@ -92,10 +92,10 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:textColor="@color/white"
             android:layout_marginTop="5dp"
-            android:text="Login" />
+            android:background="@color/black"
+            android:text="Login"
+            android:textColor="@color/white" />
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -137,29 +137,41 @@
             android:id="@+id/llSingup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/llRemember"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llRemember">
 
             <TextView
                 android:id="@+id/tvSingup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="First time here?"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
                 android:backgroundTint="@color/backgroundGreen"
-                android:text="Sing up"/>
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Sing up" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/btnDebug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="@color/backgroundGreen"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Debug"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llUser" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

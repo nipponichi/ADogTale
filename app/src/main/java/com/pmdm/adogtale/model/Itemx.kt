@@ -1,8 +1,8 @@
 package com.pmdm.adogtale.model
 
 data class Itemx (
-    var image: Int,
+    var image: String,
     var nama: String,
     var usia: String,
-    var kota: String
-)
+    var kota: String,
+    )

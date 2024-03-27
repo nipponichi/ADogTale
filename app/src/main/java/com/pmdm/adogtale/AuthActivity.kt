@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.pmdm.adogtale.ui.BuddyProfileActivity2
 import com.pmdm.adogtale.ui.CardSwipeActivity
 import com.pmdm.adogtale.ui.ForgotPassActivity
 import com.pmdm.adogtale.ui.SignUpActivity
@@ -19,6 +20,7 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+        val btnDebug: Button = findViewById(R.id.btnDebug)
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val txtEmail: TextView = findViewById(R.id.etUsername)
         val txtPassword: TextView = findViewById(R.id.etPassword)
@@ -38,6 +40,10 @@ class AuthActivity : AppCompatActivity() {
             startActivity((intent))
         }
 
+        btnDebug.setOnClickListener() {
+            val intent = Intent(this, BuddyProfileActivity2::class.java)
+            startActivity(intent)
+        }
     }
 
     // Login function
