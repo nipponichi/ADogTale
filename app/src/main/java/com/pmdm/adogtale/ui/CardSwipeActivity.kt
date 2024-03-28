@@ -1,6 +1,5 @@
 package com.pmdm.adogtale.ui
 
-
 import com.pmdm.adogtale.R
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.google.android.gms.tasks.Task
-import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.storage
 import com.yuyakaido.android.cardstackview.*
 import com.pmdm.adogtale.controller.CardStackAdapter
 import com.pmdm.adogtale.controller.CardStackCallback
@@ -24,7 +21,6 @@ class CardSwipeActivity : AppCompatActivity() {
     private val TAG = "CardSwipeActivity"
     private lateinit var manager: CardStackLayoutManager
     private lateinit var adapter: CardStackAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_swipe)
@@ -115,7 +111,8 @@ class CardSwipeActivity : AppCompatActivity() {
                 cardStackView.adapter = adapter
                 cardStackView.itemAnimator = DefaultItemAnimator()
             } else {
-                Toast.makeText(this,"Could not to load database information", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Could not load database information", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -132,7 +129,8 @@ class CardSwipeActivity : AppCompatActivity() {
                 adapter.items = baru
                 hasil.dispatchUpdatesTo(adapter)
             } else {
-                Toast.makeText(this,"Could not to load database information", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Could not load database information", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

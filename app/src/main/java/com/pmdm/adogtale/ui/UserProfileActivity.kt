@@ -43,7 +43,7 @@ class UserProfileActivity : AppCompatActivity() {
                 db.collection("user").document(email!!).delete()
                 db.collection("profile").document(email!!).delete()
                 deleteUser(user)
-                
+
             }
 
             builder.setNegativeButton("No") { dialog, which ->
@@ -52,12 +52,9 @@ class UserProfileActivity : AppCompatActivity() {
 
             val dialog: AlertDialog = builder.create()
             dialog.show()
-
-
         }
-
-
     }
+
     // Fills object User with database account data
     private fun setUserParameters(email: String?) {
         if (email != null) {
@@ -70,19 +67,22 @@ class UserProfileActivity : AppCompatActivity() {
                     val town = it.get("town") as String?
                     val phone = it.get("phone") as String?
 
-                    val user = LocalUser(username = username, email = email, town = town,
-                        phone = phone,name = name, surname = surname)
+                    val user = LocalUser(
+                        username = username, email = email, town = town,
+                        phone = phone, name = name, surname = surname
+                    )
 
                     setTextParameters(user)
 
                 }
                 .addOnFailureListener { exception ->
-                    Log.d("Firestore", "get failed with ", exception)
+                    Log.d("Firestore", "got failed with ", exception)
                 }
         } else {
             Toast.makeText(this, "User mail can't be empty", Toast.LENGTH_SHORT).show()
         }
     }
+
     // Fills text areas with User parameters obtained from database
     private fun setTextParameters(user: LocalUser) {
         val txtEmail: TextView = findViewById(R.id.etEmail)
@@ -99,23 +99,28 @@ class UserProfileActivity : AppCompatActivity() {
         txtTown.setText(user.town)
         txtPhone.setText(user.phone)
     }
+
     // Logout user from A Dog Tale
     private fun logoutUser() {
         val auth = Firebase.auth
         auth.signOut()
-        Toast.makeText(this,"User disconected", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "User disconnected", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
     }
+
     // Delete user account from auth
     private fun deleteUser(user: FirebaseUser?) {
-        user?.delete()?.addOnCompleteListener{ task ->
+        user?.delete()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "User "+ user.email +" has been deleted successful", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "User " + user.email + " deleted successfuly",
+                    Toast.LENGTH_SHORT
+                ).show()
                 val intent = Intent(this, AuthActivity::class.java)
                 startActivity(intent)
             }
-
         }
     }
 }

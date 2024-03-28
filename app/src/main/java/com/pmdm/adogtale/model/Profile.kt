@@ -2,7 +2,7 @@ package com.pmdm.adogtale.model
 
 import java.io.Serializable
 
-data class Profile (
+data class Profile(
     var name: String,
     var age: String,
     var gender: String,

@@ -59,8 +59,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
 
         profile = intent.getSerializableExtra("profile") as Profile
         user = intent.getSerializableExtra("user") as LocalUser
-        preferences = Preferences("","","")
-
+        preferences = Preferences("", "", "")
 
 
         // Looking For
@@ -116,7 +115,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                 "something" to profile.something,
                 "shortDescription" to profile.shortDescription,
             )
-        ).addOnCompleteListener(this) { task->
+        ).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 preferences.lookingFor = acLookingFor.text.toString()
                 preferences.prefBreed = acPreferedBreed.text.toString()
@@ -143,7 +142,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                             "phone" to user.phone
                         )
                     ).addOnCompleteListener(this) { task ->
-                        if(task.isSuccessful) {
+                        if (task.isSuccessful) {
                             createProfileAccount(profile)
                         }
                     }
@@ -232,7 +231,8 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         val existingImageUri = buttonUris[selectedButton]
         Log.i("existingImageUri: ", existingImageUri.toString())
         if (existingImageUri != null) {
-            val oldPictureReference = FirebaseStorage.getInstance().getReferenceFromUrl(existingImageUri)
+            val oldPictureReference =
+                FirebaseStorage.getInstance().getReferenceFromUrl(existingImageUri)
             Log.i("oldImageRegerence: ", oldPictureReference.toString())
 
             oldPictureReference.delete().addOnCompleteListener {
