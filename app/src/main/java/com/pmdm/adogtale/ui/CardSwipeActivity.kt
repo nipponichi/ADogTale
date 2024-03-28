@@ -16,11 +16,14 @@ import com.yuyakaido.android.cardstackview.*
 import com.pmdm.adogtale.controller.CardStackAdapter
 import com.pmdm.adogtale.controller.CardStackCallback
 import com.pmdm.adogtale.model.Itemx
+import com.pmdm.adogtale.model.Preferences
 
 class CardSwipeActivity : AppCompatActivity() {
     private val TAG = "CardSwipeActivity"
     private lateinit var manager: CardStackLayoutManager
     private lateinit var adapter: CardStackAdapter
+    private lateinit var profileMatching: ProfilesMatching
+    private val TAG2 = "ORTU"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_swipe)
@@ -35,11 +38,15 @@ class CardSwipeActivity : AppCompatActivity() {
             override fun onCardSwiped(direction: Direction?) {
                 Log.d(TAG, "onCardSwiped: p=" + manager.topPosition + " d=" + direction)
                 when (direction) {
-                    Direction.Right -> Toast.makeText(
-                        this@CardSwipeActivity,
-                        "Direction Right",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Direction.Right -> {
+                        Toast.makeText(
+                            this@CardSwipeActivity,
+                            "Direction Right",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        profileMatching = ProfilesMatching("ortu@hotmail.com", "Tobi")
+                        saveLike(profileMatching)
+                    }
 
                     Direction.Top -> Toast.makeText(
                         this@CardSwipeActivity,
@@ -116,6 +123,27 @@ class CardSwipeActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun saveLike(profilesMatching: ProfilesMatching) {
+        Log.d(TAG2, "AQUI")
+        // Método para guardar el perfil que ha sido gustado
+        val data = hashMapOf(
+            "user" to profilesMatching.user,
+            "likedProfile" to profilesMatching.profile_liked
+        )
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("profiles_matching")
+            .add(data)
+            .addOnSuccessListener { documentReference ->
+                Toast.makeText(this, "Like guardado", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al guardar el like: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+    }
+
 
     private fun paginate() {
         val old = adapter.items
