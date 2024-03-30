@@ -1,5 +1,6 @@
 package com.pmdm.adogtale.ui
 
+import android.content.Intent
 import com.pmdm.adogtale.R
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +17,7 @@ import com.yuyakaido.android.cardstackview.*
 import com.pmdm.adogtale.controller.CardStackAdapter
 import com.pmdm.adogtale.controller.CardStackCallback
 import com.pmdm.adogtale.model.Itemx
-import com.pmdm.adogtale.model.Preferences
+import com.pmdm.adogtale.model.ProfilesMatching
 
 class CardSwipeActivity : AppCompatActivity() {
     private val TAG = "CardSwipeActivity"
@@ -44,8 +45,9 @@ class CardSwipeActivity : AppCompatActivity() {
                             "Direction Right",
                             Toast.LENGTH_SHORT
                         ).show()
-                        profileMatching = ProfilesMatching("ortu@hotmail.com", "Tobi")
+                        profileMatching = ProfilesMatching("ortu30@hotmail.com", "Tobi30","ortu20@hotmail.com","Tobi20")
                         saveLike(profileMatching)
+                        checkingANewMatchExist()
                     }
 
                     Direction.Top -> Toast.makeText(
@@ -128,8 +130,10 @@ class CardSwipeActivity : AppCompatActivity() {
         Log.d(TAG2, "AQUI")
         // Método para guardar el perfil que ha sido gustado
         val data = hashMapOf(
-            "user" to profilesMatching.user,
-            "likedProfile" to profilesMatching.profile_liked
+            "user_original" to profilesMatching.user_original,
+            "profile_original" to profilesMatching.profile_original,
+            "user_target" to profilesMatching.user_target,
+            "profile_target" to profilesMatching.profile_target,
         )
 
         val db = FirebaseFirestore.getInstance()
@@ -144,6 +148,20 @@ class CardSwipeActivity : AppCompatActivity() {
             }
     }
 
+    private fun checkingANewMatchExist() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("profiles_matching").whereEqualTo("user_target","ortu30@hotmail.com")
+            .whereEqualTo("profile_target","Tobi30").get().addOnSuccessListener{it
+                for (documentos in it){
+                    //MATCH!
+                    Toast.makeText(this,"IT'S A MATCH!", Toast.LENGTH_SHORT).show()
+                    Log.d("ORTU","${documentos.data}")
+                    val intent = Intent(this, SplashScreenActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+    }
 
     private fun paginate() {
         val old = adapter.items
