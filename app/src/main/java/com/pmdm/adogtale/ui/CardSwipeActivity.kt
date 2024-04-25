@@ -138,7 +138,12 @@ class CardSwipeActivity : AppCompatActivity() {
                             "Direction Right",
                             Toast.LENGTH_SHORT
                         ).show()
-                        profileMatching = ProfilesMatching("ortu20@hotmail.com", "Tobi20","ortu30@hotmail.com","Tobi30")
+                        profileMatching = ProfilesMatching(
+                            "ortu20@hotmail.com",
+                            "Tobi20",
+                            "ortu30@hotmail.com",
+                            "Tobi30"
+                        )
                         saveLike(profileMatching)
                         checkingANewMatchExist()
                     }
@@ -233,61 +238,27 @@ class CardSwipeActivity : AppCompatActivity() {
 
     private fun checkingANewMatchExist() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("profiles_matching").whereEqualTo("user_target","ortu30@hotmail.com")
-            .whereEqualTo("profile_target","Tobi30").whereEqualTo("likeAlreadyChecked",false).get().addOnSuccessListener{it
-                for (documentos in it){
+        db.collection("profiles_matching").whereEqualTo("user_target", "ortu30@hotmail.com")
+            .whereEqualTo("profile_target", "Tobi30").whereEqualTo("likeAlreadyChecked", false)
+            .get().addOnSuccessListener {
+                it
+                for (documentos in it) {
                     //MATCH!
-                    Toast.makeText(this,"IT'S A MATCH!", Toast.LENGTH_SHORT).show()
-                    Log.d("ORTU2","${documentos.data}")
+                    Toast.makeText(this, "IT'S A MATCH!", Toast.LENGTH_SHORT).show()
+                    Log.d("ORTU2", "${documentos.data}")
                     val intent = Intent(this, SplashScreenActivity::class.java)
                     startActivity(intent)
                 }
             }
 
     }
+
     // Initialize database instance
     private fun initDatabase() {
         firebaseAuth = FirebaseAuth.getInstance()
 
-    private fun paginate() {
-        val old = adapter.items
-
-        // Calback Listener
-        addList().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val baru = task.result
-                val callback = CardStackCallback(old, baru)
-                val hasil = DiffUtil.calculateDiff(callback)
-                adapter.items = baru
-                hasil.dispatchUpdatesTo(adapter)
-            } else {
-                Toast.makeText(this, "Could not load database information", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
     }
 
-    private fun addList(): Task<List<Itemx>> {
-        val items = mutableListOf<Itemx>()
-        val db = FirebaseFirestore.getInstance()
-
-        return db.collection("profile").get().continueWith { task ->
-            if (task.isSuccessful) {
-                for (document in task.result!!) {
-                    val name = document.getString("name") ?: ""
-                    val age = document.getString("age") ?: ""
-                    val user = document.getString("user") ?: ""
-
-                    items.add(
-                        Itemx(
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/1AKC_Maltese_Dog_Show_2011.jpg/250px-1AKC_Maltese_Dog_Show_2011.jpg",
-                            name,
-                            age,
-                            user
-                        )
-                    )
-                }
-            }
 
     // Initialize other class imports
     private fun initImports() {
@@ -296,6 +267,7 @@ class CardSwipeActivity : AppCompatActivity() {
     }
 
 }
+
 
 /*
      private fun addList(): List<Itemx> {
