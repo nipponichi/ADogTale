@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,6 +121,48 @@
             android:text="2km" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/tilPrefLowAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilPrefDistance">
+
+        <AutoCompleteTextView
+            android:id="@+id/acPreferedLowAge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:text="Select lowest age" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/tilPrefHighAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilPrefLowAge">
+
+        <AutoCompleteTextView
+            android:id="@+id/acPreferedHighAge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:text="Select highest age" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/tvChoosePic"
         android:inputType="none"
@@ -130,7 +172,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:text="Choose your best pictures"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/tilPrefDistance"
+        app:layout_constraintTop_toBottomOf="@id/tilPrefHighAge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -163,7 +205,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
+<!--
     <TextView
         android:id="@+id/tvChooseVid"
         android:layout_width="wrap_content"
@@ -182,14 +224,14 @@
         android:layout_height="75dp"
         app:layout_constraintTop_toBottomOf="@id/tvChooseVid"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
-        app:layout_constraintTop_toBottomOf="@id/ibVid1"
+        app:layout_constraintTop_toBottomOf="@id/llChoosePic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

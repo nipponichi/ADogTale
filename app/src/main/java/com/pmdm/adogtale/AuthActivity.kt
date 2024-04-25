@@ -9,11 +9,10 @@ import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.pmdm.adogtale.ui.BuddyProfileActivity2
 import com.pmdm.adogtale.ui.CardSwipeActivity
 import com.pmdm.adogtale.ui.ForgotPassActivity
+import com.pmdm.adogtale.ui.ListTestActivity
 import com.pmdm.adogtale.ui.SignUpActivity
-import com.pmdm.adogtale.ui.UserProfileActivity
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -41,7 +40,7 @@ class AuthActivity : AppCompatActivity() {
         }
 
         btnDebug.setOnClickListener() {
-            val intent = Intent(this, BuddyProfileActivity2::class.java)
+            val intent = Intent(this, ListTestActivity::class.java)
             startActivity(intent)
         }
     }

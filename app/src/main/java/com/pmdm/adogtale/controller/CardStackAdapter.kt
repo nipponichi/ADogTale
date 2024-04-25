@@ -32,11 +32,13 @@ class CardStackAdapter(var items: List<Itemx>) :
         private val kota: TextView = itemView.findViewById(R.id.item_city)
 
         fun setData(data: Itemx) {
-            Picasso.get()
-                .load(data.image)
-                .fit()
-                .centerCrop()
-                .into(image)
+            if (!data.image.isNullOrEmpty()) {
+                Picasso.get()
+                    .load(data.image)
+                    .fit()
+                    .centerCrop()
+                    .into(image)
+            }
             nama.text = data.nama
             usia.text = data.usia
             kota.text = data.kota
