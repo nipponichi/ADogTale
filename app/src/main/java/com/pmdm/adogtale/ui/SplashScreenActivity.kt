@@ -1,5 +1,6 @@
 package com.pmdm.adogtale.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,15 +11,35 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pmdm.adogtale.R
 
 class SplashScreenActivity : AppCompatActivity() {
-    private var btnChatLater: Button? = null
-    private var countdownTextView: TextView? = null
+    private lateinit var btnChatNow: Button
+    private lateinit var btnChatLater: Button
+    private lateinit var countdownTextView: TextView
     private var countDownTimer: CountDownTimer? = null
     // Duración del splash screen en milisegundos
     private val SPLASH_DISPLAY_LENGTH: Long = 10000 // 10 segundos
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+
+        btnChatNow = findViewById(R.id.btnChatNow)
+        btnChatLater = findViewById(R.id.btnChatLater)
+        countdownTextView = findViewById(R.id.countdownTextView)
+
+        // Agregar listener de clic al botón ChatNow
+        btnChatNow.setOnClickListener {
+            // Abrir la nueva ventana de chat
+            val chatIntent = Intent(this@SplashScreenActivity, ChatActivity::class.java)
+            startActivity(chatIntent)
+        }
+
+        // Agregar listener de clic al botón ChatLater
+        btnChatLater.setOnClickListener {
+            //Se marc el like como chequeado
+            // Cierra esta actividad
+            finish()
+        }
 
         // Handler para pasar a la actividad principal después de SPLASH_DISPLAY_LENGTH
         Handler().postDelayed({

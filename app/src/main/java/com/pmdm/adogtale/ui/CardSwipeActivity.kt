@@ -45,7 +45,7 @@ class CardSwipeActivity : AppCompatActivity() {
                             "Direction Right",
                             Toast.LENGTH_SHORT
                         ).show()
-                        profileMatching = ProfilesMatching("ortu30@hotmail.com", "Tobi30","ortu20@hotmail.com","Tobi20")
+                        profileMatching = ProfilesMatching("ortu20@hotmail.com", "Tobi20","ortu30@hotmail.com","Tobi30")
                         saveLike(profileMatching)
                         checkingANewMatchExist()
                     }
@@ -134,6 +134,7 @@ class CardSwipeActivity : AppCompatActivity() {
             "profile_original" to profilesMatching.profile_original,
             "user_target" to profilesMatching.user_target,
             "profile_target" to profilesMatching.profile_target,
+            "likeAlreadyChecked" to profilesMatching.likeAlreadyChecked,
         )
 
         val db = FirebaseFirestore.getInstance()
@@ -151,11 +152,11 @@ class CardSwipeActivity : AppCompatActivity() {
     private fun checkingANewMatchExist() {
         val db = FirebaseFirestore.getInstance()
         db.collection("profiles_matching").whereEqualTo("user_target","ortu30@hotmail.com")
-            .whereEqualTo("profile_target","Tobi30").get().addOnSuccessListener{it
+            .whereEqualTo("profile_target","Tobi30").whereEqualTo("likeAlreadyChecked",false).get().addOnSuccessListener{it
                 for (documentos in it){
                     //MATCH!
                     Toast.makeText(this,"IT'S A MATCH!", Toast.LENGTH_SHORT).show()
-                    Log.d("ORTU","${documentos.data}")
+                    Log.d("ORTU2","${documentos.data}")
                     val intent = Intent(this, SplashScreenActivity::class.java)
                     startActivity(intent)
                 }
@@ -205,6 +206,11 @@ class CardSwipeActivity : AppCompatActivity() {
 
             items
         }
+
+//        private fun getNewTocken(){
+//
+//        }
+
     }
 
 }
