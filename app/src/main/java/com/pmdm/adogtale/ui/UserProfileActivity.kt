@@ -14,11 +14,14 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pmdm.adogtale.AuthActivity
 import com.pmdm.adogtale.R
+import com.pmdm.adogtale.controller.UserActions
 import com.pmdm.adogtale.model.LocalUser
 
 class UserProfileActivity : AppCompatActivity() {
-
+/*
     private lateinit var db: FirebaseFirestore
+    private lateinit var userActions: UserActions
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -60,12 +63,11 @@ class UserProfileActivity : AppCompatActivity() {
         if (email != null) {
             db.collection("user").document(email).get()
                 .addOnSuccessListener {
-
-                    val username = it.get("username") as String?
-                    val name = it.get("name") as String?
-                    val surname = it.get("surname") as String?
-                    val town = it.get("town") as String?
-                    val phone = it.get("phone") as String?
+                    val username = it.get("username")?:""
+                    val name = it.get("name")?:""
+                    val surname = it.get("surname")?:""
+                    val town = it.get("town")?:""
+                    val phone = it.get("phone")?:""
 
                     val user = LocalUser(
                         username = username, email = email, town = town,
@@ -122,5 +124,5 @@ class UserProfileActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-    }
+    }*/
 }

@@ -40,12 +40,15 @@ class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var preferences: Preferences
 
     private val buttonUris = HashMap<ImageButton, String>()
+    private val profilePics= HashMap<String, String>()
 
     val db = FirebaseFirestore.getInstance()
 
     private lateinit var acLookingFor: AutoCompleteTextView
     private lateinit var acPreferedBreed: AutoCompleteTextView
     private lateinit var acPreferedDistance: AutoCompleteTextView
+    private lateinit var acPreferedLowestAge: AutoCompleteTextView
+    private lateinit var acPreferedHighestAge: AutoCompleteTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +83,18 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         acPreferedDistance = findViewById(R.id.acPreferedDistance)
         acPreferedDistance.setAdapter(arrayPrefDistance)
 
+        // Prefered Lowest Age
+        val preferedLowAge = resources.getStringArray(R.array.lowestAge)
+        val arrayPrefLowAge = ArrayAdapter(this, R.layout.dropdown_menu, preferedLowAge)
+        acPreferedLowestAge = findViewById(R.id.acPreferedLowAge)
+        acPreferedLowestAge.setAdapter(arrayPrefLowAge)
+
+        // Prefered Highest Age
+        val preferedHighAge = resources.getStringArray(R.array.highestAge)
+        val arrayPrefHighAge = ArrayAdapter(this, R.layout.dropdown_menu, preferedHighAge)
+        acPreferedHighestAge = findViewById(R.id.acPreferedHighAge)
+        acPreferedHighestAge.setAdapter(arrayPrefHighAge)
+
         btnDone.setOnClickListener() {
             createUserAccount(user)
         }
@@ -105,26 +120,45 @@ class BuddyProfileActivity2 : AppCompatActivity() {
 
     // Create dog profile on Firebase
     private fun createProfileAccount(profile: Profile) {
+        profile.town = user.town;
+        profile.lookingFor = acLookingFor.text.toString()
+        profile.prefBreed = acPreferedBreed.text.toString()
+        profile.prefDistance = acPreferedDistance.text.toString()
+        profile.preferedLowAge = acPreferedLowestAge.text.toString().toLong()
+        profile.preferedHighAge = acPreferedHighestAge.text.toString().toLong()
+        profile.pic1 = profilePics[btnPic1.id.toString()]?:""
+        profile.pic2 = profilePics[btnPic2.id.toString()]?:""
+        profile.pic3 = profilePics[btnPic3.id.toString()]?:""
+        profile.pic4 = profilePics[btnPic4.id.toString()]?:""
         db.collection("profile").document(user.email).set(
             hashMapOf(
-                "user" to profile.userEmail,
+                "userEmail" to profile.userEmail,
                 "name" to profile.name,
                 "age" to profile.age,
                 "gender" to profile.gender,
                 "breed" to profile.breed,
                 "something" to profile.something,
                 "shortDescription" to profile.shortDescription,
+                "lookingFor" to profile.lookingFor,
+                "prefBreed" to profile.prefBreed,
+                "prefDistance" to profile.prefDistance,
+                "pic1" to profile.pic1,
+                "pic2" to profile.pic2,
+                "pic3" to profile.pic3,
+                "pic4" to profile.pic4,
+                "prefLowestAge" to profile.preferedLowAge,
+                "prefHighestAge" to profile.preferedHighAge,
+                "town" to profile.town
             )
         ).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                preferences.lookingFor = acLookingFor.text.toString()
-                preferences.prefBreed = acPreferedBreed.text.toString()
-                preferences.prefDistance = acPreferedDistance.text.toString()
-                createProfilePreferences(preferences)
+                Toast.makeText(this, "Profile created", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, CardSwipeActivity::class.java)
+                startActivity(intent)
             }
 
         }
-        Toast.makeText(this, "Profile created", Toast.LENGTH_SHORT).show()
+
     }
 
     // Create user account on Firebase
@@ -152,22 +186,6 @@ class BuddyProfileActivity2 : AppCompatActivity() {
             }
     }
 
-    private fun createProfilePreferences(preferences: Preferences) {
-        db.collection("preferences").document(user.email + profile.name).set(
-            hashMapOf(
-                "lookingFor" to preferences.lookingFor,
-                "prefBreed" to preferences.prefBreed,
-                "prefDistance" to preferences.prefDistance
-            )
-        ).addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Preferences added", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, CardSwipeActivity::class.java)
-                startActivity(intent)
-            }
-        }
-    }
-
     companion object {
         private const val IMAGE_PICK_CODE = 1000
         private const val PERMISSION_CODE = 1001
@@ -175,6 +193,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
 
     // Open device gallery to choose pictures
     fun openGallery() {
+        Log.i("OpenGallery", "Abriendo la galería para el botón ${selectedButton!!.id}")
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -222,7 +241,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
 
     // Check if ImageButton already have an image
     private fun imageButtonHavePicture(uri: Uri) {
-        val email = user?.email.toString()
+        val email = user.email
         val imageName = uri.lastPathSegment
         val storagePath = "$email/$imageName"
         val storageReference = FirebaseStorage.getInstance().getReference()
@@ -251,8 +270,8 @@ class BuddyProfileActivity2 : AppCompatActivity() {
             taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
                 val downloadUrl = uri
                 Toast.makeText(this, "Upload done!", Toast.LENGTH_SHORT).show()
-                buttonUris[selectedButton!!] = downloadUrl.toString()
-                Log.i("URL image", downloadUrl.toString())
+                profilePics[selectedButton!!.id.toString()] = downloadUrl.toString()
+                Log.i("UploadNewImage", "Imagen subida para el botón ${selectedButton!!.id}, URL: $downloadUrl")
             }
         }.addOnFailureListener { e ->
             Toast.makeText(this, "Uploading error", Toast.LENGTH_SHORT).show()

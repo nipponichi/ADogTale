@@ -24,6 +24,12 @@
             android:name=".ui.SplashScreenActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.TestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ListTestActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.CardSwipeActivity"
             android:exported="false" />
         <activity
