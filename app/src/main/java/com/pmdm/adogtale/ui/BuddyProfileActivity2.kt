@@ -139,7 +139,8 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                             "name" to user.name,
                             "surname" to user.surname,
                             "town" to user.town,
-                            "phone" to user.phone
+                            "phone" to user.phone,
+                            "token" to user.token
                         )
                     ).addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {

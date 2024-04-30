@@ -1,6 +1,10 @@
 package com.pmdm.adogtale.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import com.pmdm.adogtale.R
 import android.os.Bundle
 import android.util.Log
@@ -8,27 +12,125 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.RemoteMessage
 import com.yuyakaido.android.cardstackview.*
 import com.pmdm.adogtale.controller.CardStackAdapter
 import com.pmdm.adogtale.controller.CardStackCallback
 import com.pmdm.adogtale.model.Itemx
 import com.pmdm.adogtale.model.ProfilesMatching
+<<<<<<< Updated upstream
+=======
+import com.pmdm.adogtale.model.Profile
+import kotlinx.coroutines.launch
+>>>>>>> Stashed changes
 
 class CardSwipeActivity : AppCompatActivity() {
     private val TAG = "CardSwipeActivity"
     private lateinit var manager: CardStackLayoutManager
     private lateinit var adapter: CardStackAdapter
     private lateinit var profileMatching: ProfilesMatching
+<<<<<<< Updated upstream
     private val TAG2 = "ORTU"
+=======
+    private lateinit var profileActions: ProfileActions
+    private lateinit var otherProfileActions: OtherProfileActions
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private var db = FirebaseFirestore.getInstance()
+
+    private var userDogProfile: Profile? = null
+    private var otherDogProfile: Profile? = null
+
+    @RequiresApi(Build.VERSION_CODES.O)
+>>>>>>> Stashed changes
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_swipe)
 
+<<<<<<< Updated upstream
+=======
+        // Registrar un receptor de broadcast
+        val filter = IntentFilter("com.pmdm.adogtale.NOTIFICATION_RECEIVED")
+        registerReceiver(notificationReceiver, filter, RECEIVER_NOT_EXPORTED)
+    }
+
+    private val notificationReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            // Manejar la llegada de la notificación
+            val title = intent?.getStringExtra("title")
+            val message = intent?.getStringExtra("message")
+            recibirNotificacion(title, message)
+        }
+    }
+
+    // Paginate profile results
+    private fun paginate() {
+        val old = adapter.items
+        addList().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.i("paginación", "paginación")
+                val baru = task.result
+                if (baru.isEmpty()) {
+                    Toast.makeText(this, "No hay más tarjetas para mostrar", Toast.LENGTH_LONG)
+                        .show()
+                    adapter.items = old
+                    adapter.notifyDataSetChanged()
+                } else {
+                    val callback = CardStackCallback(old, baru)
+                    val hasil = DiffUtil.calculateDiff(callback)
+                    adapter.items = baru
+                    hasil.dispatchUpdatesTo(adapter)
+                }
+            } else {
+                Toast.makeText(
+                    this,
+                    "No se pudo cargar la información de la base de datos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    // Add compatible profile into a list
+    private fun addList(): Task<List<Itemx>> {
+        val taskSource = TaskCompletionSource<List<Itemx>>()
+        val items = mutableListOf<Itemx>()
+        otherProfileActions.getOtherProfile(userDogProfile!!) { profile ->
+            otherDogProfile = profile
+            items.add(
+                Itemx(
+                    otherDogProfile!!.pic1,
+                    otherDogProfile!!.name,
+                    otherDogProfile!!.age,
+                    otherDogProfile!!.shortDescription
+                )
+            )
+            if (!taskSource.task.isComplete) {
+                taskSource.setResult(items)
+            }
+        }
+        return taskSource.task
+    }
+
+    // Get logged in user's dog profile
+    private fun getCurrentProfile() {
+        profileActions.getCurrentProfile { profile ->
+            userDogProfile = profile
+            Toast.makeText(this, userDogProfile?.name, Toast.LENGTH_SHORT).show()
+            setupCardStackView()
+        }
+    }
+
+    private fun setupCardStackView() {
+>>>>>>> Stashed changes
         val cardStackView = findViewById<CardStackView>(R.id.card_stack_view)
 
         manager = CardStackLayoutManager(this, object : CardStackListener {
@@ -68,13 +170,14 @@ class CardSwipeActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    else -> {
-                        Toast.makeText(this@CardSwipeActivity, "Take care", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                    else -> Toast.makeText(this@CardSwipeActivity, "Take care", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
+<<<<<<< Updated upstream
                 // Paginating
+=======
+>>>>>>> Stashed changes
                 if (manager.topPosition == adapter.itemCount - 5) {
                     paginate()
                 }
@@ -99,6 +202,7 @@ class CardSwipeActivity : AppCompatActivity() {
             }
         })
 
+<<<<<<< Updated upstream
         with(manager) {
             setStackFrom(StackFrom.None)
             setVisibleCount(3)
@@ -114,6 +218,11 @@ class CardSwipeActivity : AppCompatActivity() {
         // Callback Listener
         addList().addOnCompleteListener { task ->
             if (task.isSuccessful) {
+=======
+        addList().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.i("addCards", "adding cards")
+>>>>>>> Stashed changes
                 val items = task.result
                 adapter = CardStackAdapter(items)
                 cardStackView.layoutManager = manager
@@ -127,14 +236,13 @@ class CardSwipeActivity : AppCompatActivity() {
     }
 
     private fun saveLike(profilesMatching: ProfilesMatching) {
-        Log.d(TAG2, "AQUI")
-        // Método para guardar el perfil que ha sido gustado
+        Log.d(TAG, "AQUI")
         val data = hashMapOf(
             "user_original" to profilesMatching.user_original,
             "profile_original" to profilesMatching.profile_original,
             "user_target" to profilesMatching.user_target,
             "profile_target" to profilesMatching.profile_target,
-            "likeAlreadyChecked" to profilesMatching.likeAlreadyChecked,
+            "likeAlreadyChecked" to profilesMatching.likeAlreadyChecked
         )
 
         val db = FirebaseFirestore.getInstance()
@@ -151,6 +259,7 @@ class CardSwipeActivity : AppCompatActivity() {
 
     private fun checkingANewMatchExist() {
         val db = FirebaseFirestore.getInstance()
+<<<<<<< Updated upstream
         db.collection("profiles_matching").whereEqualTo("user_target","ortu30@hotmail.com")
             .whereEqualTo("profile_target","Tobi30").whereEqualTo("likeAlreadyChecked",false).get().addOnSuccessListener{it
                 for (documentos in it){
@@ -159,11 +268,27 @@ class CardSwipeActivity : AppCompatActivity() {
                     Log.d("ORTU2","${documentos.data}")
                     val intent = Intent(this, SplashScreenActivity::class.java)
                     startActivity(intent)
+=======
+        db.collection("profiles_matching")
+            .whereEqualTo("user_target", "ortu30@hotmail.com")
+            .whereEqualTo("profile_target", "Tobi30")
+            .whereEqualTo("likeAlreadyChecked", false)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Toast.makeText(this, "IT'S A MATCH!", Toast.LENGTH_SHORT).show()
+                    lifecycleScope.launch {
+                        enviarNotificacion("fiEfu-B_Tp6sAMmC33a-Sr:APA91bFJUlJR0VR5GduuEh5hNzPit_db7NVOOedKMwH0pwOCfC9LyFdxfsGoLfelwt9-Vi05GFrscXysYYi6kmDlkTokOtDtXBHGIFvlJ_DIXOf0m38GwDWTOGQVySR3j04QPCynAn4B")
+                        Log.d("ORTU2", "${document.data}")
+                        val intent = Intent(applicationContext, SplashScreenActivity::class.java)
+                        startActivity(intent)
+                    }
+>>>>>>> Stashed changes
                 }
             }
-
     }
 
+<<<<<<< Updated upstream
     private fun paginate() {
         val old = adapter.items
 
@@ -211,9 +336,46 @@ class CardSwipeActivity : AppCompatActivity() {
 //
 //        }
 
+=======
+    private fun initDatabase() {
+        firebaseAuth = FirebaseAuth.getInstance()
     }
 
+    private fun initImports() {
+        profileActions = ProfileActions()
+        otherProfileActions = OtherProfileActions()
+>>>>>>> Stashed changes
+    }
+
+    private fun enviarNotificacion(token: String) {
+        try {
+            val mensaje = RemoteMessage.Builder(token)
+                .setMessageId(Integer.toString(1))
+                .addData("title", "Título de la notificación")
+                .addData("message", "Mensaje de la notificación")
+                .build()
+
+            FirebaseMessaging.getInstance().send(mensaje)
+
+            Log.d(TAG, "Notificación enviada correctamente al token: $token")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error al enviar la notificación al token: $token", e)
+        }
+    }
+
+    fun recibirNotificacion(title: String?, message: String?) {
+        // Mostrar el contenido de la notificación
+        Log.d(TAG, "Título de la notificación: $title")
+        Log.d(TAG, "Mensaje de la notificación: $message")
+        // Aquí puedes hacer lo que necesites con el título y el mensaje de la notificación
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(notificationReceiver)
+    }
 }
+<<<<<<< Updated upstream
 
 /*
      private fun addList(): List<Itemx> {
@@ -234,3 +396,5 @@ class CardSwipeActivity : AppCompatActivity() {
 
 
 
+=======
+>>>>>>> Stashed changes

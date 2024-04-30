@@ -13,7 +13,11 @@ import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+<<<<<<< Updated upstream
 import com.pmdm.adogtale.ui.BuddyProfileActivity2
+=======
+import com.google.firebase.messaging.FirebaseMessaging
+>>>>>>> Stashed changes
 import com.pmdm.adogtale.ui.CardSwipeActivity
 import com.pmdm.adogtale.ui.ForgotPassActivity
 import com.pmdm.adogtale.ui.SignUpActivity
@@ -29,14 +33,27 @@ class AuthActivity : AppCompatActivity() {
         val txtPassword: TextView = findViewById(R.id.etPassword)
         val btnSingup: Button = findViewById(R.id.btnSignUp)
         val btnRemember: Button = findViewById(R.id.btnRemember)
+        val token = null;
         firebaseAuth = Firebase.auth
 
         btnLogin.setOnClickListener() {
             signIn(txtEmail.text.toString(), txtPassword.text.toString());
         }
         btnSingup.setOnClickListener() {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            getDeviceToken(
+                callback = { token ->
+                    val intent = Intent(this, SignUpActivity::class.java)
+                    intent.putExtra("token", token)
+                    startActivity(intent)
+                },
+                errorCallback = { exception ->
+                    Toast.makeText(
+                        baseContext,
+                        "Error obtaining token: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            )
         }
         btnRemember.setOnClickListener() {
             val intent = Intent(this, ForgotPassActivity::class.java)
@@ -47,7 +64,6 @@ class AuthActivity : AppCompatActivity() {
             val intent = Intent(this, BuddyProfileActivity2::class.java)
             startActivity(intent)
         }
-
     }
 
     // Login function
@@ -85,5 +101,18 @@ class AuthActivity : AppCompatActivity() {
 //            notificationManager.createNotificationChannel(channel)
 //        }
 //    }
+
+    private fun getDeviceToken(callback: (String?) -> Unit, errorCallback: (Exception) -> Unit) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                callback(token)
+            } else {
+                errorCallback(
+                    task.exception ?: Exception("Unknown error occurred while getting token")
+                )
+            }
+        }
+    }
 
 }

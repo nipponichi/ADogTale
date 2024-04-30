@@ -24,11 +24,13 @@ class SignUpActivity : AppCompatActivity() {
             var pass2 = txtPassword2.text.toString()
             var email = txtEmail.text.toString()
             var username = username.text.toString()
+            val tokenOriginal = intent.getStringExtra("token")
 
             if (pass1 == pass2) {
-                val user = LocalUser(username = username, email = email, password = pass1)
+                val user = tokenOriginal?.let { it1 -> LocalUser(username = username, email = email, password = pass1, token= tokenOriginal) }
                 val intent = Intent(this, SignUpActivity2::class.java)
                 intent.putExtra("user", user)
+                //intent.putExtra("token", tokenOriginal)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Password invalid", Toast.LENGTH_SHORT).show()
