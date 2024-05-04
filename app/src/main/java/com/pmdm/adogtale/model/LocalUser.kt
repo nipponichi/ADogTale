@@ -10,4 +10,7 @@ data class LocalUser (
     var name: String = "",
     var surname: String = "",
     var password: String = "",
-) : Serializable
+    var token: String= ""
+) : Serializable {
+
+}

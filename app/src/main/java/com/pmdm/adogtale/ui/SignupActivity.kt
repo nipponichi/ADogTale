@@ -10,7 +10,6 @@ import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.LocalUser
 
 class SignUpActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
@@ -26,17 +25,13 @@ class SignUpActivity : AppCompatActivity() {
             var email = txtEmail.text.toString()
             var username = username.text.toString()
 
-            if (pass1.equals(pass2)) {
-                if (email != null && pass1 != null && pass2 != null && username != null) {
-                    val user = LocalUser(username = username, email = email,password = pass1)
-                    val intent = Intent(this, SignUpActivity2::class.java)
-                    intent.putExtra("user", user)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "Fill all the fields", Toast.LENGTH_SHORT).show()
-                }
+            if (pass1 == pass2) {
+                val user = LocalUser(username = username, email = email, password = pass1)
+                val intent = Intent(this, SignUpActivity2::class.java)
+                intent.putExtra("user", user)
+                startActivity(intent)
             } else {
-                Toast.makeText(this, "The password does not match", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Password invalid", Toast.LENGTH_SHORT).show()
                 txtPassword2.requestFocus()
             }
         }

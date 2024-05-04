@@ -5,10 +5,21 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pmdm.adogtale.model.Itemx
 import com.pmdm.adogtale.model.Profile
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 
 class OtherProfileActions {
 
@@ -16,7 +27,11 @@ class OtherProfileActions {
     private lateinit var db: FirebaseFirestore
     private lateinit var otherProfile: Profile
     private lateinit var profileFilter: ProfileFilter
+    private var filteredByBreed: Profile? = null
+    private var filteredByGender: Profile? = null
+    private var filteredByAge: Profile? = null
     val profilesWithCards = mutableSetOf<Profile>()
+
 
     // Initialize database instances
     fun initFirebase() {
@@ -24,19 +39,38 @@ class OtherProfileActions {
         firebaseAuth = FirebaseAuth.getInstance()
     }
 
-    // Obtain profiles from database
-    fun getOtherProfile(profile: Profile, callback: (Profile?) -> Unit) {
-        profileFilter = ProfileFilter()
+    // Obtain users compatible profiles
+    fun getOtherProfiles(profile: Profile, callback: (List<Profile>) -> Unit) {
+        // Crear un filtro de perfil (ProfileFilter)
+        val profileFilter = ProfileFilter()
+        // Inicializar Firebase
         initFirebase()
+
+        // Acceder a la colección "profile" en la base de datos
         db.collection("profile")
+            // Filtrar documentos donde el campo "lookingFor" es igual al valor de "lookingFor" en el perfil dado
             .whereEqualTo("lookingFor", profile.lookingFor)
+            // Filtrar documentos donde el campo "prefBreed" es igual al valor de "prefBreed" en el perfil dado
             .whereEqualTo("prefBreed", profile.prefBreed)
+            // Obtener los resultados de la consulta
             .get()
+            // Agregar un listener para completar la tarea
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val profilesPassedFilter = mutableListOf<Profile>()
+
+                    // Usar una lista de Deferred para almacenar las corrutinas
+                    val deferredList = mutableListOf<Deferred<Profile?>>()
+
+                    // Iterar sobre los documentos obtenidos
                     for (document in task.result) {
-                        if (profile.userEmail != document.getString("userEmail")) {
+                        // Inicializar otherProfile con un valor predeterminado
+                        var otherProfile = Profile()
+
+                        if (!profile.name.toString().equals(document.getString("name"))) {
+                            // Actualizar otherProfile solo si la condición se cumple
                             otherProfile = Profile(
+                                // Asignar valores de los campos del documento al objeto Profile, con valores predeterminados si el campo es nulo
                                 name = document.getString("name") ?: "",
                                 age = document.getString("age") ?: "",
                                 gender = document.getString("gender") ?: "",
@@ -56,44 +90,67 @@ class OtherProfileActions {
                                 preferedLowAge = document.getLong("prefLowestAge") ?: 99,
                                 preferedHighAge = document.getLong("prefHighestAge") ?: 0
                             )
+                        }
 
-                            Log.i("otherProfile1", otherProfile.name)
+                        // Iniciar una corrutina para llamar a los métodos de ProfileFilter de forma asíncrona y almacenar el resultado en la lista deferredList
+                        val deferred = GlobalScope.async(Dispatchers.IO) {
+//                            // Llamar a filterByDistance y almacenar el resultado
+//                            val filteredByDistance =
+//                                profileFilter.filterByDistance(profile, otherProfile)
+//
+//                            if (filteredByDistance != null) {
+//                                var filteredProfile =
+//                                    otherProfile // Perfil filtrado para ser agregado si pasa todos los filtros
+//
+//                                // Filtrar por género si se busca pareja
+//                                if (otherProfile.lookingFor.equals("Pair")) {
+//                                    filteredProfile =
+//                                        profileFilter.filterByGender(profile, filteredProfile)
+//                                }
+//
+//                                // Filtrar por raza si se busca la misma
+//                                if (otherProfile.prefBreed.equals("Same as mine")) {
+//                                    filteredProfile =
+//                                        profileFilter.filterByBreed(profile, filteredProfile)
+//                                }
+//
+//                                // Filtrar por edad
+//                                filteredProfile =
+//                                    profileFilter.filterByAge(profile, filteredProfile)
+//
+//                                // Si el perfil pasa todos los filtros, agregarlo a la lista
+//                                if (filteredProfile != null) {
+//                                    filteredProfile
+//                                } else {
+//                                    null
+//                                }
+//                            } else {
+//                                null
+//                            }
+                            if (otherProfile != null) {
+                                otherProfile
+                            } else {
+                                null
+                            }
+                        }
 
-                            // Filters coroutine for breed, gender and distance
-                            GlobalScope.launch(Dispatchers.IO) {
-                                val filteredProfileByDistance = profileFilter.filterByDistance(profile, otherProfile)
-                                //Log.i("otherProfile2", filteredProfileByDistance.name)
-                                if (filteredProfileByDistance != null) {
-                                    // Looking for a specific reference
-                                    if (profile.lookingFor.equals("Pair") || profile.prefBreed.equals("Same as mine")) {
-                                        Log.i("filter", "perfil " + filteredProfileByDistance.lookingFor + " " + filteredProfileByDistance.name)
-                                        val filteredProfileByBreed = profileFilter.filterByBreed(profile, filteredProfileByDistance)
-                                        if (filteredProfileByBreed != null) {
-                                            Log.i("otherProfile3", filteredProfileByBreed.name)
-                                            // Just profiles that passed all the filters
-                                            withContext(Dispatchers.Main) {
-                                                if (!profilesWithCards.contains(otherProfile)) {
-                                                   profilesWithCards.add(otherProfile)
-                                                    callback(otherProfile)
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        // Don't requires additional filters
-                                        withContext(Dispatchers.Main) {
-                                            Log.i("no filter", "pefil " + otherProfile.lookingFor + " " + otherProfile.name)
-                                            if (!profilesWithCards.contains(otherProfile)) {
-                                                profilesWithCards.add(otherProfile)
-                                                callback(otherProfile)
-                                            }
-                                        }
-                                    }
+                        deferredList.add(deferred)
+
+
+                        // Esperar que todas las corrutinas se completen y agregar los perfiles que pasan los filtros a profilesPassedFilter
+                        GlobalScope.launch(Dispatchers.Main) {
+                            deferredList.awaitAll().forEach { filteredProfileByAllFilters ->
+                                if (filteredProfileByAllFilters != null) {
+                                    profilesPassedFilter.add(filteredProfileByAllFilters)
                                 }
                             }
+
+                            // Llamar al callback con la lista de perfiles que pasan los filtros
+                            callback(profilesPassedFilter)
                         }
                     }
                 }
             }
     }
-
 }
+

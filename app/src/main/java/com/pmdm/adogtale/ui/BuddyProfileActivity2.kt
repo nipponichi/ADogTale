@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -13,18 +12,22 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.LocalUser
 import com.pmdm.adogtale.model.Preferences
 import com.pmdm.adogtale.model.Profile
+import com.pmdm.adogtale.utils.FirebaseUtil
 
 class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -40,7 +43,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var preferences: Preferences
 
     private val buttonUris = HashMap<ImageButton, String>()
-    private val profilePics= HashMap<String, String>()
+    private val profilePics = HashMap<String, String>()
 
     val db = FirebaseFirestore.getInstance()
 
@@ -54,6 +57,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buddy_profile2)
         val btnDone: Button = findViewById(R.id.btnDone)
+        var token_obtained: String?
 
         btnPic1 = findViewById(R.id.ibPic1)
         btnPic2 = findViewById(R.id.ibPic2)
@@ -62,6 +66,17 @@ class BuddyProfileActivity2 : AppCompatActivity() {
 
         profile = intent.getSerializableExtra("profile") as Profile
         user = intent.getSerializableExtra("user") as LocalUser
+
+        getFCMToken { token ->
+            if (token != null) {
+                // Haz algo con el token aquí
+                Log.i("FCM token: ", token)
+                user.token=token
+            } else {
+                Log.i("No se pudo obtener el token FCM", "NULO")
+            }
+        }
+
         preferences = Preferences("", "", "")
 
 
@@ -126,10 +141,10 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         profile.prefDistance = acPreferedDistance.text.toString()
         profile.preferedLowAge = acPreferedLowestAge.text.toString().toLong()
         profile.preferedHighAge = acPreferedHighestAge.text.toString().toLong()
-        profile.pic1 = profilePics[btnPic1.id.toString()]?:""
-        profile.pic2 = profilePics[btnPic2.id.toString()]?:""
-        profile.pic3 = profilePics[btnPic3.id.toString()]?:""
-        profile.pic4 = profilePics[btnPic4.id.toString()]?:""
+        profile.pic1 = profilePics[btnPic1.id.toString()] ?: ""
+        profile.pic2 = profilePics[btnPic2.id.toString()] ?: ""
+        profile.pic3 = profilePics[btnPic3.id.toString()] ?: ""
+        profile.pic4 = profilePics[btnPic4.id.toString()] ?: ""
         db.collection("profile").document(user.email).set(
             hashMapOf(
                 "userEmail" to profile.userEmail,
@@ -173,8 +188,10 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                             "name" to user.name,
                             "surname" to user.surname,
                             "town" to user.town,
-                            "phone" to user.phone
-                        )
+                            "phone" to user.phone,
+                            "token" to user.token,
+
+                            )
                     ).addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             createProfileAccount(profile)
@@ -271,10 +288,27 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                 val downloadUrl = uri
                 Toast.makeText(this, "Upload done!", Toast.LENGTH_SHORT).show()
                 profilePics[selectedButton!!.id.toString()] = downloadUrl.toString()
-                Log.i("UploadNewImage", "Imagen subida para el botón ${selectedButton!!.id}, URL: $downloadUrl")
+                Log.i(
+                    "UploadNewImage",
+                    "Imagen subida para el botón ${selectedButton!!.id}, URL: $downloadUrl"
+                )
             }
         }.addOnFailureListener { e ->
             Toast.makeText(this, "Uploading error", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun getFCMToken(callback: (String?) -> Unit) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                // Aquí puedes hacer cualquier cosa que necesites con el token, como almacenarlo en la base de datos
+                // FirebaseUtil.currentUserDetails().update("fcmToken", token)
+                callback(token)
+            } else {
+                callback(null)
+            }
+        }
+    }
+
 }

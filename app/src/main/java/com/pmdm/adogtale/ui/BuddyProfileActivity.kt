@@ -15,7 +15,6 @@ import com.pmdm.adogtale.model.Profile
 class BuddyProfileActivity : AppCompatActivity() {
 
     private lateinit var user: LocalUser
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buddy_profile)
@@ -47,20 +46,21 @@ class BuddyProfileActivity : AppCompatActivity() {
             val somethingStr = something.text.toString()
             val shortDescriptionStr = shortDescription.text.toString()
             val userEmail = user.email
-            if (nameStr != null && ageStr != null) {
-                val profile =
-                    Profile(name = nameStr, age = ageStr, gender = selectedGenderStr,
-                        breed = selectedBreedStr, something = somethingStr, shortDescription = shortDescriptionStr, userEmail = userEmail)
-                val intent = Intent(this, BuddyProfileActivity2::class.java)
-                intent.putExtra("profile", profile)
-                intent.putExtra("user", user)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Fill all the fields", Toast.LENGTH_SHORT).show()
-            }
+            val profile =
+                Profile(
+                    name = nameStr,
+                    age = ageStr,
+                    gender = selectedGenderStr,
+                    breed = selectedBreedStr,
+                    something = somethingStr,
+                    shortDescription = shortDescriptionStr,
+                    userEmail = userEmail
+                )
+            val intent = Intent(this, BuddyProfileActivity2::class.java)
+            intent.putExtra("profile", profile)
+            intent.putExtra("user", user)
+            startActivity(intent)
         }
-
     }
-
 }
 

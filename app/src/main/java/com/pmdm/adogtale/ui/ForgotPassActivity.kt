@@ -15,10 +15,10 @@ class ForgotPassActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_pass)
-        val txtEmail : TextView = findViewById(R.id.etEmail)
-        val btnRemember : Button = findViewById(R.id.btnRemember)
+        val txtEmail: TextView = findViewById(R.id.etEmail)
+        val btnRemember: Button = findViewById(R.id.btnRemember)
 
-        btnRemember.setOnClickListener(){
+        btnRemember.setOnClickListener() {
             sendPasswordReset(txtEmail.text.toString())
         }
 
@@ -27,12 +27,12 @@ class ForgotPassActivity : AppCompatActivity() {
 
     private fun sendPasswordReset(email: String) {
         firebaseAuth.sendPasswordResetEmail(email)
-            .addOnCompleteListener() {task->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Mail sent", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Mail not found", Toast.LENGTH_SHORT).show()
+            .addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Mail sent", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Mail not found", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
     }
 }

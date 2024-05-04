@@ -23,4 +23,3 @@ data class Profile (
     var preferedLowAge: Long = 0,
     var town: String = "",
 ) : Serializable
-

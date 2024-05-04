@@ -1,8 +1,10 @@
 package com.pmdm.adogtale.ui
 
-
+import android.content.Intent
+import android.net.Uri
 import com.pmdm.adogtale.R
 import android.os.Bundle
+import android.support.annotation.DrawableRes
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -21,12 +23,15 @@ import com.pmdm.adogtale.controller.CardStackCallback
 import com.pmdm.adogtale.controller.OtherProfileActions
 import com.pmdm.adogtale.controller.ProfileActions
 import com.pmdm.adogtale.model.Itemx
+import com.pmdm.adogtale.model.ProfilesMatching
 import com.pmdm.adogtale.model.Profile
 
 class CardSwipeActivity : AppCompatActivity() {
     private val TAG = "CardSwipeActivity"
 
     private lateinit var adapter: CardStackAdapter
+    private lateinit var profileMatching: ProfilesMatching
+    private val TAG2 = "ORTU"
     private lateinit var profileActions: ProfileActions
     private lateinit var otherProfileActions: OtherProfileActions
 
@@ -47,22 +52,20 @@ class CardSwipeActivity : AppCompatActivity() {
     }
 
     // Paginate profile results
-    private fun paginate() {
+    /*private fun paginate() {
         val old = adapter.items
         addList().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Log.i("paginación", "paginación");
-                val baru = task.result
-                if (baru.isEmpty()) {
-                    Toast.makeText(this, "No hay más tarjetas para mostrar", Toast.LENGTH_LONG)
-                        .show()
-                    adapter.items = old
-                    adapter.notifyDataSetChanged()
+                Log.i("paginación", "paginación")
+                val new = task.result
+                if (new.isEmpty()) {
+                    // Si no hay más perfiles disponibles, muestra el texto
+                    Toast.makeText(this, "No more profiles available 1", Toast.LENGTH_LONG).show()
                 } else {
-                    val callback = CardStackCallback(old, baru)
-                    val hasil = DiffUtil.calculateDiff(callback)
-                    adapter.items = baru
-                    hasil.dispatchUpdatesTo(adapter)
+                    val callback = CardStackCallback(old, new)
+                    val res = DiffUtil.calculateDiff(callback)
+                    adapter.items = new
+                    res.dispatchUpdatesTo(adapter)
                 }
             } else {
                 Toast.makeText(
@@ -71,28 +74,77 @@ class CardSwipeActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }.addOnCompleteListener {
+            if (!it.isSuccessful || it.result.isEmpty()) {
+                // Si la tarea no tuvo éxito o la lista de perfiles es vacía,
+                // muestra el texto "no more profiles available"
+                Toast.makeText(this, "No more profiles available 2", Toast.LENGTH_LONG).show()
+            }
+        }
+    }*/
+    private fun paginate() {
+        addList().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val new = task.result
+                Log.d("paginate", "Data fetched: $new")
+                if (new.isNullOrEmpty()) {
+                    Toast.makeText(this, "No more profiles available", Toast.LENGTH_LONG).show()
+                } else {
+
+                    val callback = CardStackCallback(adapter.items, new)
+                    val diffResult = DiffUtil.calculateDiff(callback)
+                    adapter.items = new
+                    Log.d("paginate", "Adapter items: ${adapter.items}")
+                    Toast.makeText(this, "Success: " + adapter.itemCount, Toast.LENGTH_LONG).show()
+                    diffResult.dispatchUpdatesTo(adapter)
+                }
+            } else {
+                Toast.makeText(this, "Failed to load database information", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
 
     // Add compatible profile into a list
     private fun addList(): Task<List<Itemx>> {
         val taskSource = TaskCompletionSource<List<Itemx>>()
-        val items = mutableListOf<Itemx>()
-        otherProfileActions.getOtherProfile(userDogProfile!!) { profile ->
-            otherDogProfile = profile
+
+        // Llamar a getOtherProfiles y obtener la lista de perfiles
+        otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
+            val items = mutableListOf<Itemx>()
+
+            // Iterar sobre cada perfil y agregar un elemento Itemx a la lista de items
+            profiles.forEach { profile ->
+                items.add(
+                    Itemx(
+                        profile.pic1,
+                        profile.name,
+                        profile.age,
+                        profile.shortDescription
+                    )
+                )
+            }
+            // Añade una card final
             items.add(
                 Itemx(
-                    otherDogProfile!!.pic1,
-                    otherDogProfile!!.name,
-                    otherDogProfile!!.age,
-                    otherDogProfile!!.shortDescription
+                    getResourceUri(R.drawable.end_card),
+                    "",
+                    "",
+                    ""
                 )
             )
+
+            // Establecer el resultado en la tarea
             if (!taskSource.task.isComplete) {
                 taskSource.setResult(items)
             }
         }
+
         return taskSource.task
+    }
+    // Last card path
+    private fun getResourceUri(@DrawableRes drawableId: Int): String {
+        return Uri.parse("android.resource://" + packageName + "/" + drawableId).toString()
     }
 
     // Get logged in user's dog profile
@@ -129,11 +181,32 @@ class CardSwipeActivity : AppCompatActivity() {
 
             override fun onCardSwiped(direction: Direction?) {
                 when (direction) {
-                    Direction.Left -> Toast.makeText(
+                    Direction.Right -> {
+                        Toast.makeText(
+                            this@CardSwipeActivity,
+                            "Direction Right",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        profileMatching = ProfilesMatching(
+                            "ortu20@hotmail.com",
+                            "Tobi20",
+                            "ortu30@hotmail.com",
+                            "Tobi30"
+                        )
+                        saveLike(profileMatching)
+                        checkingANewMatchExist()
+                    }
+
+                    Direction.Top -> Toast.makeText(
                         this@CardSwipeActivity,
-                        "Direction Left",
+                        "Direction Top",
                         Toast.LENGTH_SHORT
                     ).show()
+//                    Direction.Left -> Toast.makeText(
+//                        this@CardSwipeActivity,
+//                        "Direction Left",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
 
                     Direction.Right -> Toast.makeText(
                         this@CardSwipeActivity,
@@ -147,10 +220,12 @@ class CardSwipeActivity : AppCompatActivity() {
                     }
                 }
 
-                // Recarga la cola de cards cuando solamente quedan 5
-                if (manager.topPosition == adapter.itemCount - 5) {
+                // Recarga la cola de cards
+                if (manager.topPosition == adapter.itemCount) {
+                    Toast.makeText(this@CardSwipeActivity, "Nothing more to show", Toast.LENGTH_SHORT).show()
                     paginate()
                 }
+
             }
 
             override fun onCardRewound() {
@@ -163,12 +238,12 @@ class CardSwipeActivity : AppCompatActivity() {
 
             override fun onCardAppeared(view: View?, position: Int) {
                 val tv = view?.findViewById<TextView>(R.id.item_name)
-                Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv?.text)
+                Log.d(TAG, "onCardAppeared: " + position + ", name: " + tv?.text)
             }
 
             override fun onCardDisappeared(view: View?, position: Int) {
                 val tv = view?.findViewById<TextView>(R.id.item_name)
-                Log.d(TAG, "onCardDisappeared: " + position + ", nama: " + tv?.text)
+                Log.d(TAG, "onCardDisappeared: " + position + ", name: " + tv?.text)
             }
         })
 
@@ -177,28 +252,89 @@ class CardSwipeActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 Log.i("addCards", "adding cards");
                 val items = task.result
-                adapter = CardStackAdapter(items)
+                adapter = CardStackAdapter(items, manager)
                 cardStackView.layoutManager = manager
                 cardStackView.adapter = adapter
                 cardStackView.itemAnimator = DefaultItemAnimator()
             } else {
-                Toast.makeText(
-                    this,
-                    "Could not to load database information", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Could not load database information", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
+
+    private fun saveLike(profilesMatching: ProfilesMatching) {
+        Log.d(TAG2, "AQUI")
+        // Método para guardar el perfil que ha sido gustado
+        val data = hashMapOf(
+            "user_original" to profilesMatching.user_original,
+            "profile_original" to profilesMatching.profile_original,
+            "user_target" to profilesMatching.user_target,
+            "profile_target" to profilesMatching.profile_target,
+            "likeAlreadyChecked" to profilesMatching.likeAlreadyChecked,
+        )
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("profiles_matching")
+            .add(data)
+            .addOnSuccessListener { documentReference ->
+                Toast.makeText(this, "Like guardado", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al guardar el like: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+    }
+
+    private fun checkingANewMatchExist() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("profiles_matching").whereEqualTo("user_target", "ortu30@hotmail.com")
+            .whereEqualTo("profile_target", "Tobi30").whereEqualTo("likeAlreadyChecked", false)
+            .get().addOnSuccessListener {
+                it
+                for (documentos in it) {
+                    //MATCH!
+                    Toast.makeText(this, "IT'S A MATCH!", Toast.LENGTH_SHORT).show()
+                    Log.d("ORTU2", "${documentos.data}")
+                    val intent = Intent(this, SplashScreenActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+    }
+
     // Initialize database instance
     private fun initDatabase() {
         firebaseAuth = FirebaseAuth.getInstance()
+
     }
+
 
     // Initialize other class imports
     private fun initImports() {
         profileActions = ProfileActions()
         otherProfileActions = OtherProfileActions()
     }
+
 }
+
+
+/*
+     private fun addList(): List<Itemx> {
+        items.add(Itemx("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/1AKC_Maltese_Dog_Show_2011.jpg/250px-1AKC_Maltese_Dog_Show_2011.jpg", name, age, user))
+        items.add(Itemx("https://pamipe.com/wiki/wp-content/uploads/2022/09/Bichon-Maltes-2.jpg", name, age, user))
+        items.add(Itemx("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/1AKC_Maltese_Dog_Show_2011.jpg/250px-1AKC_Maltese_Dog_Show_2011.jpg", name, age, user))
+        items.add(Itemx("https://www.kiwoko.com/blogmundoanimal/wp-content/uploads/2023/06/bichon-maltes-informacion.jpg", name, age, user))
+        items.add(Itemx("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/1AKC_Maltese_Dog_Show_2011.jpg/250px-1AKC_Maltese_Dog_Show_2011.jpg", name, age, user))
+
+        items.add(Itemx("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/1AKC_Maltese_Dog_Show_2011.jpg/250px-1AKC_Maltese_Dog_Show_2011.jpg", "Markonah", "24", "Jember"))
+        items.add(Itemx("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/1AKC_Maltese_Dog_Show_2011.jpg/250px-1AKC_Maltese_Dog_Show_2011.jpg", "Marpuah", "20", "Malang"))
+        items.add(Itemx("https://www.kiwoko.com/blogmundoanimal/wp-content/uploads/2023/06/bichon-maltes-informacion.jpg", "Sukijah", "27", "Jonggol"))
+        items.add(Itemx("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/1AKC_Maltese_Dog_Show_2011.jpg/250px-1AKC_Maltese_Dog_Show_2011.jpg", "Markobar", "19", "Bandung"))
+        items.add(Itemx("https://pamipe.com/wiki/wp-content/uploads/2022/09/Bichon-Maltes-2.jpg", "Marmut", "25", "Hutan"))
+
+        return items
+    }*/
 
 
 

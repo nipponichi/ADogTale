@@ -14,9 +14,6 @@ import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.LocalUser
 
 class SignUpActivity2 : AppCompatActivity() {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sing_up2)
@@ -32,19 +29,13 @@ class SignUpActivity2 : AppCompatActivity() {
             val surnameStr = surname.text.toString()
             val townStr = town.text.toString()
             val phoneStr = phone.text.toString()
-            if (nameStr != null && surnameStr != null && townStr != null && phoneStr != null) {
-                user.name = nameStr
-                user.surname = surnameStr
-                user.town = townStr
-                user.phone = phoneStr
-                val intent = Intent(this, BuddyProfileActivity::class.java)
-                intent.putExtra("user", user)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Fill all the fields", Toast.LENGTH_SHORT).show()
-            }
+            user.name = nameStr
+            user.surname = surnameStr
+            user.town = townStr
+            user.phone = phoneStr
+            val intent = Intent(this, BuddyProfileActivity::class.java)
+            intent.putExtra("user", user)
+            startActivity(intent)
         }
-
     }
-
 }

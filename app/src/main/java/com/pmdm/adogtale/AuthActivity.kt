@@ -1,6 +1,10 @@
 package com.pmdm.adogtale
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -43,6 +47,7 @@ class AuthActivity : AppCompatActivity() {
             val intent = Intent(this, ListTestActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     // Login function
@@ -51,7 +56,11 @@ class AuthActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
-                    Toast.makeText(baseContext, "Logged in as: " + user?.email.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext,
+                        "Logged in as: " + user?.email.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     val intent = Intent(this, CardSwipeActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -59,4 +68,22 @@ class AuthActivity : AppCompatActivity() {
                 }
             }
     }
+
+//    private fun createNotificationChannel() {
+//        // Create the NotificationChannel, but only on API 26+ because
+//        // the NotificationChannel class is not in the Support Library.
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val name = getString(R.string.channel_name)
+//            val descriptionText = getString(R.string.channel_description)
+//            val importance = NotificationManager.IMPORTANCE_DEFAULT
+//            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+//                description = descriptionText
+//            }
+//            // Register the channel with the system.
+//            val notificationManager: NotificationManager =
+//                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//            notificationManager.createNotificationChannel(channel)
+//        }
+//    }
+
 }
