@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.LocalUser
+import com.pmdm.adogtale.model.User
 
 class SignUpActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class SignUpActivity2 : AppCompatActivity() {
         val town: TextView = findViewById(R.id.etTown)
         val phone: TextView = findViewById(R.id.etPhone)
         val btnNext: Button = findViewById(R.id.btnNext)
-        val user = intent.getSerializableExtra("user") as LocalUser
+        val user = intent.getSerializableExtra("user") as User
 
         btnNext.setOnClickListener() {
             val nameStr = name.text.toString()

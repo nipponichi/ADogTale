@@ -9,12 +9,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.LocalUser
+import com.pmdm.adogtale.model.User
 import com.pmdm.adogtale.model.Profile
 
 class BuddyProfileActivity : AppCompatActivity() {
 
-    private lateinit var user: LocalUser
+    private lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buddy_profile)
@@ -24,7 +24,7 @@ class BuddyProfileActivity : AppCompatActivity() {
         val something: EditText = findViewById(R.id.etSomething)
         val shortDescription: EditText = findViewById(R.id.etShortDescription)
 
-        user = intent.getSerializableExtra("user") as LocalUser
+        user = intent.getSerializableExtra("user") as User
 
         // Gender
         val gender = resources.getStringArray(R.array.gender)

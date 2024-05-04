@@ -3,9 +3,9 @@ package com.pmdm.adogtale.model
 import java.io.Serializable
 
 data class User(
-    var username: String? = null,
+    var username: String = "",
     var email: String = "",
-    var password: String? = null,
+    var password: String = "",
     var town: String = "",
     var phone: String? = null,
     var name: String? = null,
