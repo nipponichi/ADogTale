@@ -180,7 +180,7 @@ class ChatActivity : AppCompatActivity() {
         val request: Request = Builder()
             .url(url)
             .post(body)
-            .header("Authorization", "Bearer YOUR_API_KEY")
+            .header("Authorization", "Bearer AIzaSyDXYckku5P4oE6QB51gr2JCGq6qmeRNlD4")
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
