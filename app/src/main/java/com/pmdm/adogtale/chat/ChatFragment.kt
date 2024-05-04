@@ -13,7 +13,7 @@ import com.pmdm.adogtale.model.ChatroomModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.Query
 import com.pmdm.adogtale.R
-
+import com.pmdm.adogtale.utils.FirebaseUtil
 
 
 class ChatFragment : Fragment() {
@@ -31,8 +31,10 @@ class ChatFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val query: Query = FirebaseUtil.allChatroomCollectionReference()
-            .whereArrayContains("userIds", FirebaseUtil.currentUserId())
+        val firebaseUtil = FirebaseUtil()
+        val currentUser = firebaseUtil.getCurrentFirebaseUser()
+        val query: Query = firebaseUtil.allChatroomCollectionReference()
+            .whereArrayContains("userIds", currentUser?.email.toString())
             .orderBy("lastMessageTimestamp", Query.Direction.DESCENDING)
 
         val options = FirestoreRecyclerOptions.Builder<ChatroomModel>()

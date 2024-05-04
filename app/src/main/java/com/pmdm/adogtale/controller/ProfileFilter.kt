@@ -113,7 +113,7 @@ class ProfileFilter {
                 client.newCall(request).execute().use { response ->
                     if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-                    val bodyString = response.body()?.string()
+                    val bodyString = response.body?.string()
                     val jsonObject = JSONObject(bodyString)
 
                     val rows = jsonObject.getJSONArray("rows")

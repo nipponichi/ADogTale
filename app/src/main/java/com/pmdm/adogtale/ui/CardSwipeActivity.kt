@@ -41,6 +41,7 @@ class CardSwipeActivity : AppCompatActivity() {
 
     private var userDogProfile: Profile? = null
     private var otherDogProfile: Profile? = null
+    var targetEmail:String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -293,10 +294,12 @@ class CardSwipeActivity : AppCompatActivity() {
             .get().addOnSuccessListener {
                 it
                 for (documentos in it) {
+                    targetEmail = documentos.getString("user_target")
                     //MATCH!
                     Toast.makeText(this, "IT'S A MATCH!", Toast.LENGTH_SHORT).show()
                     Log.d("ORTU2", "${documentos.data}")
                     val intent = Intent(this, SplashScreenActivity::class.java)
+                    intent.putExtra("targetEmail", targetEmail)
                     startActivity(intent)
                 }
             }

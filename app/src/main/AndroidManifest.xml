@@ -21,6 +21,9 @@
             android:name=".ui.ChatActivityOLD"
             android:exported="false" />
         <activity
+            android:name=".ui.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="false" />
         <activity

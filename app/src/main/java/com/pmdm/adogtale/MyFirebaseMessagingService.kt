@@ -17,7 +17,7 @@ import kotlin.random.Random
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-    private val random= Random
+    private val random = Random
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -48,7 +48,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
+            val channel =
+                NotificationChannel(channelId, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
             manager.createNotificationChannel(channel)
         }
         manager.notify(random.nextInt(), notificationBuilder.build())
@@ -60,4 +61,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         const val CHANNEL_NAME = "CANAL DE NOTIFICACIONES"
+    }
+}
     

@@ -11,29 +11,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.ChatroomModel
 import com.pmdm.adogtale.model.UserModel
 import com.pmdm.adogtale.ui.ChatActivityOLD
 import com.pmdm.adogtale.utils.AndroidUtil
+import com.pmdm.adogtale.utils.FirebaseUtil
 
 
 class RecentChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatroomModel>, private val context: Context) :
     FirestoreRecyclerAdapter<ChatroomModel, RecentChatRecyclerAdapter.ChatroomModelViewHolder>(options) {
 
     override fun onBindViewHolder(holder: ChatroomModelViewHolder, position: Int, model: ChatroomModel) {
-        FirebaseUtil.getOtherUserFromChatroom(model.userIds)
+        val firebaseUtil = FirebaseUtil()
+        val currentUser = firebaseUtil.getCurrentFirebaseUser()
+        firebaseUtil.getOtherUserFromChatroom(model.userIds!!)
             .addOnCompleteListener { task: Task<DocumentSnapshot> ->
                 if (task.isSuccessful) {
-                    val lastMessageSentByMe = model.lastMessageSenderId == FirebaseUtil.currentUserId()
+                    val lastMessageSentByMe = model.lastMessageSenderId == currentUser?.email.toString()
 
                     val otherUserModel = task.result?.toObject(UserModel::class.java)
 
                     holder.usernameText.text = otherUserModel?.username
                     holder.lastMessageText.text =
                         if (lastMessageSentByMe) "You : ${model.lastMessage}" else model.lastMessage
-                    holder.lastMessageTime.text = FirebaseUtil.timestampToString(model.lastMessageTimestamp)
+                    holder.lastMessageTime.text = firebaseUtil.timestampToString(model.lastMessageTimestamp!!)
 
                     holder.itemView.setOnClickListener {
                         // Navigate to chat activity
@@ -57,6 +61,9 @@ class RecentChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatroomModel>
         val usernameText: TextView = itemView.findViewById(R.id.user_name_text)
         val lastMessageText: TextView = itemView.findViewById(R.id.last_message_text)
         val lastMessageTime: TextView = itemView.findViewById(R.id.last_message_time_text)
-        val profilePic: ImageView = itemView.findViewById(R.id.profile_pic_image_view)
     }
+}
+
+private fun DocumentReference.addOnCompleteListener(function: (Task<DocumentSnapshot>) -> Unit) {
+
 }

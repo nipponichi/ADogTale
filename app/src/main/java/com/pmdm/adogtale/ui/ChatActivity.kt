@@ -20,6 +20,7 @@ import com.pmdm.adogtale.R
 import com.pmdm.adogtale.adapter.ChatRecyclerAdapter
 import com.pmdm.adogtale.model.ChatMessageModel
 import com.pmdm.adogtale.model.ChatroomModel
+import com.pmdm.adogtale.model.User
 import com.pmdm.adogtale.model.UserModel
 import com.pmdm.adogtale.utils.AndroidUtil
 import com.pmdm.adogtale.utils.FirebaseUtil
@@ -37,7 +38,8 @@ import java.io.IOException
 import java.util.Arrays
 
 class ChatActivity : AppCompatActivity() {
-    var otherUser: UserModel? = null
+    val firebaseUtil = FirebaseUtil()
+    val currentUser = firebaseUtil.getCurrentFirebaseUser()
     var chatroomId: String? = null
     var chatroomModel: ChatroomModel? = null
     var adapter: ChatRecyclerAdapter? = null
@@ -46,29 +48,31 @@ class ChatActivity : AppCompatActivity() {
     var otherUsername: TextView? = null
     var recyclerView: RecyclerView? = null
     var imageView: ImageView? = null
+    val fUser = firebaseUtil.getCurrentFirebaseUser()
+    var targetEmail:String? = null
+    var otherUser: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        //get UserModel
-        otherUser = AndroidUtil.getUserModelFromIntent(intent)
-        chatroomId = FirebaseUtil.getChatroomId(FirebaseUtil.currentUserId(), otherUser.getUserId())
+        //get User
+        targetEmail = intent.getStringExtra("targetEmail") as String
+
+        //get User
+        firebaseUtil.getOtherUser(targetEmail!!) { user ->
+            otherUser = user
+        }
+        chatroomId = firebaseUtil.getChatroomId(fUser?.email.toString(), targetEmail!!)
         messageInput = findViewById(R.id.chat_message_input)
         val sendMessageBtn:ImageButton = findViewById(R.id.message_send_btn) as ImageButton
         backBtn = findViewById(R.id.back_btn)
         otherUsername = findViewById(R.id.other_username)
         recyclerView = findViewById(R.id.chat_recycler_view)
         imageView = findViewById(R.id.profile_pic_image_view)
-        FirebaseUtil.getOtherProfilePicStorageRef(otherUser.getUserId()).getDownloadUrl()
-            .addOnCompleteListener { t ->
-                if (t.isSuccessful()) {
-                    val uri: Uri = t.getResult()
-                    AndroidUtil.setProfilePic(this, uri, imageView)
-                }
-            }
+
         val backBtn: ImageButton = findViewById(R.id.back_btn) as ImageButton
         backBtn.setOnClickListener { v: View? -> onBackPressed() }
-        otherUsername.setText(otherUser.getUsername())
+        otherUsername!!.setText(otherUser?.username)
         sendMessageBtn.setOnClickListener(View.OnClickListener { v: View? ->
             val message = messageInput!!.getText().toString().trim { it <= ' ' }
             if (message.isEmpty()) return@OnClickListener
@@ -79,7 +83,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun setupChatRecyclerView() {
-        val query: Query = FirebaseUtil.getChatroomMessageReference(chatroomId)
+        val query: Query = firebaseUtil.getChatroomMessageReference(chatroomId)
             .orderBy("timestamp", Query.Direction.DESCENDING)
         val options: FirestoreRecyclerOptions<ChatMessageModel?> =
             FirestoreRecyclerOptions.Builder<ChatMessageModel>()
@@ -100,16 +104,15 @@ class ChatActivity : AppCompatActivity() {
 
     fun sendMessageToUser(message: String?) {
         chatroomModel?.lastMessageTimestamp =Timestamp.now()
-        val userId = FirebaseUtil.currentUserId()
         val userIdsList = chatroomModel?.userIds?.toMutableList() ?: mutableListOf()
-        userIdsList.add(userId!!)
+        userIdsList.add(fUser?.email.toString())
         chatroomModel?.userIds = userIdsList
         chatroomModel?.lastMessage = message
-        FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
+        firebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
 
         val chatMessageModel =
-            ChatMessageModel(message, FirebaseUtil.currentUserId(), Timestamp.now())
-        FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
+            ChatMessageModel(message, fUser?.email.toString(), Timestamp.now())
+        firebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
             .addOnCompleteListener(OnCompleteListener<DocumentReference?> { task ->
                 if (task.isSuccessful) {
                     messageInput!!.setText("")
@@ -121,7 +124,7 @@ class ChatActivity : AppCompatActivity() {
     //first time chat
     val orCreateChatroomModel: Unit
         get() {
-            FirebaseUtil.getChatroomReference(chatroomId).get().addOnCompleteListener { task ->
+            firebaseUtil.getChatroomReference(chatroomId).get().addOnCompleteListener { task ->
                 if (task.isSuccessful()) {
                     chatroomModel = task.getResult().toObject(ChatroomModel::class.java)
                     if (chatroomModel == null) {
@@ -129,32 +132,35 @@ class ChatActivity : AppCompatActivity() {
                         chatroomModel = ChatroomModel(
                             chatroomId,
                             Arrays.asList(
-                                FirebaseUtil.currentUserId(),
-                                otherUser.getUserId()
+                                fUser?.email.toString(),
+                                targetEmail
                             ),
                             Timestamp.now(),
                             ""
                         )
-                        FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
+                        firebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
                     }
                 }
             }
         }
 
     fun sendNotification(message: String?) {
-        FirebaseUtil.currentUserDetails().get().addOnCompleteListener { task ->
+        var currentUser:User?=null
+        firebaseUtil.currentUserDetails().get().addOnCompleteListener { task ->
             if (task.isSuccessful()) {
-                val currentUser: UserModel = task.getResult().toObject(UserModel::class.java)
+                firebaseUtil.getCurrentUser { user ->
+                    currentUser = user
+                }
                 try {
                     val jsonObject = JSONObject()
                     val notificationObj = JSONObject()
-                    notificationObj.put("title", currentUser.getUsername())
+                    notificationObj.put("title", currentUser?.username)
                     notificationObj.put("body", message)
                     val dataObj = JSONObject()
-                    dataObj.put("userId", currentUser.getUserId())
+                    dataObj.put("userId", fUser?.email.toString())
                     jsonObject.put("notification", notificationObj)
                     jsonObject.put("data", dataObj)
-                    jsonObject.put("to", otherUser.getFcmToken())
+                    jsonObject.put("to", otherUser?.token)
                     callApi(jsonObject)
                 } catch (e: Exception) {
                 }

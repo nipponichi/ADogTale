@@ -7,10 +7,9 @@
     <ImageView
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:background="@drawable/circular_bg"
-        android:src="@drawable/person_icon"
+        android:src="@drawable/ic_arrow_back_black_24dp"
         android:padding="4dp"
-        android:backgroundTint="@color/off_white"
+        android:backgroundTint="@color/black"
         android:layout_centerInParent="true"
         android:id="@+id/profile_pic_image_view"
         />

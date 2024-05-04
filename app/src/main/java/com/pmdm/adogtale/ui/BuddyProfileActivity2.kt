@@ -23,7 +23,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.LocalUser
+import com.pmdm.adogtale.model.User
 import com.pmdm.adogtale.model.Preferences
 import com.pmdm.adogtale.model.Profile
 
@@ -36,7 +36,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var btnPic4: ImageButton
     private var selectedButton: ImageButton? = null
 
-    private lateinit var user: LocalUser
+    private lateinit var user: User
     private lateinit var profile: Profile
     private lateinit var preferences: Preferences
 
@@ -63,7 +63,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         btnPic4 = findViewById(R.id.ibPic4)
 
         profile = intent.getSerializableExtra("profile") as Profile
-        user = intent.getSerializableExtra("user") as LocalUser
+        user = intent.getSerializableExtra("user") as User
 
         getFCMToken { token ->
             if (token != null) {
@@ -175,7 +175,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
     }
 
     // Create user account on Firebase
-    private fun createUserAccount(user: LocalUser) {
+    private fun createUserAccount(user: User) {
         firebaseAuth.createUserWithEmailAndPassword(user.email, user.password!!)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {

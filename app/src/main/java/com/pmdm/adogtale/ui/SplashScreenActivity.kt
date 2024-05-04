@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.pmdm.adogtale.R
+import com.pmdm.adogtale.model.LocalUser
 
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var btnChatNow: Button
@@ -27,11 +28,14 @@ class SplashScreenActivity : AppCompatActivity() {
         btnChatLater = findViewById(R.id.btnChatLater)
         countdownTextView = findViewById(R.id.countdownTextView)
 
+        var targetEmail = intent.getStringExtra("targetEmail") as String
+
         // Agregar listener de clic al botón ChatNow
         btnChatNow.setOnClickListener {
             // Abrir la nueva ventana de chat
-            val chatIntent = Intent(this@SplashScreenActivity, ChatActivityOLD::class.java)
-            startActivity(chatIntent)
+            val intent = Intent(this@SplashScreenActivity, ChatActivity::class.java)
+            intent.putExtra("targetEmail", targetEmail)
+            startActivity(intent)
         }
 
         // Agregar listener de clic al botón ChatLater
