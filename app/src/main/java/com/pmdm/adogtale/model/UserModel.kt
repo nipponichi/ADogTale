@@ -9,7 +9,7 @@ class UserModel {
     var userId: String? = null
     var fcmToken: String? = null
 
-    constructor()
+    constructor() {}
     constructor(phone: String?, username: String?, createdTimestamp: Timestamp?, userId: String?) {
         this.phone = phone
         this.username = username

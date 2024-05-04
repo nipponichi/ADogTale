@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -27,7 +26,6 @@ import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.LocalUser
 import com.pmdm.adogtale.model.Preferences
 import com.pmdm.adogtale.model.Profile
-import com.pmdm.adogtale.utils.FirebaseUtil
 
 class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth

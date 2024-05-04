@@ -30,7 +30,7 @@ class SplashScreenActivity : AppCompatActivity() {
         // Agregar listener de clic al botón ChatNow
         btnChatNow.setOnClickListener {
             // Abrir la nueva ventana de chat
-            val chatIntent = Intent(this@SplashScreenActivity, ChatActivity::class.java)
+            val chatIntent = Intent(this@SplashScreenActivity, ChatActivityOLD::class.java)
             startActivity(chatIntent)
         }
 

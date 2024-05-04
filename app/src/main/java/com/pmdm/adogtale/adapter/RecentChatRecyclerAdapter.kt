@@ -2,7 +2,6 @@ package com.pmdm.adogtale.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,32 +11,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.DocumentSnapshot
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.ChatroomModel
 import com.pmdm.adogtale.model.UserModel
-import com.pmdm.adogtale.ui.ChatActivity
+import com.pmdm.adogtale.ui.ChatActivityOLD
 import com.pmdm.adogtale.utils.AndroidUtil
-import com.pmdm.adogtale.utils.FirebaseUtil
+
 
 class RecentChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatroomModel>, private val context: Context) :
     FirestoreRecyclerAdapter<ChatroomModel, RecentChatRecyclerAdapter.ChatroomModelViewHolder>(options) {
 
     override fun onBindViewHolder(holder: ChatroomModelViewHolder, position: Int, model: ChatroomModel) {
         FirebaseUtil.getOtherUserFromChatroom(model.userIds)
-            .addOnCompleteListener { task ->
+            .addOnCompleteListener { task: Task<DocumentSnapshot> ->
                 if (task.isSuccessful) {
                     val lastMessageSentByMe = model.lastMessageSenderId == FirebaseUtil.currentUserId()
 
                     val otherUserModel = task.result?.toObject(UserModel::class.java)
-
-                    FirebaseUtil.getOtherProfilePicStorageRef(otherUserModel?.userId).downloadUrl
-                        .addOnCompleteListener { t ->
-                            if (t.isSuccessful) {
-                                val uri: Uri? = t.result
-                                AndroidUtil.setProfilePic(context, uri, holder.profilePic)
-                            }
-                        }
 
                     holder.usernameText.text = otherUserModel?.username
                     holder.lastMessageText.text =
@@ -46,8 +37,8 @@ class RecentChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatroomModel>
 
                     holder.itemView.setOnClickListener {
                         // Navigate to chat activity
-                        val intent = Intent(context, ChatActivity::class.java)
-                        AndroidUtil.passUserModelAsIntent(intent, otherUserModel)
+                        val intent = Intent(context, ChatActivityOLD::class.java)
+                        AndroidUtil.passUserModelAsIntent(intent, otherUserModel!!)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         context.startActivity(intent)
                     }

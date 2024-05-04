@@ -12,8 +12,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.pmdm.adogtale.ui.CardSwipeActivity
-import com.pmdm.adogtale.ui.ChatActivity
+import com.pmdm.adogtale.ui.ChatActivityOLD
 import kotlin.random.Random
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
@@ -31,7 +30,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(message: RemoteMessage.Notification) {
-        val intent = Intent(this, ChatActivity::class.java).apply {
+        val intent = Intent(this, ChatActivityOLD::class.java).apply {
             addFlags(FLAG_ACTIVITY_CLEAR_TOP)
         }
         val pendingIntent = PendingIntent.getActivity(
@@ -61,5 +60,4 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         const val CHANNEL_NAME = "CANAL DE NOTIFICACIONES"
-    }
-}
+    

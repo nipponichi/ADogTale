@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pmdm.adogtale.adapter.RecentChatRecyclerAdapter
 import com.pmdm.adogtale.model.ChatroomModel
-import com.pmdm.adogtale.utils.FirebaseUtil
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.Query
 import com.pmdm.adogtale.R

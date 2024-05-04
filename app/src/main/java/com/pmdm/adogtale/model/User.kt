@@ -11,4 +11,5 @@ data class User(
     var name: String? = null,
     var surname: String? = null,
     var token: String? = null,
+    var userId: String? = null
 ) : Serializable
