@@ -2,6 +2,7 @@ package com.pmdm.adogtale.ui
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
@@ -150,6 +151,7 @@ class ChatActivity : AppCompatActivity() {
             if (task.isSuccessful()) {
                 firebaseUtil.getCurrentUser { user ->
                     currentUser = user
+                    Log.i("sendNotification username", currentUser?.name.toString())
                 }
                 try {
                     val jsonObject = JSONObject()
@@ -161,6 +163,8 @@ class ChatActivity : AppCompatActivity() {
                     jsonObject.put("notification", notificationObj)
                     jsonObject.put("data", dataObj)
                     jsonObject.put("to", otherUser?.token)
+                    Log.i("otherUser name", otherUser?.name.toString())
+                    Log.i("json",jsonObject.toString())
                     callApi(jsonObject)
                 } catch (e: Exception) {
                 }

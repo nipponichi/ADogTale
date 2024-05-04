@@ -42,6 +42,7 @@ class CardSwipeActivity : AppCompatActivity() {
     private var userDogProfile: Profile? = null
     private var otherDogProfile: Profile? = null
     var targetEmail:String? = null
+    var isCardFullySwiped = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,20 +184,30 @@ class CardSwipeActivity : AppCompatActivity() {
             override fun onCardSwiped(direction: Direction?) {
                 when (direction) {
                     Direction.Right -> {
-                        Toast.makeText(
-                            this@CardSwipeActivity,
-                            "Direction Right",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        profileMatching = ProfilesMatching(
-                            "ortu20@hotmail.com",
-                            "Tobi20",
-                            "ortu30@hotmail.com",
-                            "Tobi30"
-                        )
-                        saveLike(profileMatching)
-                        checkingANewMatchExist()
+                        if (!isCardFullySwiped) {
+                            isCardFullySwiped = true // Marcar la tarjeta como desplazada completamente
+                            Toast.makeText(
+                                this@CardSwipeActivity,
+                                "Direction Right",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
+//                    Direction.Right -> {
+//                        Toast.makeText(
+//                            this@CardSwipeActivity,
+//                            "Direction Right",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        profileMatching = ProfilesMatching(
+//                            "ortu20@hotmail.com",
+//                            "Tobi20",
+//                            "ortu30@hotmail.com",
+//                            "Tobi30"
+//                        )
+//                        saveLike(profileMatching)
+//                        checkingANewMatchExist()
+//                    }
 
                     Direction.Top -> Toast.makeText(
                         this@CardSwipeActivity,
@@ -225,6 +236,18 @@ class CardSwipeActivity : AppCompatActivity() {
                 if (manager.topPosition == adapter.itemCount) {
                     Toast.makeText(this@CardSwipeActivity, "Nothing more to show", Toast.LENGTH_SHORT).show()
                     paginate()
+                }
+
+                if (isCardFullySwiped) {
+                    profileMatching = ProfilesMatching(
+                        "ortu20@hotmail.com",
+                        "Tobi20",
+                        "ortu30@hotmail.com",
+                        "Tobi30"
+                    )
+                    saveLike(profileMatching)
+                    checkingANewMatchExist()
+                    isCardFullySwiped = false // Restablecer la bandera para la próxima tarjeta
                 }
 
             }
@@ -318,6 +341,7 @@ class CardSwipeActivity : AppCompatActivity() {
         profileActions = ProfileActions()
         otherProfileActions = OtherProfileActions()
     }
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.pmdm.adogtale.utils
 
+import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -41,6 +42,7 @@ public class FirebaseUtil {
     fun getCurrentUser(callback: (User) -> Unit) {
         initFirebase()
         var user: User
+        Log.i("userEmail", fUser?.email.toString())
         db.collection("user").document(fUser?.email.toString()).get()
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
@@ -52,6 +54,7 @@ public class FirebaseUtil {
                         token = document.getString("token") ?: "",
                         town = document.getString("town") ?: "",
                     )
+                    Log.i("getCurrentUser", user.name.toString())
                     callback(user)
                 }
             }

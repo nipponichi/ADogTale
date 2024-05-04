@@ -17,7 +17,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private lateinit var countdownTextView: TextView
     private var countDownTimer: CountDownTimer? = null
     // Duración del splash screen en milisegundos
-    private val SPLASH_DISPLAY_LENGTH: Long = 10000 // 10 segundos
+    private val SPLASH_DISPLAY_LENGTH: Long = 1000000 // 10 segundos
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
