@@ -1,6 +1,5 @@
 package com.pmdm.adogtale.ui
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,17 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.adapter.ChatRecyclerAdapter
 import com.pmdm.adogtale.model.ChatMessageModel
 import com.pmdm.adogtale.model.ChatroomModel
 import com.pmdm.adogtale.model.User
-import com.pmdm.adogtale.model.UserModel
-import com.pmdm.adogtale.utils.AndroidUtil
 import com.pmdm.adogtale.utils.FirebaseUtil
 import okhttp3.Call
 import okhttp3.Callback
@@ -52,6 +47,7 @@ class ChatActivity : AppCompatActivity() {
     val fUser = firebaseUtil.getCurrentFirebaseUser()
     var targetEmail:String? = null
     var otherUser: User? = null
+    val jsonObject = JSONObject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -62,6 +58,9 @@ class ChatActivity : AppCompatActivity() {
         //get User
         firebaseUtil.getOtherUser(targetEmail!!) { user ->
             otherUser = user
+            Log.i("otherUserNameChat", otherUser!!.name.toString())
+            otherUsername!!.setText(otherUser?.username)
+            Log.i("username",otherUser?.username.toString())
         }
         chatroomId = firebaseUtil.getChatroomId(fUser?.email.toString(), targetEmail!!)
         messageInput = findViewById(R.id.chat_message_input)
@@ -73,24 +72,31 @@ class ChatActivity : AppCompatActivity() {
 
         val backBtn: ImageButton = findViewById(R.id.back_btn) as ImageButton
         backBtn.setOnClickListener { v: View? -> onBackPressed() }
-        otherUsername!!.setText(otherUser?.username)
+
         sendMessageBtn.setOnClickListener(View.OnClickListener { v: View? ->
             val message = messageInput!!.getText().toString().trim { it <= ' ' }
             if (message.isEmpty()) return@OnClickListener
             sendMessageToUser(message)
         })
-        orCreateChatroomModel
+
+        getOrCreateChatroomModel()
         setupChatRecyclerView()
+        Log.i("onCreate msg","final")
     }
 
     fun setupChatRecyclerView() {
+        Log.i("setupChat", "dentro")
         val query: Query = firebaseUtil.getChatroomMessageReference(chatroomId)
             .orderBy("timestamp", Query.Direction.DESCENDING)
+        Log.i("setupChat query", query.toString())
         val options: FirestoreRecyclerOptions<ChatMessageModel?> =
             FirestoreRecyclerOptions.Builder<ChatMessageModel>()
                 .setQuery(query, ChatMessageModel::class.java).build()
+        Log.i("setupChat options", options.toString())
         adapter = ChatRecyclerAdapter(options, applicationContext)
+        Log.i("setupChat adapter", adapter.toString())
         val manager = LinearLayoutManager(this)
+        Log.i("setupChat manager", manager.toString())
         manager.reverseLayout = true
         recyclerView!!.layoutManager = manager
         recyclerView!!.adapter = adapter
@@ -104,68 +110,82 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun sendMessageToUser(message: String?) {
-        chatroomModel?.lastMessageTimestamp =Timestamp.now()
+        //Log.i("msg message",message.toString())
+        chatroomModel?.lastMessageTimestamp = Timestamp.now()
+        //Log.i("msg chatroom", chatroomModel?.chatroomId.toString())
         val userIdsList = chatroomModel?.userIds?.toMutableList() ?: mutableListOf()
-        userIdsList.add(fUser?.email.toString())
+        //Log.i("msg userIdsList", userIdsList.toString())
+        //userIdsList.add(fUser?.email.toString())
         chatroomModel?.userIds = userIdsList
+        //Log.i("msg chatroom IDs", chatroomModel?.userIds.toString())
         chatroomModel?.lastMessage = message
+        Log.i("msg chatroom ID", chatroomId.toString())
+        Log.i("msg chatroom Model", chatroomModel.toString())
         firebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
 
         val chatMessageModel =
             ChatMessageModel(message, fUser?.email.toString(), Timestamp.now())
+        Log.i("msg chatMessageModel", chatMessageModel.senderId.toString())
+        Log.i("msg chatMessageModel", chatMessageModel.message.toString())
+        Log.i("msg chatMessageModel", chatMessageModel.timestamp.toString())
         firebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
-            .addOnCompleteListener(OnCompleteListener<DocumentReference?> { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    Log.i("task", "dentro")
                     messageInput!!.setText("")
                     sendNotification(message)
                 }
-            })
+            }
     }
 
-    //first time chat
-    val orCreateChatroomModel: Unit
-        get() {
-            firebaseUtil.getChatroomReference(chatroomId).get().addOnCompleteListener { task ->
-                if (task.isSuccessful()) {
-                    chatroomModel = task.getResult().toObject(ChatroomModel::class.java)
-                    if (chatroomModel == null) {
-                        //first time chat
-                        chatroomModel = ChatroomModel(
-                            chatroomId,
-                            Arrays.asList(
-                                fUser?.email.toString(),
-                                targetEmail
-                            ),
-                            Timestamp.now(),
-                            ""
-                        )
-                        firebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
-                    }
+    fun getOrCreateChatroomModel() {
+        Log.i("create chatroom", "dentro")
+        firebaseUtil.getChatroomReference(chatroomId).get().addOnCompleteListener { task ->
+            Log.i("create chatroom task", task.toString())
+            if (task.isSuccessful()) {
+                chatroomModel = task.getResult().toObject(ChatroomModel::class.java)
+                Log.i("create chatroom 1", chatroomModel.toString())
+                if (chatroomModel == null) {
+                    //first time chat
+                    chatroomModel = ChatroomModel(
+                        chatroomId,
+                        Arrays.asList(fUser?.email.toString(), otherUser?.userId),
+                        Timestamp.now(),
+                        ""
+                    )
+                    firebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
+                    Log.i("create chatroom 2", chatroomModel.toString())
                 }
             }
         }
+    }
+
 
     fun sendNotification(message: String?) {
+
         var currentUser:User?=null
         firebaseUtil.currentUserDetails().get().addOnCompleteListener { task ->
             if (task.isSuccessful()) {
-                firebaseUtil.getCurrentUser { user ->
-                    currentUser = user
-                    Log.i("sendNotification username", currentUser?.name.toString())
-                }
+
                 try {
-                    val jsonObject = JSONObject()
+
                     val notificationObj = JSONObject()
-                    notificationObj.put("title", currentUser?.username)
-                    notificationObj.put("body", message)
-                    val dataObj = JSONObject()
-                    dataObj.put("userId", fUser?.email.toString())
-                    jsonObject.put("notification", notificationObj)
-                    jsonObject.put("data", dataObj)
-                    jsonObject.put("to", otherUser?.token)
-                    Log.i("otherUser name", otherUser?.name.toString())
-                    Log.i("json",jsonObject.toString())
-                    callApi(jsonObject)
+                    firebaseUtil.getCurrentUser { user ->
+                        currentUser = user
+                        Log.i("sendNotification username", currentUser?.name.toString())
+                        notificationObj.put("title", currentUser?.username)
+                        notificationObj.put("body", message)
+                        val dataObj = JSONObject()
+                        dataObj.put("userId", fUser?.email.toString())
+                        jsonObject.put("notification", notificationObj)
+                        jsonObject.put("data", dataObj)
+                        jsonObject.put("to", otherUser?.token)
+                        Log.i("otherUser name", otherUser?.name.toString())
+                        Log.i("json", jsonObject.toString())
+                        Log.i("json title", notificationObj.get("title") as String)
+                        callApi(jsonObject)
+                    }
+
                 } catch (e: Exception) {
                 }
             }
@@ -173,20 +193,29 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun callApi(jsonObject: JSONObject) {
+        Log.i("callApi jsonObject", jsonObject.toString())
         val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
+        Log.i("callApi JSON", JSON.toString())
         val client = OkHttpClient()
+        Log.i("callApi client", client.toString())
         val url = "https://fcm.googleapis.com/fcm/send"
         val body: RequestBody = RequestBody.create(JSON, jsonObject.toString())
+        Log.i("callApi body", body.toString())
         val request: Request = Builder()
             .url(url)
             .post(body)
-            .header("Authorization", "Bearer AIzaSyDXYckku5P4oE6QB51gr2JCGq6qmeRNlD4")
+            .header("Authorization", "Bearer YOUR_API_KEY")
             .build()
+        Log.i("callApi request", request.toString())
         client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {}
+            override fun onFailure(call: Call, e: IOException) {
+                Log.i("callApi onFailure", "dentro")
+            }
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
+                Log.i("callApi onResponse", call.toString())
+                Log.i("callApi onResponse", response.toString())
             }
         })
     }

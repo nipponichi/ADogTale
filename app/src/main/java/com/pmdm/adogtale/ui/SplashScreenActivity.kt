@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private lateinit var countdownTextView: TextView
     private var countDownTimer: CountDownTimer? = null
     // Duración del splash screen en milisegundos
-    private val SPLASH_DISPLAY_LENGTH: Long = 1000000 // 10 segundos
+    private val SPLASH_DISPLAY_LENGTH: Long = 1000000 // 1000 segundos
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,13 +30,16 @@ class SplashScreenActivity : AppCompatActivity() {
         countdownTextView = findViewById(R.id.countdownTextView)
 
         var targetEmail = intent.getStringExtra("targetEmail") as String
+        Log.i("splash", "me he ejecutado")
 
         // Agregar listener de clic al botón ChatNow
         btnChatNow.setOnClickListener {
             // Abrir la nueva ventana de chat
+            finish()
             val intent = Intent(this@SplashScreenActivity, ChatActivity::class.java)
             intent.putExtra("targetEmail", targetEmail)
             startActivity(intent)
+
         }
 
         // Agregar listener de clic al botón ChatLater

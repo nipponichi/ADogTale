@@ -36,12 +36,14 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
         FirebaseUtil firebaseUtil = new FirebaseUtil();
         FirebaseUser currentUser = firebaseUtil.getCurrentFirebaseUser();
 
-        Log.i("haushd","asjd");
+
         if(model.getSenderId().equals(currentUser.getEmail().toString())){
+            Log.i("chat","derecha");
             holder.leftChatLayout.setVisibility(View.GONE);
             holder.rightChatLayout.setVisibility(View.VISIBLE);
             holder.rightChatTextview.setText(model.getMessage());
         }else{
+            Log.i("chat","izquierda");
             holder.rightChatLayout.setVisibility(View.GONE);
             holder.leftChatLayout.setVisibility(View.VISIBLE);
             holder.leftChatTextview.setText(model.getMessage());

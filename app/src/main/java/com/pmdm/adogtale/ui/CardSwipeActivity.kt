@@ -43,6 +43,7 @@ class CardSwipeActivity : AppCompatActivity() {
     private var otherDogProfile: Profile? = null
     var targetEmail:String? = null
     var isCardFullySwiped = false
+    var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -184,14 +185,14 @@ class CardSwipeActivity : AppCompatActivity() {
             override fun onCardSwiped(direction: Direction?) {
                 when (direction) {
                     Direction.Right -> {
-                        if (!isCardFullySwiped) {
-                            isCardFullySwiped = true // Marcar la tarjeta como desplazada completamente
                             Toast.makeText(
                                 this@CardSwipeActivity,
                                 "Direction Right",
                                 Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        counter++
+                        Log.i("Counter", counter.toString())
+
                     }
 //                    Direction.Right -> {
 //                        Toast.makeText(
@@ -238,7 +239,7 @@ class CardSwipeActivity : AppCompatActivity() {
                     paginate()
                 }
 
-                if (isCardFullySwiped) {
+                if (counter == 1) {
                     profileMatching = ProfilesMatching(
                         "ortu20@hotmail.com",
                         "Tobi20",
@@ -247,7 +248,6 @@ class CardSwipeActivity : AppCompatActivity() {
                     )
                     saveLike(profileMatching)
                     checkingANewMatchExist()
-                    isCardFullySwiped = false // Restablecer la bandera para la próxima tarjeta
                 }
 
             }

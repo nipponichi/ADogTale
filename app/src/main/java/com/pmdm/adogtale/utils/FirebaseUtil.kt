@@ -63,6 +63,7 @@ public class FirebaseUtil {
     fun getOtherUser(email: String, callback: (User) -> Unit) {
         initFirebase()
         var user: User
+        Log.i("otherUserEmail", email.toString())
         db.collection("user").document(email).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -75,6 +76,7 @@ public class FirebaseUtil {
                             token = document.getString("token") ?: "",
                             town = document.getString("town") ?: ""
                         )
+                        Log.i("otherUserName", user.name.toString())
                         callback(user)
                     }
                 }
