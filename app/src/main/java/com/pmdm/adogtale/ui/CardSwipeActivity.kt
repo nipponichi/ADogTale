@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +47,7 @@ class CardSwipeActivity : AppCompatActivity() {
     var counter = 0
     val items = mutableListOf<Itemx>()
     var manager: CardStackLayoutManager?=null
+    private lateinit var swipeBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,11 @@ class CardSwipeActivity : AppCompatActivity() {
         initDatabase()
         initImports()
         getCurrentProfile()
+        swipeBtn = findViewById(R.id.swipeBtn)
+
+        swipeBtn.setOnClickListener {
+            Toast.makeText(this,"swipeButton",Toast.LENGTH_SHORT).show()
+        }
     }
 
     // Paginate profile results
@@ -321,6 +328,8 @@ class CardSwipeActivity : AppCompatActivity() {
         profileActions = ProfileActions()
         otherProfileActions = OtherProfileActions()
     }
+
+
 }
 
 /*

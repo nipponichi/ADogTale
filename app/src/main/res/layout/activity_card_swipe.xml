@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.CardSwipeActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/swipeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="boton"/>
+
+    </LinearLayout>
+
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/card_stack_view"
         android:layout_width="0dp"
