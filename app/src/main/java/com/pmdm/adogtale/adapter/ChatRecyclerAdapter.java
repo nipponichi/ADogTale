@@ -42,6 +42,8 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
             holder.leftChatLayout.setVisibility(View.GONE);
             holder.rightChatLayout.setVisibility(View.VISIBLE);
             holder.rightChatTextview.setText(model.getMessage());
+            Log.i("chat",model.getMessage().toString());
+            Log.i("chat2",holder.rightChatTextview.toString());
         }else{
             Log.i("chat","izquierda");
             holder.rightChatLayout.setVisibility(View.GONE);
@@ -69,6 +71,7 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
             rightChatLayout = itemView.findViewById(R.id.right_chat_layout);
             leftChatTextview = itemView.findViewById(R.id.left_chat_textview);
             rightChatTextview = itemView.findViewById(R.id.right_chat_textview);
+
         }
     }
 }

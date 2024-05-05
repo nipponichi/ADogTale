@@ -2,6 +2,7 @@ package com.pmdm.adogtale.chat
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class ChatFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
         recyclerView = view.findViewById(R.id.recyler_view)
         setupRecyclerView()
+        Log.i("chatFragment","onCreateView")
         return view
     }
 
@@ -50,6 +52,7 @@ class ChatFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         adapter.startListening()
+        Log.i("chatFragment", "onStart metodo")
     }
 
     override fun onStop() {
@@ -60,5 +63,6 @@ class ChatFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         adapter.notifyDataSetChanged()
+        Log.i("chatFragment", "onResume metodo")
     }
 }

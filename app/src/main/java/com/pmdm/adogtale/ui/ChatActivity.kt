@@ -51,7 +51,7 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
+        
         //get User
         targetEmail = intent.getStringExtra("targetEmail") as String
 
