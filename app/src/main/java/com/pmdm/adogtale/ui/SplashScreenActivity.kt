@@ -10,13 +10,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.LocalUser
+import com.pmdm.adogtale.chat.ChatFragment
 
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var btnChatNow: Button
     private lateinit var btnChatLater: Button
     private lateinit var countdownTextView: TextView
     private var countDownTimer: CountDownTimer? = null
+
     // Duración del splash screen en milisegundos
     private val SPLASH_DISPLAY_LENGTH: Long = 1000000 // 1000 segundos
 
@@ -39,7 +40,6 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this@SplashScreenActivity, ChatActivity::class.java)
             intent.putExtra("targetEmail", targetEmail)
             startActivity(intent)
-
         }
 
         // Agregar listener de clic al botón ChatLater

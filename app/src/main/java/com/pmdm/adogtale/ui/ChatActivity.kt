@@ -105,6 +105,7 @@ class ChatActivity : AppCompatActivity() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
                 recyclerView!!.smoothScrollToPosition(0)
+                Log.i("setupChat itemrange inserted", "AQUI")
             }
         })
     }
