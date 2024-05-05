@@ -44,8 +44,9 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Agregar listener de clic al botón ChatLater
         btnChatLater.setOnClickListener {
-            //Se marc el like como chequeado
-            // Cierra esta actividad
+            // Cambia a la actividad principal y cierra esta
+            val mainIntent = Intent(this@SplashScreenActivity, CardSwipeActivity::class.java)
+            startActivity(mainIntent)
             finish()
         }
 
