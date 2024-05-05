@@ -5,4 +5,5 @@ data class Itemx(
     var name: String,
     var age: String,
     var town: String,
+    var userEmail: String,
 )

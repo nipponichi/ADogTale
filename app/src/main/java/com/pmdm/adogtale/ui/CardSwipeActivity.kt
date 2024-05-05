@@ -44,6 +44,7 @@ class CardSwipeActivity : AppCompatActivity() {
     var targetEmail:String? = null
     var isCardFullySwiped = false
     var counter = 0
+    val items = mutableListOf<Itemx>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,11 +111,18 @@ class CardSwipeActivity : AppCompatActivity() {
 
     // Add compatible profile into a list
     private fun addList(): Task<List<Itemx>> {
-        val taskSource = TaskCompletionSource<List<Itemx>>()
+//        val taskSource = TaskCompletionSource<List<Itemx>>()
+//
+//        // Llamar a getOtherProfiles y obtener la lista de perfiles
+//        otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
+//            val items = mutableListOf<Itemx>()
 
-        // Llamar a getOtherProfiles y obtener la lista de perfiles
-        otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
-            val items = mutableListOf<Itemx>()
+            val taskSource = TaskCompletionSource<List<Itemx>>()
+
+            // Llamar a getOtherProfiles y obtener la lista de perfiles
+            otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
+                // Limpiar la lista antes de agregar nuevos elementos
+                items.clear()
 
             // Iterar sobre cada perfil y agregar un elemento Itemx a la lista de items
             profiles.forEach { profile ->
@@ -123,7 +131,8 @@ class CardSwipeActivity : AppCompatActivity() {
                         profile.pic1,
                         profile.name,
                         profile.age,
-                        profile.shortDescription
+                        profile.shortDescription,
+                        profile.userEmail
                     )
                 )
             }
@@ -133,7 +142,8 @@ class CardSwipeActivity : AppCompatActivity() {
                     getResourceUri(R.drawable.end_card),
                     "",
                     "",
-                    ""
+                    "",
+                 "",
                 )
             )
 
@@ -238,14 +248,18 @@ class CardSwipeActivity : AppCompatActivity() {
                     Toast.makeText(this@CardSwipeActivity, "Nothing more to show", Toast.LENGTH_SHORT).show()
                     paginate()
                 }
+//                Log.i("man - adapt",manager.topPosition.toString() + " "+ adapter.itemCount.toString())
 
+                Log.i("itemX",items[manager.topPosition-1].userEmail)
                 if (counter == 1) {
-                    profileMatching = ProfilesMatching(
-                        "ortu20@hotmail.com",
-                        "Tobi20",
-                        "ortu30@hotmail.com",
-                        "Tobi30"
-                    )
+//                    profileMatching = ProfilesMatching(
+//                        "ortu20@hotmail.com",
+//                        "Tobi20",
+//                        "ortu30@hotmail.com",
+//                        "Tobi30"
+//                    )
+                    profileMatching = ProfilesMatching(userDogProfile?.userEmail,userDogProfile?.name,items[manager.topPosition-1].userEmail,items[manager.topPosition-1].name)
+                    Log.i("Mi profile matching",profileMatching.user_target.toString())
                     saveLike(profileMatching)
                     checkingANewMatchExist()
                 }
@@ -312,7 +326,9 @@ class CardSwipeActivity : AppCompatActivity() {
 
     private fun checkingANewMatchExist() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("profiles_matching").whereEqualTo("user_target", "ortu30@hotmail.com")
+//        db.collection("profiles_matching").whereEqualTo("user_target", "ortu30@hotmail.com")
+//            .whereEqualTo("profile_target", "Tobi30").whereEqualTo("likeAlreadyChecked", false)
+        db.collection("profiles_matching").whereEqualTo("user_target","ortu30@hotmail.com")
             .whereEqualTo("profile_target", "Tobi30").whereEqualTo("likeAlreadyChecked", false)
             .get().addOnSuccessListener {
                 it
