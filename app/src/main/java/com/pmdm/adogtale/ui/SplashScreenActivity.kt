@@ -7,16 +7,18 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.chat.ChatFragment
 
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var btnChatNow: Button
     private lateinit var btnChatLater: Button
     private lateinit var countdownTextView: TextView
     private var countDownTimer: CountDownTimer? = null
+    private lateinit var iv1: ImageView
+    private lateinit var iv2: ImageView
 
     // Duración del splash screen en milisegundos
     private val SPLASH_DISPLAY_LENGTH: Long = 1000000 // 1000 segundos
@@ -29,6 +31,12 @@ class SplashScreenActivity : AppCompatActivity() {
         btnChatNow = findViewById(R.id.btnChatNow)
         btnChatLater = findViewById(R.id.btnChatLater)
         countdownTextView = findViewById(R.id.countdownTextView)
+        iv1 = findViewById(R.id.iv1)
+        iv2 = findViewById(R.id.iv2)
+
+        // Cargar las imágenes en los ImageView
+//        iv1.setImageResource();
+//        iv2.setImageResource(R.drawable.imagen2);
 
         var targetEmail = intent.getStringExtra("targetEmail") as String
         Log.i("splash", "me he ejecutado")

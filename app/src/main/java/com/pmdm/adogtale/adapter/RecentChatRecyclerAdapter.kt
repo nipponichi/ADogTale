@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -20,24 +19,34 @@ import com.pmdm.adogtale.ui.ChatActivityOLD
 import com.pmdm.adogtale.utils.AndroidUtil
 import com.pmdm.adogtale.utils.FirebaseUtil
 
+class RecentChatRecyclerAdapter(
+    options: FirestoreRecyclerOptions<ChatroomModel>,
+    private val context: Context
+) :
+    FirestoreRecyclerAdapter<ChatroomModel, RecentChatRecyclerAdapter.ChatroomModelViewHolder>(
+        options
+    ) {
 
-class RecentChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatroomModel>, private val context: Context) :
-    FirestoreRecyclerAdapter<ChatroomModel, RecentChatRecyclerAdapter.ChatroomModelViewHolder>(options) {
-
-    override fun onBindViewHolder(holder: ChatroomModelViewHolder, position: Int, model: ChatroomModel) {
+    override fun onBindViewHolder(
+        holder: ChatroomModelViewHolder,
+        position: Int,
+        model: ChatroomModel
+    ) {
         val firebaseUtil = FirebaseUtil()
         val currentUser = firebaseUtil.getCurrentFirebaseUser()
         firebaseUtil.getOtherUserFromChatroom(model.userIds!!)
             .addOnCompleteListener { task: Task<DocumentSnapshot> ->
                 if (task.isSuccessful) {
-                    val lastMessageSentByMe = model.lastMessageSenderId == currentUser?.email.toString()
+                    val lastMessageSentByMe =
+                        model.lastMessageSenderId == currentUser?.email.toString()
 
                     val otherUserModel = task.result?.toObject(UserModel::class.java)
 
                     holder.usernameText.text = otherUserModel?.username
                     holder.lastMessageText.text =
                         if (lastMessageSentByMe) "You : ${model.lastMessage}" else model.lastMessage
-                    holder.lastMessageTime.text = firebaseUtil.timestampToString(model.lastMessageTimestamp!!)
+                    holder.lastMessageTime.text =
+                        firebaseUtil.timestampToString(model.lastMessageTimestamp!!)
 
                     holder.itemView.setOnClickListener {
                         // Navigate to chat activity
@@ -48,12 +57,11 @@ class RecentChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatroomModel>
                     }
                 }
             }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatroomModelViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.recent_chat_recycler_row, parent, false)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.recent_chat_recycler_row, parent, false)
         return ChatroomModelViewHolder(view)
     }
 
@@ -65,5 +73,4 @@ class RecentChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatroomModel>
 }
 
 private fun DocumentReference.addOnCompleteListener(function: (Task<DocumentSnapshot>) -> Unit) {
-
 }

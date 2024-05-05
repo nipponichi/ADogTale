@@ -27,9 +27,6 @@
             android:name=".ui.SplashScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.ListTestActivity"
             android:exported="false" />
         <activity
@@ -43,9 +40,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.SignUpActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".ui.UserProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ForgotPassActivity"

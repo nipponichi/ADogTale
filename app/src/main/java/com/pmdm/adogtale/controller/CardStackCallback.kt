@@ -3,7 +3,8 @@ package com.pmdm.adogtale.controller
 import androidx.recyclerview.widget.DiffUtil
 import com.pmdm.adogtale.model.Itemx
 
-class CardStackCallback(private val old: List<Itemx>, private val new: List<Itemx>) : DiffUtil.Callback() {
+class CardStackCallback(private val old: List<Itemx>, private val new: List<Itemx>) :
+    DiffUtil.Callback() {
 
     override fun getOldListSize() = old.size
 

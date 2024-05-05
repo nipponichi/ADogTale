@@ -55,7 +55,6 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buddy_profile2)
         val btnDone: Button = findViewById(R.id.btnDone)
-        var token_obtained: String?
 
         btnPic1 = findViewById(R.id.ibPic1)
         btnPic2 = findViewById(R.id.ibPic2)
@@ -69,14 +68,13 @@ class BuddyProfileActivity2 : AppCompatActivity() {
             if (token != null) {
                 // Haz algo con el token aquí
                 Log.i("FCM token: ", token)
-                user.token=token
+                user.token = token
             } else {
                 Log.i("No se pudo obtener el token FCM", "NULO")
             }
         }
 
         preferences = Preferences("", "", "")
-
 
         // Looking For
         val lookingFor = resources.getStringArray(R.array.lookingFor)
@@ -131,7 +129,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         firebaseAuth = Firebase.auth
     }
 
-    // Create dog profile on Firebase
+    // Create dog profile in Firebase
     private fun createProfileAccount(profile: Profile) {
         profile.town = user.town;
         profile.lookingFor = acLookingFor.text.toString()
@@ -169,12 +167,10 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                 val intent = Intent(this, CardSwipeActivity::class.java)
                 startActivity(intent)
             }
-
         }
-
     }
 
-    // Create user account on Firebase
+    // Create user account in Firebase
     private fun createUserAccount(user: User) {
         firebaseAuth.createUserWithEmailAndPassword(user.email, user.password!!)
             .addOnCompleteListener(this) { task ->
@@ -188,8 +184,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                             "town" to user.town,
                             "phone" to user.phone,
                             "token" to user.token,
-
-                            )
+                        )
                     ).addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             createProfileAccount(profile)
@@ -254,7 +249,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         }
     }
 
-    // Check if ImageButton already have an image
+    // Check if ImageButton already has an image
     private fun imageButtonHavePicture(uri: Uri) {
         val email = user.email
         val imageName = uri.lastPathSegment
@@ -301,12 +296,10 @@ class BuddyProfileActivity2 : AppCompatActivity() {
             if (task.isSuccessful) {
                 val token = task.result
                 // Aquí puedes hacer cualquier cosa que necesites con el token, como almacenarlo en la base de datos
-                // FirebaseUtil.currentUserDetails().update("fcmToken", token)
                 callback(token)
             } else {
                 callback(null)
             }
         }
     }
-
 }

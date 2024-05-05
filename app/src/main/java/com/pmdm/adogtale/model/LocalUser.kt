@@ -2,7 +2,7 @@ package com.pmdm.adogtale.model
 
 import java.io.Serializable
 
-data class LocalUser (
+data class LocalUser(
     var email: String = "",
     var username: String = "",
     var town: String = "",
@@ -10,7 +10,7 @@ data class LocalUser (
     var name: String = "",
     var surname: String = "",
     var password: String = "",
-    var token: String= ""
+    var token: String = ""
 ) : Serializable {
 
 }

@@ -45,13 +45,13 @@ class ChatActivity : AppCompatActivity() {
     var recyclerView: RecyclerView? = null
     var imageView: ImageView? = null
     val fUser = firebaseUtil.getCurrentFirebaseUser()
-    var targetEmail:String? = null
+    var targetEmail: String? = null
     var otherUser: User? = null
     val jsonObject = JSONObject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        
+
         //get User
         targetEmail = intent.getStringExtra("targetEmail") as String
         Log.i("targetEmail", targetEmail.toString())
@@ -60,15 +60,15 @@ class ChatActivity : AppCompatActivity() {
             otherUser = user
             Log.i("otherUserNameChat", otherUser!!.name.toString())
             otherUsername!!.setText(otherUser?.username)
-            Log.i("username",otherUser?.username.toString())
+            Log.i("username", otherUser?.username.toString())
         }
         chatroomId = firebaseUtil.getChatroomId(fUser?.email.toString(), targetEmail!!)
         messageInput = findViewById(R.id.chat_message_input)
-        val sendMessageBtn:ImageButton = findViewById(R.id.message_send_btn) as ImageButton
+        val sendMessageBtn: ImageButton = findViewById(R.id.message_send_btn) as ImageButton
         backBtn = findViewById(R.id.back_btn)
         otherUsername = findViewById(R.id.other_username)
         recyclerView = findViewById(R.id.chat_recycler_view)
-        imageView = findViewById(R.id.profile_pic_image_view)
+        imageView = findViewById(R.id.iv1)
 
         val backBtn: ImageButton = findViewById(R.id.back_btn) as ImageButton
         backBtn.setOnClickListener { v: View? -> onBackPressed() }
@@ -81,7 +81,7 @@ class ChatActivity : AppCompatActivity() {
 
         getOrCreateChatroomModel()
         setupChatRecyclerView()
-        Log.i("onCreate msg","final")
+        Log.i("onCreate msg", "final")
     }
 
     fun setupChatRecyclerView() {
@@ -111,7 +111,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun sendMessageToUser(message: String?) {
-        Log.i("msg message",message.toString())
+        Log.i("msg message", message.toString())
         chatroomModel?.lastMessageTimestamp = Timestamp.now()
         Log.i("msg chatroom", chatroomModel?.chatroomId.toString())
         val userIdsList = chatroomModel?.userIds?.toMutableList() ?: mutableListOf()
@@ -162,15 +162,12 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-
     fun sendNotification(message: String?) {
 
-        var currentUser:User?=null
+        var currentUser: User? = null
         firebaseUtil.currentUserDetails().get().addOnCompleteListener { task ->
             if (task.isSuccessful()) {
-
                 try {
-
                     val notificationObj = JSONObject()
                     firebaseUtil.getCurrentUser { user ->
                         currentUser = user
@@ -187,7 +184,6 @@ class ChatActivity : AppCompatActivity() {
                         Log.i("json title", notificationObj.get("title") as String)
                         callApi(jsonObject)
                     }
-
                 } catch (e: Exception) {
                 }
             }

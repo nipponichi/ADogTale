@@ -51,13 +51,15 @@ class CardStackAdapter(var items: List<Itemx>, private val manager: CardStackLay
             town.text = data.town
 
             button1.setOnClickListener {
-                Toast.makeText(itemView.context,"like", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, "like", Toast.LENGTH_SHORT).show()
                 manager.scrollToPosition(adapterPosition + 1)
             }
 
             button2.setOnClickListener {
-                Toast.makeText(itemView.context,"dislike", Toast.LENGTH_SHORT).show()
-                manager.setSwipeAnimationSetting(SwipeAnimationSetting.Builder().setDirection(Direction.Left).build())
+                Toast.makeText(itemView.context, "dislike", Toast.LENGTH_SHORT).show()
+                manager.setSwipeAnimationSetting(
+                    SwipeAnimationSetting.Builder().setDirection(Direction.Left).build()
+                )
                 manager.scrollToPosition(adapterPosition + 1)
             }
         }

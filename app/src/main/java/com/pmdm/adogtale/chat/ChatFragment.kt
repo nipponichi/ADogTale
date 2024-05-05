@@ -1,6 +1,5 @@
 package com.pmdm.adogtale.chat
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.google.firebase.firestore.Query
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.utils.FirebaseUtil
 
-
 class ChatFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecentChatRecyclerAdapter
@@ -28,7 +26,7 @@ class ChatFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
         recyclerView = view.findViewById(R.id.recyler_view)
         setupRecyclerView()
-        Log.i("chatFragment","onCreateView")
+        Log.i("chatFragment", "onCreateView")
         return view
     }
 

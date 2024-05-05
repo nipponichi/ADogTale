@@ -1,28 +1,16 @@
 package com.pmdm.adogtale.controller
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pmdm.adogtale.model.Itemx
 import com.pmdm.adogtale.model.Profile
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.IOException
 
 class OtherProfileActions {
-
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var otherProfile: Profile
@@ -135,7 +123,6 @@ class OtherProfileActions {
                         }
 
                         deferredList.add(deferred)
-
 
                         // Esperar que todas las corrutinas se completen y agregar los perfiles que pasan los filtros a profilesPassedFilter
                         GlobalScope.launch(Dispatchers.Main) {

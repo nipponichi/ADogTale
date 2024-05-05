@@ -17,7 +17,7 @@ import kotlin.random.Random
 
 //@SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-//    private val random = Random
+    //    private val random = Random
 //
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)

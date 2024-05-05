@@ -8,6 +8,6 @@ class ProfilesMatching(
     var profile_original: String? = null,
     var user_target: String? = null,
     var profile_target: String? = null,
-    val likeAlreadyChecked: Boolean?=false,
+    val likeAlreadyChecked: Boolean? = false,
 ) : Serializable {
 }

@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.User
 import com.pmdm.adogtale.model.Profile

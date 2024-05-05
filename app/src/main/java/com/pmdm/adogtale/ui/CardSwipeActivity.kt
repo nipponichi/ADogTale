@@ -52,7 +52,6 @@ class CardSwipeActivity : AppCompatActivity() {
         initDatabase()
         initImports()
         getCurrentProfile()
-
     }
 
     // Paginate profile results
@@ -109,15 +108,8 @@ class CardSwipeActivity : AppCompatActivity() {
         }
     }
 
-
     // Add compatible profile into a list
     private fun addList(): Task<List<Itemx>> {
-//        val taskSource = TaskCompletionSource<List<Itemx>>()
-//
-//        // Llamar a getOtherProfiles y obtener la lista de perfiles
-//        otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
-//            val items = mutableListOf<Itemx>()
-
         val taskSource = TaskCompletionSource<List<Itemx>>()
 
         // Llamar a getOtherProfiles y obtener la lista de perfiles
@@ -168,7 +160,6 @@ class CardSwipeActivity : AppCompatActivity() {
             userDogProfile = profile
             Toast.makeText(this, userDogProfile?.name, Toast.LENGTH_SHORT).show()
             setupCardStackView()
-
         }
     }
 
@@ -205,39 +196,17 @@ class CardSwipeActivity : AppCompatActivity() {
                         counter++
                         Log.i("Counter", counter.toString())
 
+                        Log.i("itemX", items[manager.topPosition - 1].userEmail)
+                        profileMatching = ProfilesMatching(
+                            userDogProfile?.userEmail,
+                            userDogProfile?.name,
+                            items[manager.topPosition - 1].userEmail,
+                            items[manager.topPosition - 1].name
+                        )
+                        Log.i("Mi profile matching", profileMatching.user_target.toString())
+                        saveLike(profileMatching)
+                        checkingANewMatchExist()
                     }
-//                    Direction.Right -> {
-//                        Toast.makeText(
-//                            this@CardSwipeActivity,
-//                            "Direction Right",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                        profileMatching = ProfilesMatching(
-//                            "ortu20@hotmail.com",
-//                            "Tobi20",
-//                            "ortu30@hotmail.com",
-//                            "Tobi30"
-//                        )
-//                        saveLike(profileMatching)
-//                        checkingANewMatchExist()
-//                    }
-
-                    Direction.Top -> Toast.makeText(
-                        this@CardSwipeActivity,
-                        "Direction Top",
-                        Toast.LENGTH_SHORT
-                    ).show()
-//                    Direction.Left -> Toast.makeText(
-//                        this@CardSwipeActivity,
-//                        "Direction Left",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-
-                    Direction.Right -> Toast.makeText(
-                        this@CardSwipeActivity,
-                        "Direction Right",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
                     else -> {
                         Toast.makeText(this@CardSwipeActivity, "Take care", Toast.LENGTH_SHORT)
@@ -255,20 +224,6 @@ class CardSwipeActivity : AppCompatActivity() {
                     paginate()
                 }
 //                Log.i("man - adapt",manager.topPosition.toString() + " "+ adapter.itemCount.toString())
-
-                Log.i("itemX", items[manager.topPosition - 1].userEmail)
-
-                profileMatching = ProfilesMatching(
-                    userDogProfile?.userEmail,
-                    userDogProfile?.name,
-                    items[manager.topPosition - 1].userEmail,
-                    items[manager.topPosition - 1].name
-                )
-                Log.i("Mi profile matching", profileMatching.user_target.toString())
-                saveLike(profileMatching)
-                checkingANewMatchExist()
-
-
             }
 
             override fun onCardRewound() {
@@ -330,9 +285,10 @@ class CardSwipeActivity : AppCompatActivity() {
 
     private fun checkingANewMatchExist() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("profiles_matching").whereEqualTo("user_target", profileMatching.user_original)
+        db.collection("profiles_matching")
+            .whereEqualTo("user_target", profileMatching.user_original)
             .whereEqualTo("profile_target", profileMatching.profile_original)
-            .whereEqualTo("user_original",profileMatching.user_target)
+            .whereEqualTo("user_original", profileMatching.user_target)
             .whereEqualTo("profile_original", profileMatching.profile_target)
             .whereEqualTo("likeAlreadyChecked", false)
             .get().addOnSuccessListener {
@@ -346,13 +302,11 @@ class CardSwipeActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-
     }
 
     // Initialize database instance
     private fun initDatabase() {
         firebaseAuth = FirebaseAuth.getInstance()
-
     }
 
 
@@ -361,10 +315,7 @@ class CardSwipeActivity : AppCompatActivity() {
         profileActions = ProfileActions()
         otherProfileActions = OtherProfileActions()
     }
-
-
 }
-
 
 /*
      private fun addList(): List<Itemx> {
