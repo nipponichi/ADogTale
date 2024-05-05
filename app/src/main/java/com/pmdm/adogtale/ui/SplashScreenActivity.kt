@@ -2,6 +2,7 @@ package com.pmdm.adogtale.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.number.IntegerWidth
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.pmdm.adogtale.R
+import com.squareup.picasso.Picasso
 
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var btnChatNow: Button
@@ -19,6 +21,8 @@ class SplashScreenActivity : AppCompatActivity() {
     private var countDownTimer: CountDownTimer? = null
     private lateinit var iv1: ImageView
     private lateinit var iv2: ImageView
+    private lateinit var tv1: TextView
+    private lateinit var tv2: TextView
 
     // Duración del splash screen en milisegundos
     private val SPLASH_DISPLAY_LENGTH: Long = 1000000 // 1000 segundos
@@ -33,10 +37,36 @@ class SplashScreenActivity : AppCompatActivity() {
         countdownTextView = findViewById(R.id.countdownTextView)
         iv1 = findViewById(R.id.iv1)
         iv2 = findViewById(R.id.iv2)
+        tv1 = findViewById(R.id.tv1)
+        tv2 = findViewById(R.id.tv2)
 
         // Cargar las imágenes en los ImageView
-//        iv1.setImageResource();
-//        iv2.setImageResource(R.drawable.imagen2);
+        var im1 = intent.getStringExtra("pic_original")
+        var im2 = intent.getStringExtra("pic_target")
+
+        //Original and target images are loaded
+
+        if (!im1.isNullOrEmpty()) {
+            Picasso.get()
+                .load(im1)
+                .fit()
+                .centerCrop()
+                .into(iv1)
+        }
+
+        if (!im2.isNullOrEmpty()) {
+            Picasso.get()
+                .load(im2)
+                .fit()
+                .centerCrop()
+                .into(iv2)
+        }
+
+        //Original and target names are displayed
+        var profile1 = intent.getStringExtra("profile_original")
+        var profile2 = intent.getStringExtra("profile_target")
+        tv1.setText(profile1)
+        tv2.setText(profile2)
 
         var targetEmail = intent.getStringExtra("targetEmail") as String
         Log.i("splash", "me he ejecutado")

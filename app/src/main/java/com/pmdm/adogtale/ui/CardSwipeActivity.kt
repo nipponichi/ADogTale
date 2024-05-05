@@ -45,6 +45,7 @@ class CardSwipeActivity : AppCompatActivity() {
     var isCardFullySwiped = false
     var counter = 0
     val items = mutableListOf<Itemx>()
+    var manager: CardStackLayoutManager?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,18 +167,19 @@ class CardSwipeActivity : AppCompatActivity() {
     fun setupCardStackView() {
         val cardStackView = findViewById<CardStackView>(R.id.card_stack_view)
 
-        var manager = CardStackLayoutManager(this, null)
+//        var manager = CardStackLayoutManager(this, null)
+        manager = CardStackLayoutManager(this, null)
 
-        manager.setStackFrom(StackFrom.None)
-        manager.setVisibleCount(3)
-        manager.setTranslationInterval(8.0f)
-        manager.setScaleInterval(0.95f)
-        manager.setSwipeThreshold(0.3f)
-        manager.setMaxDegree(20.0f)
-        manager.setDirections(Direction.HORIZONTAL)
-        manager.setCanScrollHorizontal(true)
-        manager.setSwipeableMethod(SwipeableMethod.Manual)
-        manager.setOverlayInterpolator(LinearInterpolator())
+        manager!!.setStackFrom(StackFrom.None)
+        manager!!.setVisibleCount(3)
+        manager!!.setTranslationInterval(8.0f)
+        manager!!.setScaleInterval(0.95f)
+        manager!!.setSwipeThreshold(0.3f)
+        manager!!.setMaxDegree(20.0f)
+        manager!!.setDirections(Direction.HORIZONTAL)
+        manager!!.setCanScrollHorizontal(true)
+        manager!!.setSwipeableMethod(SwipeableMethod.Manual)
+        manager!!.setOverlayInterpolator(LinearInterpolator())
 
         manager = CardStackLayoutManager(this, object : CardStackListener {
 
@@ -196,12 +198,12 @@ class CardSwipeActivity : AppCompatActivity() {
                         counter++
                         Log.i("Counter", counter.toString())
 
-                        Log.i("itemX", items[manager.topPosition - 1].userEmail)
+                        Log.i("itemX", items[manager!!.topPosition - 1].userEmail)
                         profileMatching = ProfilesMatching(
                             userDogProfile?.userEmail,
                             userDogProfile?.name,
-                            items[manager.topPosition - 1].userEmail,
-                            items[manager.topPosition - 1].name
+                            items[manager!!.topPosition - 1].userEmail,
+                            items[manager!!.topPosition - 1].name
                         )
                         Log.i("Mi profile matching", profileMatching.user_target.toString())
                         saveLike(profileMatching)
@@ -215,7 +217,7 @@ class CardSwipeActivity : AppCompatActivity() {
                 }
 
                 // Recarga la cola de cards
-                if (manager.topPosition == adapter.itemCount) {
+                if (manager!!.topPosition == adapter.itemCount) {
                     Toast.makeText(
                         this@CardSwipeActivity,
                         "Nothing more to show",
@@ -227,11 +229,11 @@ class CardSwipeActivity : AppCompatActivity() {
             }
 
             override fun onCardRewound() {
-                Log.d(TAG, "onCardRewound: " + manager.topPosition)
+                Log.d(TAG, "onCardRewound: " + manager!!.topPosition)
             }
 
             override fun onCardCanceled() {
-                Log.d(TAG, "onCardCanceled: " + manager.topPosition)
+                Log.d(TAG, "onCardCanceled: " + manager!!.topPosition)
             }
 
             override fun onCardAppeared(view: View?, position: Int) {
@@ -250,7 +252,7 @@ class CardSwipeActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 Log.i("addCards", "adding cards");
                 val items = task.result
-                adapter = CardStackAdapter(items, manager)
+                adapter = CardStackAdapter(items, manager!!)
                 cardStackView.layoutManager = manager
                 cardStackView.adapter = adapter
                 cardStackView.itemAnimator = DefaultItemAnimator()
@@ -298,7 +300,11 @@ class CardSwipeActivity : AppCompatActivity() {
                     Toast.makeText(this, "IT'S A MATCH!", Toast.LENGTH_SHORT).show()
                     Log.d("ORTU2", "${documentos.data}")
                     val intent = Intent(this, SplashScreenActivity::class.java)
-                    intent.putExtra("targetEmail", profileMatching.user_target)
+                    intent.putExtra("targetEmail", profileMatching.user_original)
+                    intent.putExtra("pic_original", items[manager?.topPosition?.minus(1)!!].image)
+                    intent.putExtra("pic_target", userDogProfile?.pic1)
+                    intent.putExtra("profile_original", profileMatching.profile_original)
+                    intent.putExtra("profile_target", profileMatching.profile_target)
                     startActivity(intent)
                 }
             }
