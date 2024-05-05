@@ -41,7 +41,7 @@ class CardSwipeActivity : AppCompatActivity() {
 
     private var userDogProfile: Profile? = null
     private var otherDogProfile: Profile? = null
-    var targetEmail:String? = null
+    var targetEmail: String? = null
     var isCardFullySwiped = false
     var counter = 0
     val items = mutableListOf<Itemx>()
@@ -103,7 +103,8 @@ class CardSwipeActivity : AppCompatActivity() {
                     diffResult.dispatchUpdatesTo(adapter)
                 }
             } else {
-                Toast.makeText(this, "Failed to load database information", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to load database information", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -117,12 +118,12 @@ class CardSwipeActivity : AppCompatActivity() {
 //        otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
 //            val items = mutableListOf<Itemx>()
 
-            val taskSource = TaskCompletionSource<List<Itemx>>()
+        val taskSource = TaskCompletionSource<List<Itemx>>()
 
-            // Llamar a getOtherProfiles y obtener la lista de perfiles
-            otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
-                // Limpiar la lista antes de agregar nuevos elementos
-                items.clear()
+        // Llamar a getOtherProfiles y obtener la lista de perfiles
+        otherProfileActions.getOtherProfiles(userDogProfile!!) { profiles ->
+            // Limpiar la lista antes de agregar nuevos elementos
+            items.clear()
 
             // Iterar sobre cada perfil y agregar un elemento Itemx a la lista de items
             profiles.forEach { profile ->
@@ -143,7 +144,7 @@ class CardSwipeActivity : AppCompatActivity() {
                     "",
                     "",
                     "",
-                 "",
+                    "",
                 )
             )
 
@@ -155,6 +156,7 @@ class CardSwipeActivity : AppCompatActivity() {
 
         return taskSource.task
     }
+
     // Last card path
     private fun getResourceUri(@DrawableRes drawableId: Int): String {
         return Uri.parse("android.resource://" + packageName + "/" + drawableId).toString()
@@ -195,11 +197,11 @@ class CardSwipeActivity : AppCompatActivity() {
             override fun onCardSwiped(direction: Direction?) {
                 when (direction) {
                     Direction.Right -> {
-                            Toast.makeText(
-                                this@CardSwipeActivity,
-                                "Direction Right",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        Toast.makeText(
+                            this@CardSwipeActivity,
+                            "Direction Right",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         counter++
                         Log.i("Counter", counter.toString())
 
@@ -245,24 +247,27 @@ class CardSwipeActivity : AppCompatActivity() {
 
                 // Recarga la cola de cards
                 if (manager.topPosition == adapter.itemCount) {
-                    Toast.makeText(this@CardSwipeActivity, "Nothing more to show", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@CardSwipeActivity,
+                        "Nothing more to show",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     paginate()
                 }
 //                Log.i("man - adapt",manager.topPosition.toString() + " "+ adapter.itemCount.toString())
 
-                Log.i("itemX",items[manager.topPosition-1].userEmail)
-                if (counter == 1) {
-//                    profileMatching = ProfilesMatching(
-//                        "ortu20@hotmail.com",
-//                        "Tobi20",
-//                        "ortu30@hotmail.com",
-//                        "Tobi30"
-//                    )
-                    profileMatching = ProfilesMatching(userDogProfile?.userEmail,userDogProfile?.name,items[manager.topPosition-1].userEmail,items[manager.topPosition-1].name)
-                    Log.i("Mi profile matching",profileMatching.user_target.toString())
-                    saveLike(profileMatching)
-                    checkingANewMatchExist()
-                }
+                Log.i("itemX", items[manager.topPosition - 1].userEmail)
+
+                profileMatching = ProfilesMatching(
+                    userDogProfile?.userEmail,
+                    userDogProfile?.name,
+                    items[manager.topPosition - 1].userEmail,
+                    items[manager.topPosition - 1].name
+                )
+                Log.i("Mi profile matching", profileMatching.user_target.toString())
+                saveLike(profileMatching)
+                checkingANewMatchExist()
+
 
             }
 
@@ -302,7 +307,6 @@ class CardSwipeActivity : AppCompatActivity() {
     }
 
     private fun saveLike(profilesMatching: ProfilesMatching) {
-        Log.d(TAG2, "AQUI")
         // Método para guardar el perfil que ha sido gustado
         val data = hashMapOf(
             "user_original" to profilesMatching.user_original,
@@ -326,19 +330,19 @@ class CardSwipeActivity : AppCompatActivity() {
 
     private fun checkingANewMatchExist() {
         val db = FirebaseFirestore.getInstance()
-//        db.collection("profiles_matching").whereEqualTo("user_target", "ortu30@hotmail.com")
-//            .whereEqualTo("profile_target", "Tobi30").whereEqualTo("likeAlreadyChecked", false)
-        db.collection("profiles_matching").whereEqualTo("user_target","ortu30@hotmail.com")
-            .whereEqualTo("profile_target", "Tobi30").whereEqualTo("likeAlreadyChecked", false)
+        db.collection("profiles_matching").whereEqualTo("user_target", profileMatching.user_original)
+            .whereEqualTo("profile_target", profileMatching.profile_original)
+            .whereEqualTo("user_original",profileMatching.user_target)
+            .whereEqualTo("profile_original", profileMatching.profile_target)
+            .whereEqualTo("likeAlreadyChecked", false)
             .get().addOnSuccessListener {
                 it
                 for (documentos in it) {
-                    targetEmail = documentos.getString("user_target")
                     //MATCH!
                     Toast.makeText(this, "IT'S A MATCH!", Toast.LENGTH_SHORT).show()
                     Log.d("ORTU2", "${documentos.data}")
                     val intent = Intent(this, SplashScreenActivity::class.java)
-                    intent.putExtra("targetEmail", targetEmail)
+                    intent.putExtra("targetEmail", profileMatching.user_target)
                     startActivity(intent)
                 }
             }

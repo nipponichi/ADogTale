@@ -54,7 +54,7 @@ class ChatActivity : AppCompatActivity() {
         
         //get User
         targetEmail = intent.getStringExtra("targetEmail") as String
-
+        Log.i("targetEmail", targetEmail.toString())
         //get User
         firebaseUtil.getOtherUser(targetEmail!!) { user ->
             otherUser = user
@@ -111,14 +111,14 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun sendMessageToUser(message: String?) {
-        //Log.i("msg message",message.toString())
+        Log.i("msg message",message.toString())
         chatroomModel?.lastMessageTimestamp = Timestamp.now()
-        //Log.i("msg chatroom", chatroomModel?.chatroomId.toString())
+        Log.i("msg chatroom", chatroomModel?.chatroomId.toString())
         val userIdsList = chatroomModel?.userIds?.toMutableList() ?: mutableListOf()
-        //Log.i("msg userIdsList", userIdsList.toString())
+        Log.i("msg userIdsList", userIdsList.toString())
         //userIdsList.add(fUser?.email.toString())
         chatroomModel?.userIds = userIdsList
-        //Log.i("msg chatroom IDs", chatroomModel?.userIds.toString())
+        Log.i("msg chatroom IDs", chatroomModel?.userIds.toString())
         chatroomModel?.lastMessage = message
         Log.i("msg chatroom ID", chatroomId.toString())
         Log.i("msg chatroom Model", chatroomModel.toString())
@@ -150,10 +150,11 @@ class ChatActivity : AppCompatActivity() {
                     //first time chat
                     chatroomModel = ChatroomModel(
                         chatroomId,
-                        Arrays.asList(fUser?.email.toString(), otherUser?.userId),
+                        Arrays.asList(fUser?.email.toString(), targetEmail),
                         Timestamp.now(),
-                        ""
+                        "",
                     )
+                    Log.i("create chatroom 3", otherUser?.email.toString())
                     firebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
                     Log.i("create chatroom 2", chatroomModel.toString())
                 }
