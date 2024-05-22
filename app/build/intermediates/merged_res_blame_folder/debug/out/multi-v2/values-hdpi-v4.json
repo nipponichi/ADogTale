@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.pmdm.adogtale.app-mergeDebugResources-95:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\caches\\transforms-4\\a83b11dd0b7ab46a8c336b32a69034d7\\transformed\\payments-core-20.43.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "63",
+                        "endOffsets": "114"
+                    }
+                },
+                {
+                    "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\caches\\transforms-4\\97bac0e7240e65acfd1fcb5c8d5c11a6\\transformed\\appcompat-1.6.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "119",
+                        "endLines": "7",
+                        "endColumns": "13",
+                        "endOffsets": "391"
+                    }
+                }
+            ]
+        }
+    ]
+}

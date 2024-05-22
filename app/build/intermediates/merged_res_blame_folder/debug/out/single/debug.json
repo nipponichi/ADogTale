@@ -1,0 +1,338 @@
+[
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_sample1.jpg.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\sample1.jpg"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_recent_chat_recycler_row.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\recent_chat_recycler_row.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_menu_bars.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\menu_bars.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_delete_account.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_delete_account.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_matches_list.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_matches_list.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_topbar_chat.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\topbar_chat.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_options.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_options.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_chat_message_recycler_row.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\chat_message_recycler_row.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_btn_gustar.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\btn_gustar.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\menu_topbar_extra_menu.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\menu\\topbar_extra_menu.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_btn_rechazar.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\btn_rechazar.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_splash_screen.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_splash_screen.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_edit_profile.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_edit_profile.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_sample3.jpeg.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\sample3.jpeg"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_fragment_chat.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\fragment_chat.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_sample5.jpg.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\sample5.jpg"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ladrido3_2.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ladrido3_2.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_user_profile.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_user_profile.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_card_swipe.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_card_swipe.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\font_londrina_outline.ttf.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\font\\londrina_outline.ttf"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_logoadogtale.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\logoadogtale.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_icon_send.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\icon_send.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_adt.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\adt.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_circle_background.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\circle_background.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_icon_back.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\icon_back.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\font_montserrat_bold.ttf.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\font\\montserrat_bold.ttf"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_arrow_forward_black_24dp.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_arrow_forward_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_arrow_left.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\arrow_left.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_item_card.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\item_card.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\font_londrina_shadow.ttf.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\font\\londrina_shadow.ttf"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_pending_matches_recycler_row.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\pending_matches_recycler_row.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\font_montserrat_regular.ttf.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\font\\montserrat_regular.ttf"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_google.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_google.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_edit_text_rounded_corner.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\edit_text_rounded_corner.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_chat_list.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_chat_list.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_arrow_back_black_24dp.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_arrow_back_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_sample4.jpg.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\sample4.jpg"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\font_londrina_solid.ttf.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\font\\londrina_solid.ttf"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_et_style_border.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\et_style_border.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_rectangle.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\rectangle.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_list_test.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_list_test.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_buddy_profile.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_buddy_profile.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_overlay_black.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\overlay_black.xml"
+    },
+    {
+        "merged": "com.pmdm.adogtale.app-merged_res-97:/layout_activity_card_swipe.xml.flat",
+        "source": "com.pmdm.adogtale.app-main-99:/layout/activity_card_swipe.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_auth.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_auth.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_sing_up2.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_sing_up2.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_arrow_downward_black_24dp.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_arrow_downward_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_buddy_profile2.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_buddy_profile2.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-hdpi_titleadogtale.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-hdpi\\titleadogtale.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_cardswipeicon.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\cardswipeicon.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_btnmenu.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\btnmenu.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_fondo_degradado.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\fondo_degradado.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_sample2.jpg.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\sample2.jpg"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_dropdown_menu.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\dropdown_menu.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_end_card.jpg.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\end_card.jpg"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_forgot_pass.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_forgot_pass.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_chat.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_chat.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_heartdog2_2.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\heartdog2_2.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_bell_solid.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\bell_solid.png"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_checkout.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_checkout.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_signup.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_signup.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_gradation_black.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\gradation_black.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_profile_pic_view.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\profile_pic_view.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_arrow_upward_black_24dp.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_arrow_upward_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_toolbar2.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\toolbar2.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_edit_user.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_edit_user.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_topbar_match.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\topbar_match.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_huella.png.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\huella.png"
+    }
+]

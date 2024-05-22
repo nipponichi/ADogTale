@@ -43,6 +43,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "719002333883-87srplam0ca1ahhpbiu2kosht8utsg8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pmdm.adogtale",
+            "certificate_hash": "668a9b31841a3fb08f0de122c505e78bc84c72ee"
+          }
+        },
+        {
           "client_id": "719002333883-1jurd31j6miqv68r7456q9hdblbfk53g.apps.googleusercontent.com",
           "client_type": 3
         }

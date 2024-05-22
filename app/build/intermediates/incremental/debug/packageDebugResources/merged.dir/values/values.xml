@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="breed">
+        <item/>
+        <item>Akita</item>
+        <item>Boxer</item>
+        <item>Doberman</item>
+        <item>Fox Terrier</item>
+        <item>German Shepard</item>
+        <item>Maltese</item>
+        <item>Pointer</item>
+        <item>Spanish Sabueso</item>
+        <item>Yorkshire Terrier</item>
+        <item>Zerdava</item>
+    </string-array>
+    <string-array name="distance">
+        <item>2km</item>
+        <item>20km</item>
+        <item>100km</item>
+        <item>Unlimited</item>
+    </string-array>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="highestAge">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+    <string-array name="lookingFor">
+        <item>Friendship</item>
+        <item>Long walks partnership</item>
+        <item>Sport partnership</item>
+        <item>Pair</item>
+    </string-array>
+    <string-array name="lowestAge">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+    <string-array name="prefBreed">
+        <item>Same as mine</item>
+        <item>Whatever</item>
+    </string-array>
+    <array name="ranger_slider_values">
+        <item>3.0</item>
+        <item>12.0</item>
+    </array>
+    <color name="backgroundGreen">#15D247</color>
+    <color name="black">#FF000000</color>
+    <color name="cancel_red">#FB390F</color>
+    <color name="chat_color_receiver">#7CB342</color>
+    <color name="chat_color_sender">#1E88E5</color>
+    <color name="dark_gray">#666666</color>
+    <color name="dark_green">#006400</color>
+    <color name="light_gray">#C3C3C3</color>
+    <color name="my_primary">#FF5964</color>
+    <color name="my_secondary">#FFE74C</color>
+    <color name="off_white">#FAFAFA</color>
+    <color name="slider_active_color">#FF0000</color>
+    <color name="slider_halo_color">#0000FF</color>
+    <color name="slider_thumb_color">#00FF00</color>
+    <color name="white">#FFFFFFFF</color>
+    <item name="countdownTextView" type="id"/>
+    <string name="app_name">ADogTale</string>
+    <string name="default_notification_channel_id">CANAL 1</string>
+    <string name="default_web_client_id" translatable="false">719002333883-1jurd31j6miqv68r7456q9hdblbfk53g.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">719002333883</string>
+    <string name="google_api_key" translatable="false">AIzaSyDXYckku5P4oE6QB51gr2JCGq6qmeRNlD4</string>
+    <string name="google_app_id" translatable="false">1:719002333883:android:b6b661c5dc673b7568ef9e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDXYckku5P4oE6QB51gr2JCGq6qmeRNlD4</string>
+    <string name="google_storage_bucket" translatable="false">adogtale-4c8e6.appspot.com</string>
+    <string name="no_more_cards_advertisment">No more profiles available</string>
+    <string name="no_more_cards_button">Reload</string>
+    <string name="project_id" translatable="false">adogtale-4c8e6</string>
+    <string name="server_key">
+        AAAAp2fg8rs:APA91bE6XygZFeDdc2FCENGze4c_t5FuI8uC3ooGHPOCvn7fcrIBO4dEeBB2S4_gDYDfel09xDSc7xNuputsjL5lllcH1u5QvWSX2ba1WvxYTjdDSSGnZLzRuYdpXN-5XKgr2Lx_fzEG
+    </string>
+    <string name="topbar_item_1">Hamburger menu</string>
+    <string name="topbar_item_2">Chats</string>
+    <string name="topbar_item_3">Home</string>
+    <string name="topbar_item_4">Matches</string>
+    <string name="topbar_item_5">Profile</string>
+    <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.NoActionBar"/>
+    <style name="Base.Theme.ADogTale" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="CheckBox" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">#FFFFFF</item>
+    </style>
+    <style name="Theme.ADogTale" parent="Base.Theme.ADogTale"/>
+</resources>

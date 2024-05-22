@@ -56,7 +56,8 @@ class ListTestActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 getProfile(user)
             } else {
-                Toast.makeText(this,
+                Toast.makeText(
+                    this,
                     "There is a big problem with your user. Please, contact A Dog Tale support team",
                     Toast.LENGTH_LONG
                 ).show()
@@ -92,17 +93,17 @@ class ListTestActivity : AppCompatActivity() {
                         preferences.lookingFor = document.getString("lookingFor").toString()
                         preferences.prefBreed = document.getString("prefBreed").toString()
                         preferences.prefDistance = document.getString("prefDistance").toString()
-                        Log.i("Preferences lookingFor ",preferences.lookingFor)
-                        Log.i("Preferences breed ",preferences.prefBreed)
-                        Log.i("Preferences distance ",preferences.prefDistance)
+                        Log.i("Preferences lookingFor ", preferences.lookingFor)
+                        Log.i("Preferences breed ", preferences.prefBreed)
+                        Log.i("Preferences distance ", preferences.prefDistance)
 
                         getProfileList(preferences)
 
                     } else {
-                        Toast.makeText(this,"Document does not exists", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Document does not exists", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(this,"Problem loading the document", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Problem loading the document", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -163,7 +164,7 @@ class ListTestActivity : AppCompatActivity() {
 */
     private fun getCards(profileList: ArrayList<Profile>) {
         for (Profile in profileList) {
-            Log.i("Profile ",Profile.name)
+            Log.i("Profile ", Profile.name)
         }
 
     }

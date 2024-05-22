@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.pmdm.adogtale.app-mergeDebugResources-95:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\caches\\transforms-4\\97bac0e7240e65acfd1fcb5c8d5c11a6\\transformed\\appcompat-1.6.1\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    }
+                }
+            ]
+        }
+    ]
+}

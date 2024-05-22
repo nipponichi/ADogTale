@@ -5,26 +5,25 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.Firebase
+import android.widget.TextView
+import com.google.android.material.slider.RangeSlider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.LocalUser
 import com.pmdm.adogtale.model.Preferences
 import com.pmdm.adogtale.model.Profile
+import com.pmdm.adogtale.model.User
 
 class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -35,20 +34,21 @@ class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var btnPic4: ImageButton
     private var selectedButton: ImageButton? = null
 
-    private lateinit var user: LocalUser
+    private lateinit var user: User
     private lateinit var profile: Profile
     private lateinit var preferences: Preferences
 
     private val buttonUris = HashMap<ImageButton, String>()
-    private val profilePics= HashMap<String, String>()
+    private val profilePics = HashMap<String, String>()
 
     val db = FirebaseFirestore.getInstance()
 
     private lateinit var acLookingFor: AutoCompleteTextView
     private lateinit var acPreferedBreed: AutoCompleteTextView
     private lateinit var acPreferedDistance: AutoCompleteTextView
-    private lateinit var acPreferedLowestAge: AutoCompleteTextView
-    private lateinit var acPreferedHighestAge: AutoCompleteTextView
+    private lateinit var rSAge: RangeSlider
+    private lateinit var lowAgeTextView: TextView
+    private lateinit var highAgeTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +60,25 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         btnPic3 = findViewById(R.id.ibPic3)
         btnPic4 = findViewById(R.id.ibPic4)
 
-        profile = intent.getSerializableExtra("profile") as Profile
-        user = intent.getSerializableExtra("user") as LocalUser
-        preferences = Preferences("", "", "")
+        rSAge = findViewById(R.id.rSAge)
 
+        lowAgeTextView = findViewById(R.id.tvPreferedLowAge)
+        highAgeTextView = findViewById(R.id.tvPreferedHighAge)
+
+        profile = intent.getSerializableExtra("profile") as Profile
+        user = intent.getSerializableExtra("user") as User
+
+        getFCMToken { token ->
+            if (token != null) {
+                // Haz algo con el token aquí
+                Log.i("FCM token: ", token)
+                user.token = token
+            } else {
+                Log.i("No se pudo obtener el token FCM", "NULO")
+            }
+        }
+
+        preferences = Preferences("", "", "")
 
         // Looking For
         val lookingFor = resources.getStringArray(R.array.lookingFor)
@@ -86,14 +101,14 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         // Prefered Lowest Age
         val preferedLowAge = resources.getStringArray(R.array.lowestAge)
         val arrayPrefLowAge = ArrayAdapter(this, R.layout.dropdown_menu, preferedLowAge)
-        acPreferedLowestAge = findViewById(R.id.acPreferedLowAge)
-        acPreferedLowestAge.setAdapter(arrayPrefLowAge)
+        //acPreferedLowestAge = findViewById(R.id.acPreferedLowAge)
+        //acPreferedLowestAge.setAdapter(arrayPrefLowAge)
 
         // Prefered Highest Age
         val preferedHighAge = resources.getStringArray(R.array.highestAge)
         val arrayPrefHighAge = ArrayAdapter(this, R.layout.dropdown_menu, preferedHighAge)
-        acPreferedHighestAge = findViewById(R.id.acPreferedHighAge)
-        acPreferedHighestAge.setAdapter(arrayPrefHighAge)
+        //acPreferedHighestAge = findViewById(R.id.acPreferedHighAge)
+        //acPreferedHighestAge.setAdapter(arrayPrefHighAge)
 
         btnDone.setOnClickListener() {
             createUserAccount(user)
@@ -115,21 +130,29 @@ class BuddyProfileActivity2 : AppCompatActivity() {
             selectedButton = btnPic4
             openGallery()
         }
+        rSAge.addOnChangeListener { slider, value, fromUser ->
+            val values = slider.values
+            val minValue = values[0].toInt()
+            val maxValue = values[1].toInt()
+            lowAgeTextView.text = minValue.toString()
+            highAgeTextView.text = maxValue.toString()
+        }
+
         firebaseAuth = Firebase.auth
     }
 
-    // Create dog profile on Firebase
+    // Create dog profile in Firebase
     private fun createProfileAccount(profile: Profile) {
         profile.town = user.town;
         profile.lookingFor = acLookingFor.text.toString()
         profile.prefBreed = acPreferedBreed.text.toString()
         profile.prefDistance = acPreferedDistance.text.toString()
-        profile.preferedLowAge = acPreferedLowestAge.text.toString().toLong()
-        profile.preferedHighAge = acPreferedHighestAge.text.toString().toLong()
-        profile.pic1 = profilePics[btnPic1.id.toString()]?:""
-        profile.pic2 = profilePics[btnPic2.id.toString()]?:""
-        profile.pic3 = profilePics[btnPic3.id.toString()]?:""
-        profile.pic4 = profilePics[btnPic4.id.toString()]?:""
+        profile.preferedLowAge = lowAgeTextView.text.toString().toLong()
+        profile.preferedHighAge = highAgeTextView.text.toString().toLong()
+        profile.pic1 = profilePics[btnPic1.id.toString()] ?: ""
+        profile.pic2 = profilePics[btnPic2.id.toString()] ?: ""
+        profile.pic3 = profilePics[btnPic3.id.toString()] ?: ""
+        profile.pic4 = profilePics[btnPic4.id.toString()] ?: ""
         db.collection("profile").document(user.email).set(
             hashMapOf(
                 "userEmail" to profile.userEmail,
@@ -156,13 +179,11 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                 val intent = Intent(this, CardSwipeActivity::class.java)
                 startActivity(intent)
             }
-
         }
-
     }
 
-    // Create user account on Firebase
-    private fun createUserAccount(user: LocalUser) {
+    // Create user account in Firebase
+    private fun createUserAccount(user: User) {
         firebaseAuth.createUserWithEmailAndPassword(user.email, user.password!!)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -173,7 +194,8 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                             "name" to user.name,
                             "surname" to user.surname,
                             "town" to user.town,
-                            "phone" to user.phone
+                            "phone" to user.phone,
+                            "token" to user.token,
                         )
                     ).addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
@@ -239,7 +261,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         }
     }
 
-    // Check if ImageButton already have an image
+    // Check if ImageButton already has an image
     private fun imageButtonHavePicture(uri: Uri) {
         val email = user.email
         val imageName = uri.lastPathSegment
@@ -271,10 +293,25 @@ class BuddyProfileActivity2 : AppCompatActivity() {
                 val downloadUrl = uri
                 Toast.makeText(this, "Upload done!", Toast.LENGTH_SHORT).show()
                 profilePics[selectedButton!!.id.toString()] = downloadUrl.toString()
-                Log.i("UploadNewImage", "Imagen subida para el botón ${selectedButton!!.id}, URL: $downloadUrl")
+                Log.i(
+                    "UploadNewImage",
+                    "Imagen subida para el botón ${selectedButton!!.id}, URL: $downloadUrl"
+                )
             }
         }.addOnFailureListener { e ->
             Toast.makeText(this, "Uploading error", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun getFCMToken(callback: (String?) -> Unit) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                // Aquí puedes hacer cualquier cosa que necesites con el token, como almacenarlo en la base de datos
+                callback(token)
+            } else {
+                callback(null)
+            }
         }
     }
 }

@@ -12,13 +12,12 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.pmdm.adogtale.ui.CardSwipeActivity
 import com.pmdm.adogtale.ui.ChatActivity
 import kotlin.random.Random
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-    private val random= Random
+    private val random = Random
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -56,7 +55,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
-        Log.d("FCM","New token: $token")
+        Log.d("FCM", "New token: $token")
     }
 
     companion object {

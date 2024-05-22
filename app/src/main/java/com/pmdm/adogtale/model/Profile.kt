@@ -1,9 +1,8 @@
 package com.pmdm.adogtale.model
 
-import android.util.Log
 import java.io.Serializable
 
-data class Profile (
+data class Profile(
     var name: String = "",
     var age: String = "",
     var gender: String = "",
@@ -19,7 +18,7 @@ data class Profile (
     var lookingFor: String = "",
     var prefBreed: String = "",
     var prefDistance: String = "",
-    var preferedHighAge: Long = 99,
-    var preferedLowAge: Long = 0,
+    var preferedHighAge: Long = 15,
+    var preferedLowAge: Long = 1,
     var town: String = "",
 ) : Serializable

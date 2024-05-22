@@ -78,4 +78,12 @@
         <item>19</item>
         <item>20</item>
     </string-array>
+
+    <string name="topbar_item_1">Hamburger menu</string>
+    <string name="topbar_item_2">Chats</string>
+    <string name="topbar_item_3">Home</string>
+    <string name="topbar_item_4">Matches</string>
+    <string name="topbar_item_5">Profile</string>
+    <string name="no_more_cards_advertisment">No more profiles available</string>
+    <string name="no_more_cards_button">Reload</string>
 </resources>

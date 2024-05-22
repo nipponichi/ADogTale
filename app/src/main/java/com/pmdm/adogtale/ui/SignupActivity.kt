@@ -1,13 +1,13 @@
 package com.pmdm.adogtale.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.pmdm.adogtale.R
-import com.pmdm.adogtale.model.LocalUser
+import com.pmdm.adogtale.model.User
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,11 +22,11 @@ class SignUpActivity : AppCompatActivity() {
         btnNext.setOnClickListener() {
             var pass1 = txtPassword1.text.toString()
             var pass2 = txtPassword2.text.toString()
-            var email = txtEmail.text.toString()
+            var email = txtEmail.text.toString().lowercase()
             var username = username.text.toString()
 
             if (pass1 == pass2) {
-                val user = LocalUser(username = username, email = email, password = pass1)
+                val user = User(username = username, email = email, password = pass1)
                 val intent = Intent(this, SignUpActivity2::class.java)
                 intent.putExtra("user", user)
                 startActivity(intent)
