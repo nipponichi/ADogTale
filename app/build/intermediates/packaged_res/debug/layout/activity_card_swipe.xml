@@ -38,7 +38,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:text="@string/no_more_cards_advertisment" />
-        
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reaload_card_swipe_activity_button"

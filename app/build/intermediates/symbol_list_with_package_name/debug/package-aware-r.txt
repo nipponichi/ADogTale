@@ -3436,6 +3436,7 @@ drawable heartdog2_2
 drawable huella
 drawable ic_arrow_back_black_24
 drawable ic_arrow_back_black_24dp
+drawable ic_arrow_back_black_24dp1
 drawable ic_arrow_downward_black_24dp
 drawable ic_arrow_forward_black_24dp
 drawable ic_arrow_upward_black_24dp
@@ -3487,6 +3488,7 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable mediamodifier_design
 drawable menu_bars
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button

@@ -24,12 +24,12 @@
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\topbar_chat.xml"
     },
     {
-        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_options.xml.flat",
-        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_options.xml"
-    },
-    {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_chat_message_recycler_row.xml.flat",
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\chat_message_recycler_row.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_options.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_options.xml"
     },
     {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_btn_gustar.png.flat",
@@ -76,6 +76,10 @@
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_user_profile.xml"
     },
     {
+        "merged": "com.pmdm.adogtale.app-merged_res-97:/layout_item_card.xml.flat",
+        "source": "com.pmdm.adogtale.app-main-99:/layout/item_card.xml"
+    },
+    {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_activity_card_swipe.xml.flat",
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\activity_card_swipe.xml"
     },
@@ -120,6 +124,10 @@
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\font\\montserrat_bold.ttf"
     },
     {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_arrow_back_black_24dp1.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_arrow_back_black_24dp1.xml"
+    },
+    {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_arrow_forward_black_24dp.xml.flat",
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_arrow_forward_black_24dp.xml"
     },
@@ -128,12 +136,12 @@
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\arrow_left.xml"
     },
     {
-        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-hdpi\\ic_launcher.webp"
-    },
-    {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_item_card.xml.flat",
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\layout\\item_card.xml"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\font_londrina_shadow.ttf.flat",
@@ -216,10 +224,6 @@
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\overlay_black.xml"
     },
     {
-        "merged": "com.pmdm.adogtale.app-merged_res-97:/layout_activity_card_swipe.xml.flat",
-        "source": "com.pmdm.adogtale.app-main-99:/layout/activity_card_swipe.xml"
-    },
-    {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_ic_launcher_background.xml.flat",
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\ic_launcher_background.xml"
     },
@@ -262,6 +266,10 @@
     {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_sample2.jpg.flat",
         "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\sample2.jpg"
+    },
+    {
+        "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\drawable_mediamodifier_design.xml.flat",
+        "source": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-main-99:\\drawable\\mediamodifier_design.xml"
     },
     {
         "merged": "C:\\Program Files\\Java\\jdk1.8.0_111\\daemon\\8.6\\com.pmdm.adogtale.app-merged_res-97:\\layout_dropdown_menu.xml.flat",

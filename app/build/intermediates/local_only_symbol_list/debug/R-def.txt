@@ -39,6 +39,7 @@ drawable gradation_black
 drawable heartdog2_2
 drawable huella
 drawable ic_arrow_back_black_24dp
+drawable ic_arrow_back_black_24dp1
 drawable ic_arrow_downward_black_24dp
 drawable ic_arrow_forward_black_24dp
 drawable ic_arrow_upward_black_24dp
@@ -49,6 +50,7 @@ drawable icon_back
 drawable icon_send
 drawable ladrido3_2
 drawable logoadogtale
+drawable mediamodifier_design
 drawable menu_bars
 drawable overlay_black
 drawable rectangle
@@ -71,7 +73,6 @@ id acPreferedDistance
 id appBarLayout
 id back_btn
 id bottom_layout
-id bottom_overlay
 id btnChatLater
 id btnChatNow
 id btnDelete
@@ -168,7 +169,6 @@ id tilPrefBreed
 id tilPrefDistance
 id toolbar
 id toolbar2
-id top_overlay
 id topbar_chat
 id topbar_extra_menu
 id topbar_extra_menu_edit_profile
