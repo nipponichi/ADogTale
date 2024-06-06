@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.STATUS_BAR_COLOR" />
 
     <application
         android:allowBackup="true"
@@ -69,7 +70,11 @@
             android:name=".ui.SignUpActivity"
             android:exported="false" />
         <activity
+            android:name=".description.DescriptionActivity"
+            android:exported="false" />
+        <activity
             android:name=".AuthActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

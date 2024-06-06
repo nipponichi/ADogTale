@@ -21,8 +21,7 @@ class MatchesListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private var adapter: PendingMatchesRecyclerAdapter? = null
     private lateinit var matchListTopbar: MatchListTopbar;
-
-    //    private  var firebaseUtil: FirebaseUtil?=null
+    private  val firebaseUtil: FirebaseUtil = FirebaseUtil()
     val matchesToDisplay = mutableListOf<ProfilesMatching>()
     var fUser: FirebaseUser? = null
 
@@ -35,6 +34,15 @@ class MatchesListActivity : AppCompatActivity() {
         //obtainPendingMatches()
         matchListTopbar = MatchListTopbar(this)
         matchListTopbar.configureTopbar()
+
+        firebaseUtil.getCurrentUser { currentUser ->
+            firebaseUtil.getCountUnreadMessagesInAllChatrooms(currentUser.email)
+                .thenAccept{ result ->
+                    if(result > 0){
+                        matchListTopbar.showBadge(MatchListTopbar.MatchListTopbarOption.CHAT)
+                    }
+                }
+        }
 
     }
 
@@ -90,6 +98,10 @@ class MatchesListActivity : AppCompatActivity() {
         } ?: run {
             // Si el usuario actual es nulo, registrar un error
             Log.e("setupRecyclerView Error", "Current user is null")
+        }
+
+        firebaseUtil.getCurrentUser { user ->
+            firebaseUtil.putAllMatchesToChecked(user.email)
         }
     }
 

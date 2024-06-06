@@ -10,6 +10,7 @@ import com.google.firebase.firestore.Query
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.adapter.RecentChatRecyclerAdapter
 import com.pmdm.adogtale.model.ChatroomModel
+import com.pmdm.adogtale.ui.topbar.card_swipe.CardSwipeTopbar
 import com.pmdm.adogtale.ui.topbar.chat_list.ChatListTobar
 import com.pmdm.adogtale.utils.FirebaseUtil
 
@@ -17,6 +18,7 @@ class ChatListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecentChatRecyclerAdapter
     private lateinit var chatListTobar: ChatListTobar;
+    private val firebaseUtil: FirebaseUtil = FirebaseUtil()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,17 @@ class ChatListActivity : AppCompatActivity() {
 
         chatListTobar = ChatListTobar(this)
         chatListTobar.configureTopbar()
+
+        firebaseUtil.getCurrentUser { currentUser ->
+
+            firebaseUtil.getCountUnCheckedMatches(currentUser.email)
+                .thenAccept{ result ->
+                    if(result > 0){
+                        this.chatListTobar.showBadge(ChatListTobar.ChatListTopbarOption.MATCHES)
+                    }
+                    Log.i("CardSwipeActivity", "finished count of matches: "+result)
+                }
+        }
 
     }
 

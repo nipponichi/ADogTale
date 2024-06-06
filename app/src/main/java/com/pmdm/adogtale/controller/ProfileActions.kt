@@ -8,6 +8,7 @@ import com.pmdm.adogtale.model.Profile
 import com.pmdm.adogtale.model.User
 import java.util.*
 import java.util.concurrent.CompletableFuture
+import kotlin.collections.HashMap
 
 class ProfileActions {
 
@@ -96,4 +97,63 @@ class ProfileActions {
             }
 
     }
+
+    fun getProfileFromEmail(email: String, callback: (Profile) -> Unit) {
+
+        FirebaseFirestore.getInstance()
+            .collection("profile")
+            .document(email)
+            .get()
+            .addOnCompleteListener() { task ->
+                if (!task.isSuccessful) {
+                    Log.i("ProfileActions", "getProfileFromEmail error, couldn't get profile information for email: "+email)
+                    return@addOnCompleteListener
+                }
+
+                val document = task.result
+
+                profile = Profile(
+                    name = document.getString("name") ?: "",
+                    age = document.getString("age") ?: "",
+                    gender = document.getString("gender") ?: "",
+                    breed = document.getString("breed") ?: "",
+                    shortDescription = document.getString("shortDescription") ?: "",
+                    something = document.getString("something") ?: "",
+                    userEmail = document.getString("userEmail") ?: "",
+                    pic1 = document.getString("pic1") ?: "",
+                    pic2 = document.getString("pic2") ?: "",
+                    pic3 = document.getString("pic3") ?: "",
+                    pic4 = document.getString("pic4") ?: "",
+                    vid = document.getString("vid") ?: "",
+                    lookingFor = document.getString("lookingFor") ?: "",
+                    prefBreed = document.getString("prefBreed") ?: "",
+                    prefDistance = document.getString("prefDistance") ?: "",
+                    town = document.getString("town") ?: "",
+                    preferedLowAge = document.getLong("prefLowestAge") ?: 99,
+                    preferedHighAge = document.getLong("prefHighestAge") ?: 0
+                )
+                callback(profile)
+            }
+
+    }
+
+    fun updateProfileTown(town: String, callback: () -> Unit){
+
+        val currentFirebaseUser = getCurrentFirebaseUser()
+        val email = currentFirebaseUser?.email!!
+
+        val dataToUpdate = HashMap<String, String>()
+
+        dataToUpdate["town"] = town
+
+        FirebaseFirestore.getInstance()
+            .collection("profile")
+            .document(email)
+            .update(dataToUpdate as Map<String, Any>)
+            .addOnCompleteListener{
+                callback()
+            }
+
+    }
+
 }

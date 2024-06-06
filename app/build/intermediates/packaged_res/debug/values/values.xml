@@ -97,29 +97,55 @@
     <color name="slider_thumb_color">#00FF00</color>
     <color name="white">#FFFFFFFF</color>
     <item name="countdownTextView" type="id"/>
+    <string name="adt">ADT</string>
     <string name="app_name">ADogTale</string>
+    <string name="checkout">Checkout</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="default_notification_channel_id">CANAL 1</string>
     <string name="default_web_client_id" translatable="false">719002333883-1jurd31j6miqv68r7456q9hdblbfk53g.apps.googleusercontent.com</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="description">Description</string>
+    <string name="edit_user">Edit User</string>
+    <string name="email">Email</string>
+    <string name="first_time_here">First time here?</string>
+    <string name="forgot_password">Forgot password?</string>
     <string name="gcm_defaultSenderId" translatable="false">719002333883</string>
     <string name="google_api_key" translatable="false">AIzaSyDXYckku5P4oE6QB51gr2JCGq6qmeRNlD4</string>
     <string name="google_app_id" translatable="false">1:719002333883:android:b6b661c5dc673b7568ef9e</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDXYckku5P4oE6QB51gr2JCGq6qmeRNlD4</string>
     <string name="google_storage_bucket" translatable="false">adogtale-4c8e6.appspot.com</string>
+    <string name="keep_signed_in">Keep signed in</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="name">Name</string>
     <string name="no_more_cards_advertisment">No more profiles available</string>
     <string name="no_more_cards_button">Reload</string>
+    <string name="options">Options</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
     <string name="project_id" translatable="false">adogtale-4c8e6</string>
+    <string name="rights">2024. A Dog Company</string>
+    <string name="save">Save</string>
+    <string name="see_you">See you!</string>
     <string name="server_key">
         AAAAp2fg8rs:APA91bE6XygZFeDdc2FCENGze4c_t5FuI8uC3ooGHPOCvn7fcrIBO4dEeBB2S4_gDYDfel09xDSc7xNuputsjL5lllcH1u5QvWSX2ba1WvxYTjdDSSGnZLzRuYdpXN-5XKgr2Lx_fzEG
     </string>
+    <string name="sing_up">Sing up</string>
+    <string name="surname">Surname</string>
     <string name="topbar_item_1">Hamburger menu</string>
     <string name="topbar_item_2">Chats</string>
     <string name="topbar_item_3">Home</string>
     <string name="topbar_item_4">Matches</string>
     <string name="topbar_item_5">Profile</string>
+    <string name="town">Town</string>
+    <string name="username">Username</string>
     <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.NoActionBar"/>
     <style name="Base.Theme.ADogTale" parent="Theme.Material3.DayNight.NoActionBar">
-        
-        
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="CheckBox" parent="Theme.AppCompat.NoActionBar">
         <item name="colorControlNormal">#FFFFFF</item>

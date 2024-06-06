@@ -43,8 +43,8 @@ class SplashScreenActivity : AppCompatActivity() {
         tv2 = findViewById(R.id.tv2)
 
         // Cargar las imágenes en los ImageView
-        var im1 = intent.getStringExtra("pic_original")
-        var im2 = intent.getStringExtra("pic_target")
+        val im1 = intent.getStringExtra("pic_original")
+        val im2 = intent.getStringExtra("pic_target")
 
         //Original and target images are loaded
 
@@ -65,18 +65,22 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         //Original and target names are displayed
-        var profile1 = intent.getStringExtra("profile_original")
-        var profile2 = intent.getStringExtra("profile_target")
+        val profile1 = intent.getStringExtra("profile_original")
+        val profile2 = intent.getStringExtra("profile_target")
         tv1.setText(profile1)
         tv2.setText(profile2)
 
-        var targetEmail = intent.getStringExtra("targetEmail") as String
+        val targetEmail = intent.getStringExtra("targetEmail") as String
         Log.i("splash", "me he ejecutado")
 
         // Agregar listener de clic al botón ChatNow
         btnChatNow.setOnClickListener {
             // Abrir la nueva ventana de chat
             //TODO setear a true los likes de ambos usuarios
+
+            firebaseUtil.getCurrentUser { currentUser ->
+                firebaseUtil.putAllMatchesToChecked(currentUser.email)
+            }
 
             finish()
             val intent = Intent(this@SplashScreenActivity, ChatActivity::class.java)

@@ -18,7 +18,7 @@ class PushNotificationSender {
 
     val deviceTokenHandler: DeviceTokenHandler = DeviceTokenHandler();
 
-    public fun sendNotification(message: String?, senderUser: User, targetUser: User) {
+    fun sendNotification(message: String?, senderUser: User, targetUser: User) {
 
         val jsonObject = JSONObject()
 
@@ -58,6 +58,46 @@ class PushNotificationSender {
             callApi(jsonObject)
         }
 
+    }
+
+    fun sendNotification(pushNotificationData: PushNotificationData){
+        val jsonObject = JSONObject()
+
+        val notificationObj = JSONObject()
+        notificationObj.put("title", pushNotificationData.title)
+        notificationObj.put("body", pushNotificationData.body)
+        notificationObj.put("click_action", INTENT_ON_CLICK)
+
+        val replyToObj = JSONObject()
+        val fUser = firebaseUtil.getCurrentFirebaseUser()
+        replyToObj.put("userId", pushNotificationData.originUser.userId)
+        replyToObj.put("username", pushNotificationData.originUser.username)
+        replyToObj.put("email", pushNotificationData.originUser.email)
+
+        val dataObj = JSONObject()
+        dataObj.put("reply", replyToObj)
+
+        val androidObj = JSONObject()
+        androidObj.put(
+            "notification",
+            (JSONObject()).put("icon", "bell_solid")
+        )
+
+        jsonObject.put("notification", notificationObj)
+        jsonObject.put("data", dataObj)
+        jsonObject.put("android", androidObj)
+
+        Log.i("DeviceTokenHandler", "replyToEmail: " + pushNotificationData.originUser.email)
+        Log.i("DeviceTokenHandler", "target user email: " + pushNotificationData.targetUser.email)
+        Log.i("DeviceTokenHandler", "notificationRequest: " + jsonObject.toString())
+
+        deviceTokenHandler.retrieveDeviceToken(pushNotificationData.targetUser.email).thenAccept { deviceToken ->
+
+            Log.i("DeviceTokenHandler", "deviceToken inside PushNotificationSender: " + deviceToken)
+            jsonObject.put("to", deviceToken)
+
+            callApi(jsonObject)
+        }
     }
 
     private fun callApi(jsonObject: JSONObject) {

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:padding="0dp"
     tools:context=".ui.EditProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +44,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"
                 android:src="@drawable/icon_back"
                 app:tint="@color/black" />
 
@@ -70,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@id/clTitle">
 
         <AutoCompleteTextView
-            android:id="@+id/acLookingFor"
+            android:id="@+id/acLookingForEdit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
@@ -123,6 +125,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvPrefDistance">
 
         <com.google.android.material.slider.Slider
+            android:contentDescription="preferred distance"
             android:id="@+id/sPrefDistance"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
@@ -186,6 +189,7 @@
             android:textSize="14sp" />
 
         <com.google.android.material.slider.RangeSlider
+            android:contentDescription="preferred age"
             android:id="@+id/rSAge"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
@@ -227,7 +231,7 @@
     <EditText
         android:id="@+id/etSomething"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/edit_text_rounded_corner"
         android:elevation="4dp"
@@ -262,6 +266,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvChoosePic">
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:contentDescription="picture 1"
             android:id="@+id/ibPic1"
             android:layout_width="75dp"
             android:layout_height="75dp"
@@ -271,9 +276,11 @@
             android:id="@+id/ibPic2"
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:contentDescription="picture 2"
             android:layout_marginHorizontal="5dp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:contentDescription="picture 3"
             android:id="@+id/ibPic3"
             android:layout_width="75dp"
             android:layout_height="75dp"
@@ -283,6 +290,7 @@
             android:id="@+id/ibPic4"
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:contentDescription="picture 4"
             android:layout_marginHorizontal="5dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

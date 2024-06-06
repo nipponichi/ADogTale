@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.STATUS_BAR_COLOR" />
 
     <!-- See https://developer.android.com/training/package-visibility/declaring for more details. -->
     <queries>
@@ -116,8 +117,12 @@
             android:name="com.pmdm.adogtale.ui.SignUpActivity"
             android:exported="false" />
         <activity
+            android:name="com.pmdm.adogtale.description.DescriptionActivity"
+            android:exported="false" />
+        <activity
             android:name="com.pmdm.adogtale.AuthActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

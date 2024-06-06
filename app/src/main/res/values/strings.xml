@@ -86,4 +86,35 @@
     <string name="topbar_item_5">Profile</string>
     <string name="no_more_cards_advertisment">No more profiles available</string>
     <string name="no_more_cards_button">Reload</string>
+    <string name="edit_user">Edit User</string>
+    <string name="see_you">See you!</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="adt">ADT</string>
+    <string name="options">Options</string>
+    <string name="logout">Logout</string>
+    <string name="checkout">Checkout</string>
+    <string name="description">Description</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="town">Town</string>
+    <string name="phone">Phone</string>
+    <string name="save">Save</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="keep_signed_in">Keep signed in</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="first_time_here">First time here?</string>
+    <string name="sing_up">Sing up</string>
+    <string name="rights">2024. A Dog Company</string>
+
+
+
+
+
+
+
 </resources>

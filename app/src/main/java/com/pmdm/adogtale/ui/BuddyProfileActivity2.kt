@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.Firebase
 import android.widget.TextView
 import com.google.android.material.slider.RangeSlider
+import com.google.android.material.slider.Slider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,7 +46,8 @@ class BuddyProfileActivity2 : AppCompatActivity() {
 
     private lateinit var acLookingFor: AutoCompleteTextView
     private lateinit var acPreferedBreed: AutoCompleteTextView
-    private lateinit var acPreferedDistance: AutoCompleteTextView
+    private lateinit var preferredDistanceSlider: Slider
+    private lateinit var preferredDistanceTextView: TextView
     private lateinit var rSAge: RangeSlider
     private lateinit var lowAgeTextView: TextView
     private lateinit var highAgeTextView: TextView
@@ -93,10 +95,11 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         acPreferedBreed.setAdapter(arrayPrefBreed)
 
         // Prefered Distace
-        val preferedDistance = resources.getStringArray(R.array.distance)
-        val arrayPrefDistance = ArrayAdapter(this, R.layout.dropdown_menu, preferedDistance)
-        acPreferedDistance = findViewById(R.id.acPreferedDistance)
-        acPreferedDistance.setAdapter(arrayPrefDistance)
+        preferredDistanceTextView = findViewById(R.id.tvDistance)
+        preferredDistanceSlider = findViewById(R.id.sPrefDistance)
+        preferredDistanceSlider.addOnChangeListener{slider, value, fromUser ->
+            preferredDistanceTextView.setText(value.toString() + "km")
+        }
 
         // Prefered Lowest Age
         val preferedLowAge = resources.getStringArray(R.array.lowestAge)
@@ -146,7 +149,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         profile.town = user.town;
         profile.lookingFor = acLookingFor.text.toString()
         profile.prefBreed = acPreferedBreed.text.toString()
-        profile.prefDistance = acPreferedDistance.text.toString()
+        profile.prefDistance = preferredDistanceTextView.text.toString()
         profile.preferedLowAge = lowAgeTextView.text.toString().toLong()
         profile.preferedHighAge = highAgeTextView.text.toString().toLong()
         profile.pic1 = profilePics[btnPic1.id.toString()] ?: ""

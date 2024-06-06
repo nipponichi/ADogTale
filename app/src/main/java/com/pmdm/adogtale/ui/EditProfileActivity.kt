@@ -5,10 +5,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -26,9 +28,11 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.model.Profile
+import com.pmdm.adogtale.ui.statusbar.StatusbarColorHandler
 import com.pmdm.adogtale.utils.FirebaseUtil
 import com.pmdm.adogtale.utils.ProfileMethods
 import com.squareup.picasso.Picasso
+import org.json.JSONObject
 
 class EditProfileActivity : AppCompatActivity() {
     private val profileMethods = ProfileMethods()
@@ -44,41 +48,35 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var tvDistance: TextView
     private lateinit var lowAgeTextView: TextView
     private lateinit var highAgeTextView: TextView
-
     private lateinit var btnPic1: ImageButton
     private lateinit var btnPic2: ImageButton
     private lateinit var btnPic3: ImageButton
     private lateinit var btnPic4: ImageButton
+    private var backBtn: ImageButton? = null
     private var selectedButton: ImageButton? = null
     private val buttonUris = HashMap<ImageButton, String>()
     private val profilePics = HashMap<String, String>()
-
+    private val statusbarColorHandler: StatusbarColorHandler = StatusbarColorHandler()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-        // Looking For
-        val lookingFor = resources.getStringArray(R.array.lookingFor)
-        val arrayLookingFor = ArrayAdapter(this, R.layout.dropdown_menu, lookingFor)
-        acLookingFor = findViewById(R.id.acLookingFor)
-        acLookingFor.setAdapter(arrayLookingFor)
+        statusbarColorHandler.setStatusbarBackgroundColor(this, Color.WHITE)
 
-        // Prefered Breed
-        val preferedBreed = resources.getStringArray(R.array.prefBreed)
-        val arrayPrefBreed = ArrayAdapter(this, R.layout.dropdown_menu, preferedBreed)
+        acLookingFor = findViewById(R.id.acLookingForEdit)
+
         acPreferedBreed = findViewById(R.id.acPrefBreed)
-        acPreferedBreed.setAdapter(arrayPrefBreed)
 
         saveBtn = findViewById(R.id.saveBtn)
-        acLookingFor = findViewById(R.id.acLookingFor)
-        acPreferedBreed = findViewById(R.id.acPrefBreed)
+        backBtn = findViewById(R.id.back_btn)
+
         prefDistance = findViewById(R.id.sPrefDistance)
+        tvDistance = findViewById(R.id.tvDistance)
         something = findViewById(R.id.etSomething)
         lowAgeTextView = findViewById(R.id.tvPreferredLowAge1)
         highAgeTextView = findViewById(R.id.tvPreferredHighAge1)
-        tvDistance = findViewById(R.id.tvDistance)
         rSAge = findViewById(R.id.rSAge)
         btnPic1 = findViewById(R.id.ibPic1)
         btnPic2 = findViewById(R.id.ibPic2)
@@ -87,10 +85,16 @@ class EditProfileActivity : AppCompatActivity() {
 
 
         profileMethods.getCurrentProfile { currentProfile ->
+            val jsonProfileInfo = JSONObject()
+            jsonProfileInfo.put("lookingFor", currentProfile.lookingFor)
+            jsonProfileInfo.put("prefBreed", currentProfile.prefBreed)
+            jsonProfileInfo.put("distance", currentProfile.prefDistance)
+            Log.i("EditProfileActivity", jsonProfileInfo.toString())
             profile = currentProfile
             setprofileDataOnView(profile!!)
             setProfilePics(profile!!)
         }
+
         fUser = firebaseUtil.getCurrentFirebaseUser()
 
         rSAge.addOnChangeListener { slider, value, fromUser ->
@@ -102,7 +106,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         prefDistance.addOnChangeListener { slider, value, fromUser ->
-            tvDistance.text = value.toInt().toString()
+            tvDistance.text = value.toInt().toString() + "km"
         }
 
         saveBtn?.setOnClickListener {
@@ -128,6 +132,8 @@ class EditProfileActivity : AppCompatActivity() {
             selectedButton = btnPic4
             openGallery()
         }
+
+        backBtn?.setOnClickListener { v: View? -> onBackPressed() }
     }
 
     fun setProfile() {
@@ -140,9 +146,22 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     fun setprofileDataOnView(profile: Profile) {
+        // Looking For
         acLookingFor?.setText(profile.lookingFor)
-        acPreferedBreed?.setText(profile.breed)
-        tvDistance.setText(profile.prefDistance)
+        val lookingFor = resources.getStringArray(R.array.lookingFor)
+        val arrayLookingFor = ArrayAdapter(this, R.layout.dropdown_menu, lookingFor)
+        acLookingFor.setAdapter(arrayLookingFor)
+
+        // Prefered Breed
+        Log.i("setProfileDataOnView prefBreed", profile.prefBreed)
+        acPreferedBreed?.setText(profile.prefBreed)
+        val preferedBreed = resources.getStringArray(R.array.prefBreed)
+        val arrayPrefBreed = ArrayAdapter(this, R.layout.dropdown_menu, preferedBreed)
+        acPreferedBreed.setAdapter(arrayPrefBreed)
+
+        tvDistance.text = profile.prefDistance.lowercase()
+        prefDistance.value = profile.prefDistance.lowercase().replace("km", "").toFloat()
+
         something?.setText(profile.something)
         lowAgeTextView?.text = profile.preferedLowAge.toString()
         highAgeTextView?.text = profile.preferedHighAge.toString()

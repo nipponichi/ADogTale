@@ -2,17 +2,15 @@ package com.pmdm.adogtale.ui.topbar.match_list
 
 import android.content.Intent
 import android.util.Log
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.chat.ChatListActivity
 import com.pmdm.adogtale.controller.ProfileActions
-import com.pmdm.adogtale.matches.MatchesListActivity
 import com.pmdm.adogtale.ui.CardSwipeActivity
-import com.pmdm.adogtale.ui.UserProfileActivity
-import com.pmdm.adogtale.ui.topbar.TopbarMenuOptionName
 import com.squareup.picasso.Picasso
 
 class MatchListTopbar(private val context: AppCompatActivity) {
@@ -52,38 +50,6 @@ class MatchListTopbar(private val context: AppCompatActivity) {
         }
     }
 
-    private fun onOptionsItemSelected(optionName: TopbarMenuOptionName): Boolean {
-
-        Log.i("TopbarMenuActionListener", "dentro de onOptionsItemSelected: " + optionName.name)
-
-        when (optionName) {
-
-            TopbarMenuOptionName.MATCHES -> {
-                val intent = Intent(this.context, MatchesListActivity::class.java)
-                this.context.startActivity(intent);
-                return true;
-            }
-
-            TopbarMenuOptionName.CHATS -> {
-                val intent = Intent(this.context, ChatListActivity::class.java)
-                this.context.startActivity(intent);
-                return true;
-            }
-
-            TopbarMenuOptionName.PROFILE -> {
-                val intent = Intent(this.context, UserProfileActivity::class.java)
-                this.context.startActivity(intent);
-                return true;
-            }
-
-            else -> {
-                Toast.makeText(this.context, "Something went wrong in topbar", Toast.LENGTH_SHORT)
-                    .show();
-                return false;
-            }
-        }
-    }
-
     private fun downloadProfileImageToTopbar() {
         val profileTopbarMenuOption =
             context.findViewById<ImageView>(R.id.matches_list_topbar_profile)
@@ -103,5 +69,52 @@ class MatchListTopbar(private val context: AppCompatActivity) {
 
     }
 
+    fun showBadge(menuOption: MatchListTopbarOption){
+        when(menuOption){
+            MatchListTopbarOption.SETTINGS -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_settings_badge).setVisibility(VISIBLE)
+            }
+            MatchListTopbarOption.CHAT -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_chats_badge).setVisibility(VISIBLE)
+            }
+            MatchListTopbarOption.LOGO -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_logo_badge).setVisibility(VISIBLE)
+            }
+            MatchListTopbarOption.CARD_SWIPE -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_card_swipe_badge).setVisibility(VISIBLE)
+            }
+            MatchListTopbarOption.PROFILE -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_profile_badge).setVisibility(VISIBLE)
+            }
+        }
+    }
+
+    fun hiddeBadge(menuOption: MatchListTopbarOption){
+        when(menuOption){
+            MatchListTopbarOption.SETTINGS -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_settings_badge).setVisibility(INVISIBLE)
+            }
+            MatchListTopbarOption.CHAT -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_chats_badge).setVisibility(INVISIBLE)
+            }
+            MatchListTopbarOption.LOGO -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_logo_badge).setVisibility(INVISIBLE)
+            }
+            MatchListTopbarOption.CARD_SWIPE -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_card_swipe_badge).setVisibility(INVISIBLE)
+            }
+            MatchListTopbarOption.PROFILE -> {
+                context.findViewById<ImageView>(R.id.matches_list_topbar_profile_badge).setVisibility(INVISIBLE)
+            }
+        }
+    }
+
+    enum class MatchListTopbarOption{
+        SETTINGS,
+        CHAT,
+        LOGO,
+        CARD_SWIPE,
+        PROFILE
+    }
 
 }

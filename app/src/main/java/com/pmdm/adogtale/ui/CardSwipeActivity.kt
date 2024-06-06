@@ -1,6 +1,7 @@
 package com.pmdm.adogtale.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.DrawableRes
@@ -38,6 +39,9 @@ import java.util.*
 import java.util.concurrent.CompletableFuture
 import android.view.Window
 import android.view.WindowManager
+import com.pmdm.adogtale.push_notification.PushNotificationData
+import com.pmdm.adogtale.push_notification.PushNotificationSender
+import com.pmdm.adogtale.ui.statusbar.StatusbarColorHandler
 
 
 class CardSwipeActivity : AppCompatActivity() {
@@ -66,14 +70,15 @@ class CardSwipeActivity : AppCompatActivity() {
     private var toolbar: Toolbar? = null
     private val firebaseUtil: FirebaseUtil = FirebaseUtil();
     private lateinit var optionsBtn: Button
+    private val pushNotificationSender: PushNotificationSender = PushNotificationSender()
 
+    private val statusbarColorHandler: StatusbarColorHandler = StatusbarColorHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        getSupportActionBar()?.hide()
+        statusbarColorHandler.setStatusbarBackgroundColor(this, Color.WHITE)
+
 
         // Configuración del diseño de la actividad
         setContentView(R.layout.activity_card_swipe)
@@ -100,6 +105,22 @@ class CardSwipeActivity : AppCompatActivity() {
                         firebaseUtil.getCurrentUser { user: User ->
                             Log.i("CardSwipeActivity", "userEmail attached to token: " + user.email)
                             deviceTokenHandler.storeDeviceToken(user.email, result);
+
+                            firebaseUtil.getCountUnreadMessagesInAllChatrooms(user.email)
+                                .thenAccept{ result ->
+                                    if(result > 0){
+                                        this.cardSwipeTopbar.showBadge(CardSwipeTopbar.CardSwipeTobarOption.CHAT)
+                                    }
+                                    Log.i("CardSwipeActivity", "finished count of messages: "+result)
+                                }
+
+                            firebaseUtil.getCountUnCheckedMatches(user.email)
+                                .thenAccept{ result ->
+                                    if(result > 0){
+                                        this.cardSwipeTopbar.showBadge(CardSwipeTopbar.CardSwipeTobarOption.MATCHES)
+                                    }
+                                    Log.i("CardSwipeActivity", "finished count of matches: "+result)
+                                }
                         }
 
                     }
@@ -365,9 +386,13 @@ class CardSwipeActivity : AppCompatActivity() {
             .whereEqualTo("user_original", profileMatching.user_target)
             .whereEqualTo("profile_original", profileMatching.profile_target)
             .whereEqualTo("likeAlreadyChecked", false)
-            .get().addOnSuccessListener {
+            .get()
+            .addOnSuccessListener {
                 it
                 for (documentos in it) {
+
+                    sendPushNotification(profileMatching.user_target!!)
+
                     //MATCH!
                     Toast.makeText(this, "IT'S A MATCH!", Toast.LENGTH_SHORT).show()
                     Log.d("ORTU2", "${documentos.data}")
@@ -392,6 +417,27 @@ class CardSwipeActivity : AppCompatActivity() {
     private fun initImports() {
         profileActions = ProfileActions()
         otherProfileActions = OtherProfileActions()
+    }
+
+    private fun sendPushNotification(targetUserEmail: String){
+
+        firebaseUtil.currentUserDetails()
+            .get()
+            .addOnCompleteListener { currentUserDetailsTask ->
+                firebaseUtil.getCurrentUser { currentUser ->
+                    firebaseUtil.getOtherUser(targetUserEmail){ targetUser ->
+                        val notificationData = PushNotificationData(
+                            "Nuevo MATCH!!",
+                            String.format("Tienes un match del usuario %s", currentUser.username),
+                            currentUser,
+                            targetUser
+                        );
+                        pushNotificationSender.sendNotification(notificationData)
+                    }
+
+                }
+        }
+
     }
 
 }

@@ -4,11 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
 import com.pmdm.adogtale.R
+import com.pmdm.adogtale.controller.ProfileActions
 import com.pmdm.adogtale.model.User
 import com.pmdm.adogtale.utils.UserMethods
 import com.pmdm.adogtale.utils.FirebaseUtil
@@ -20,6 +23,7 @@ class EditUserActivity : AppCompatActivity() {
     private var fUser: FirebaseUser? = null
     private var checkPass = false
     private var saveBtn: Button? = null
+    private var backBtn: ImageButton? = null
     private var password: EditText? = null
     private var confirmPassword: EditText? = null
     private var name: EditText? = null
@@ -27,6 +31,7 @@ class EditUserActivity : AppCompatActivity() {
     private var surname: EditText? = null
     private var phone: EditText? = null
     private var town: EditText? = null
+    private val profileActions: ProfileActions = ProfileActions()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +47,7 @@ class EditUserActivity : AppCompatActivity() {
         fUser = firebaseUtil.getCurrentFirebaseUser()
 
         saveBtn = findViewById(R.id.saveBtn)
+        backBtn = findViewById(R.id.back_btn)
         password = findViewById(R.id.etPassword)
         confirmPassword =  findViewById(R.id.etConfirmPassword)
         name = findViewById(R.id.etName)
@@ -55,10 +61,13 @@ class EditUserActivity : AppCompatActivity() {
             checkPassword(password,confirmPassword)
             if(checkPass){
                 userMethods.updateUserAccount(user!!,password!!.text.toString(),this)
+
+                profileActions.updateProfileTown(user!!.town){}
             }
             val intent = Intent(this, OptionsActivity::class.java)
             startActivity(intent)
         }
+        backBtn?.setOnClickListener { v: View? -> onBackPressed() }
     }
     fun setUser (name:EditText?, username:EditText?, surname:EditText?, phone:EditText?, town:EditText?):User {
         val user = User(

@@ -3,9 +3,15 @@ package com.pmdm.adogtale.ui.topbar.card_swipe
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.chat.ChatListActivity
 import com.pmdm.adogtale.checkout.CheckoutActivity
@@ -53,7 +59,10 @@ class CardSwipeTopbar(private val context: AppCompatActivity) {
             val intent = Intent(this.context, ChatListActivity::class.java)
             this.context.startActivity(intent);
         }
-        context.findViewById<ImageView>(R.id.card_swipe_topbar_matches).setOnClickListener {
+
+        val matchesButton = context.findViewById<ImageView>(R.id.card_swipe_topbar_matches)
+
+        matchesButton.setOnClickListener {
             val intent = Intent(this.context, MatchesListActivity::class.java)
             this.context.startActivity(intent);
         }
@@ -79,6 +88,54 @@ class CardSwipeTopbar(private val context: AppCompatActivity) {
                 .load(profile.pic1)
                 .into(profileTopbarMenuOption)
         }
+    }
+
+    fun showBadge(menuOption: CardSwipeTobarOption){
+        when(menuOption){
+            CardSwipeTobarOption.SETTINGS -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_settings_badge).setVisibility(VISIBLE)
+            }
+            CardSwipeTobarOption.CHAT -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_chats_badge).setVisibility(VISIBLE)
+            }
+            CardSwipeTobarOption.LOGO -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_logo_badge).setVisibility(VISIBLE)
+            }
+            CardSwipeTobarOption.MATCHES -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_matches_badge).setVisibility(VISIBLE)
+            }
+            CardSwipeTobarOption.PROFILE -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_profile_badge).setVisibility(VISIBLE)
+            }
+        }
+    }
+
+    fun hiddeBadge(menuOption: CardSwipeTobarOption){
+        when(menuOption){
+            CardSwipeTobarOption.SETTINGS -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_settings_badge).setVisibility(INVISIBLE)
+            }
+            CardSwipeTobarOption.CHAT -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_chats_badge).setVisibility(INVISIBLE)
+            }
+            CardSwipeTobarOption.LOGO -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_logo_badge).setVisibility(INVISIBLE)
+            }
+            CardSwipeTobarOption.MATCHES -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_matches_badge).setVisibility(INVISIBLE)
+            }
+            CardSwipeTobarOption.PROFILE -> {
+                context.findViewById<ImageView>(R.id.card_swipe_topbar_profile_badge).setVisibility(INVISIBLE)
+            }
+        }
+    }
+
+    enum class CardSwipeTobarOption{
+        SETTINGS,
+        CHAT,
+        LOGO,
+        MATCHES,
+        PROFILE
     }
 
 }

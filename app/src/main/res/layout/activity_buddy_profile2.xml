@@ -77,6 +77,7 @@
             android:elevation="4dp"
             android:text="Looking for" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPrefBreed"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -98,27 +99,29 @@
             android:text="Prefered breed" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPrefDistance"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilPrefBreed"
-        app:layout_constraintBottom_toTopOf="@id/llAgeRange">
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/tilPrefDistance"-->
+<!--        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tilPrefBreed"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/llAgeRange">-->
 
-        <AutoCompleteTextView
-            android:id="@+id/acPreferedDistance"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:inputType="none"
-            android:text="2km" />
-    </com.google.android.material.textfield.TextInputLayout>
+<!--        <AutoCompleteTextView-->
+<!--            android:id="@+id/acPreferedDistance"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:inputType="none"-->
+<!--            android:text="2km" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+
 
    <!-- <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPrefLowAge"
@@ -162,6 +165,69 @@
             android:text="Select highest age" />
     </com.google.android.material.textfield.TextInputLayout>-->
 
+    <TextView
+        android:id="@+id/tvPrefDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Preferred distance"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/tilPrefDistance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilPrefBreed" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/tilPrefDistance"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/llAgeRange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPrefDistance">
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sPrefDistance"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:stepSize="5"
+            android:valueFrom="5"
+            android:valueTo="200"
+            app:haloColor="@color/slider_halo_color"
+            app:thumbColor="@color/slider_thumb_color"
+            app:trackColorActive="@color/slider_active_color" />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rectangle"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="5"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tvPrefAgeRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Preferred age range"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/llAgeRange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilPrefDistance" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llAgeRange"
         android:layout_width="320dp"
@@ -179,7 +245,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:paddingStart="8dp"
@@ -205,7 +271,7 @@
             android:layout_height="wrap_content"
             android:text="12"
             android:textColor="@color/white"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:paddingStart="8dp"

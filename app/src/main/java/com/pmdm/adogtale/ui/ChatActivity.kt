@@ -1,5 +1,6 @@
 package com.pmdm.adogtale.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Query
 import com.pmdm.adogtale.R
 import com.pmdm.adogtale.adapter.ChatRecyclerAdapter
+import com.pmdm.adogtale.description.DescriptionActivity
 import com.pmdm.adogtale.model.ChatMessageModel
 import com.pmdm.adogtale.model.ChatroomModel
 import com.pmdm.adogtale.model.User
@@ -28,6 +30,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.util.*
+import kotlin.collections.HashMap
 
 class ChatActivity : AppCompatActivity() {
     val firebaseUtil = FirebaseUtil()
@@ -47,6 +50,7 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        imageView = findViewById(R.id.iv1)
         //get User
         val replyToInformation = intent.getStringExtra("reply") as String
         val replyToObj = JSONObject(replyToInformation)
@@ -78,14 +82,19 @@ class ChatActivity : AppCompatActivity() {
         }
         chatroomId = firebaseUtil.getChatroomId(fUser?.email.toString(), targetEmail!!)
         messageInput = findViewById(R.id.chat_message_input)
+
         val sendMessageBtn: ImageButton = findViewById(R.id.message_send_btn) as ImageButton
         backBtn = findViewById(R.id.back_btn)
         otherUsername = findViewById(R.id.other_username)
         recyclerView = findViewById(R.id.chat_recycler_view)
-        imageView = findViewById(R.id.iv1)
 
-        val backBtn: ImageButton = findViewById(R.id.back_btn) as ImageButton
-        backBtn.setOnClickListener { v: View? -> onBackPressed() }
+        imageView!!.setOnClickListener{
+            val intentForDescription = Intent(this, DescriptionActivity::class.java)
+            intentForDescription.putExtra("targetEmail", targetEmail)
+            startActivity(intentForDescription)
+        }
+
+        backBtn?.setOnClickListener { v: View? -> onBackPressed() }
 
         sendMessageBtn.setOnClickListener(View.OnClickListener { v: View? ->
             val message = messageInput!!.getText().toString().trim { it <= ' ' }
@@ -95,7 +104,18 @@ class ChatActivity : AppCompatActivity() {
 
         getOrCreateChatroomModel()
         setupChatRecyclerView()
+
+        firebaseUtil.getCurrentUser { user ->
+
+            firebaseUtil.putReadAllMessages(user.email, chatroomId!!)
+
+            messageInput!!.setOnClickListener{ _ ->
+                firebaseUtil.putReadAllMessages(user.email, chatroomId!!)
+            }
+        }
+
         Log.i("onCreate msg", "final")
+
     }
 
     fun setupChatRecyclerView() {
@@ -139,7 +159,7 @@ class ChatActivity : AppCompatActivity() {
         firebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
 
         val chatMessageModel =
-            ChatMessageModel(message, fUser?.email.toString(), Timestamp.now())
+            ChatMessageModel(message, fUser?.email.toString(), Timestamp.now(), false)
         Log.i("msg chatMessageModel", chatMessageModel.senderId.toString())
         Log.i("msg chatMessageModel", chatMessageModel.message.toString())
         Log.i("msg chatMessageModel", chatMessageModel.timestamp.toString())
