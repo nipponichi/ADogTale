@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -34,6 +35,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
     private lateinit var btnPic3: ImageButton
     private lateinit var btnPic4: ImageButton
     private var selectedButton: ImageButton? = null
+    private var backBtn: ImageButton? = null
 
     private lateinit var user: User
     private lateinit var profile: Profile
@@ -56,6 +58,7 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buddy_profile2)
         val btnDone: Button = findViewById(R.id.btnDone)
+        backBtn = findViewById(R.id.back_btn)
 
         btnPic1 = findViewById(R.id.ibPic1)
         btnPic2 = findViewById(R.id.ibPic2)
@@ -72,11 +75,10 @@ class BuddyProfileActivity2 : AppCompatActivity() {
 
         getFCMToken { token ->
             if (token != null) {
-                // Haz algo con el token aquí
                 Log.i("FCM token: ", token)
                 user.token = token
             } else {
-                Log.i("No se pudo obtener el token FCM", "NULO")
+                Log.i("Could not obtain FCM token", "NULL")
             }
         }
 
@@ -97,21 +99,11 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         // Prefered Distace
         preferredDistanceTextView = findViewById(R.id.tvDistance)
         preferredDistanceSlider = findViewById(R.id.sPrefDistance)
-        preferredDistanceSlider.addOnChangeListener{slider, value, fromUser ->
+        preferredDistanceSlider.addOnChangeListener { slider, value, fromUser ->
             preferredDistanceTextView.setText(value.toString() + "km")
         }
 
-        // Prefered Lowest Age
-        val preferedLowAge = resources.getStringArray(R.array.lowestAge)
-        val arrayPrefLowAge = ArrayAdapter(this, R.layout.dropdown_menu, preferedLowAge)
-        //acPreferedLowestAge = findViewById(R.id.acPreferedLowAge)
-        //acPreferedLowestAge.setAdapter(arrayPrefLowAge)
-
-        // Prefered Highest Age
-        val preferedHighAge = resources.getStringArray(R.array.highestAge)
-        val arrayPrefHighAge = ArrayAdapter(this, R.layout.dropdown_menu, preferedHighAge)
-        //acPreferedHighestAge = findViewById(R.id.acPreferedHighAge)
-        //acPreferedHighestAge.setAdapter(arrayPrefHighAge)
+        backBtn?.setOnClickListener { v: View? -> onBackPressed() }
 
         btnDone.setOnClickListener() {
             createUserAccount(user)
@@ -156,33 +148,39 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         profile.pic2 = profilePics[btnPic2.id.toString()] ?: ""
         profile.pic3 = profilePics[btnPic3.id.toString()] ?: ""
         profile.pic4 = profilePics[btnPic4.id.toString()] ?: ""
-        db.collection("profile").document(user.email).set(
-            hashMapOf(
-                "userEmail" to profile.userEmail,
-                "name" to profile.name,
-                "age" to profile.age,
-                "gender" to profile.gender,
-                "breed" to profile.breed,
-                "something" to profile.something,
-                "shortDescription" to profile.shortDescription,
-                "lookingFor" to profile.lookingFor,
-                "prefBreed" to profile.prefBreed,
-                "prefDistance" to profile.prefDistance,
-                "pic1" to profile.pic1,
-                "pic2" to profile.pic2,
-                "pic3" to profile.pic3,
-                "pic4" to profile.pic4,
-                "prefLowestAge" to profile.preferedLowAge,
-                "prefHighestAge" to profile.preferedHighAge,
-                "town" to profile.town
-            )
-        ).addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Profile created", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, CardSwipeActivity::class.java)
-                startActivity(intent)
+        if (profile.lookingFor.isNotEmpty() && profile.prefBreed.isNotEmpty() && profile.prefBreed.isNotEmpty() &&
+            profile.prefDistance.isNotEmpty()) {
+            db.collection("profile").document(user.email).set(
+                hashMapOf(
+                    "userEmail" to profile.userEmail,
+                    "name" to profile.name,
+                    "age" to profile.age,
+                    "gender" to profile.gender,
+                    "breed" to profile.breed,
+                    "something" to profile.something,
+                    "shortDescription" to profile.shortDescription,
+                    "lookingFor" to profile.lookingFor,
+                    "prefBreed" to profile.prefBreed,
+                    "prefDistance" to profile.prefDistance,
+                    "pic1" to profile.pic1,
+                    "pic2" to profile.pic2,
+                    "pic3" to profile.pic3,
+                    "pic4" to profile.pic4,
+                    "prefLowestAge" to profile.preferedLowAge,
+                    "prefHighestAge" to profile.preferedHighAge,
+                    "town" to profile.town
+                )
+            ).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Profile created", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, CardSwipeActivity::class.java)
+                    startActivity(intent)
+                }
             }
+        } else {
+            Toast.makeText(this, "Please, fill the fields", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     // Create user account in Firebase
@@ -310,7 +308,6 @@ class BuddyProfileActivity2 : AppCompatActivity() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val token = task.result
-                // Aquí puedes hacer cualquier cosa que necesites con el token, como almacenarlo en la base de datos
                 callback(token)
             } else {
                 callback(null)

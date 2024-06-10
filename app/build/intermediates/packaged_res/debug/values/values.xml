@@ -81,7 +81,7 @@
         <item>3.0</item>
         <item>12.0</item>
     </array>
-    <color name="backgroundGreen">#15D247</color>
+    <color name="backgroundGreen">#57b889</color>
     <color name="black">#FF000000</color>
     <color name="cancel_red">#FB390F</color>
     <color name="chat_color_receiver">#7CB342</color>
@@ -92,20 +92,31 @@
     <color name="my_primary">#FF5964</color>
     <color name="my_secondary">#FFE74C</color>
     <color name="off_white">#FAFAFA</color>
+    <color name="orange">#D8BD59</color>
     <color name="slider_active_color">#FF0000</color>
     <color name="slider_halo_color">#0000FF</color>
     <color name="slider_thumb_color">#00FF00</color>
     <color name="white">#FFFFFFFF</color>
     <item name="countdownTextView" type="id"/>
     <string name="adt">ADT</string>
+    <string name="age">Age</string>
     <string name="app_name">ADogTale</string>
+    <string name="become_premium">Premium</string>
+    <string name="chatlater">Chat later</string>
+    <string name="chatnow">Chat now</string>
     <string name="checkout">Checkout</string>
+    <string name="choosePics">Choose your best pictures</string>
+    <string name="choose_breed">Choose breed</string>
+    <string name="choose_gender">Choose gender</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="continue_registering">Continue registering your buddy</string>
     <string name="default_notification_channel_id">CANAL 1</string>
     <string name="default_web_client_id" translatable="false">719002333883-1jurd31j6miqv68r7456q9hdblbfk53g.apps.googleusercontent.com</string>
     <string name="delete_account">Delete Account</string>
     <string name="description">Description</string>
+    <string name="done">Done</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="edit_user">Edit User</string>
     <string name="email">Email</string>
     <string name="first_time_here">First time here?</string>
@@ -118,20 +129,33 @@
     <string name="keep_signed_in">Keep signed in</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="looking_for">Looking for</string>
+    <string name="match">IT IS A MATCH!!</string>
     <string name="name">Name</string>
+    <string name="next">Next</string>
     <string name="no_more_cards_advertisment">No more profiles available</string>
     <string name="no_more_cards_button">Reload</string>
     <string name="options">Options</string>
     <string name="password">Password</string>
+    <string name="payment">Payment</string>
     <string name="phone">Phone</string>
+    <string name="prefAge">Prefered age range</string>
+    <string name="prefDistance">Prefered distance</string>
+    <string name="pref_breed">Prefered breed</string>
+    <string name="premium">Become Premium</string>
     <string name="project_id" translatable="false">adogtale-4c8e6</string>
+    <string name="remember">Remember</string>
     <string name="rights">2024. A Dog Company</string>
     <string name="save">Save</string>
     <string name="see_you">See you!</string>
+    <string name="sendmail">Send mail</string>
     <string name="server_key">
         AAAAp2fg8rs:APA91bE6XygZFeDdc2FCENGze4c_t5FuI8uC3ooGHPOCvn7fcrIBO4dEeBB2S4_gDYDfel09xDSc7xNuputsjL5lllcH1u5QvWSX2ba1WvxYTjdDSSGnZLzRuYdpXN-5XKgr2Lx_fzEG
     </string>
+    <string name="short_description">Describe yourself</string>
+    <string name="signup">Sign Up</string>
     <string name="sing_up">Sing up</string>
+    <string name="something">Something about you</string>
     <string name="surname">Surname</string>
     <string name="topbar_item_1">Hamburger menu</string>
     <string name="topbar_item_2">Chats</string>
@@ -149,6 +173,14 @@
     </style>
     <style name="CheckBox" parent="Theme.AppCompat.NoActionBar">
         <item name="colorControlNormal">#FFFFFF</item>
+    </style>
+    <style name="RoundBorderImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+    <style name="RoundImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
     <style name="Theme.ADogTale" parent="Base.Theme.ADogTale"/>
 </resources>

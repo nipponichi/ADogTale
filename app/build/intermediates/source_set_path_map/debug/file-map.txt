@@ -92,11 +92,11 @@ com.pmdm.adogtale.app-ui-util-release-90 C:\Program Files\Java\jdk1.8.0_111\cach
 com.pmdm.adogtale.app-lifecycle-livedata-core-2.7.0-91 C:\Program Files\Java\jdk1.8.0_111\caches\transforms-4\f337ad507705d7767a91fafc1d2e75be\transformed\lifecycle-livedata-core-2.7.0\res
 com.pmdm.adogtale.app-material-icons-core-release-92 C:\Program Files\Java\jdk1.8.0_111\caches\transforms-4\fad7794afea4e87bb25341f90c4ea00e\transformed\material-icons-core-release\res
 com.pmdm.adogtale.app-circleindicator-2.1.6-93 C:\Program Files\Java\jdk1.8.0_111\caches\transforms-4\fb28179baa8c699577bc0c7ca8dd4db7\transformed\circleindicator-2.1.6\res
-com.pmdm.adogtale.app-pngs-94 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\build\generated\res\pngs\debug
-com.pmdm.adogtale.app-res-95 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\build\generated\res\processDebugGoogleServices
-com.pmdm.adogtale.app-resValues-96 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\build\generated\res\resValues\debug
-com.pmdm.adogtale.app-packageDebugResources-97 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.pmdm.adogtale.app-packageDebugResources-98 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.pmdm.adogtale.app-merged_res-99 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\build\intermediates\merged_res\debug
-com.pmdm.adogtale.app-debug-100 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\src\debug\res
-com.pmdm.adogtale.app-main-101 C:\Users\Javier\Documents\GitHub\tienda_web\web_store\app\src\main\res
+com.pmdm.adogtale.app-pngs-94 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\build\generated\res\pngs\debug
+com.pmdm.adogtale.app-res-95 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\build\generated\res\processDebugGoogleServices
+com.pmdm.adogtale.app-resValues-96 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\build\generated\res\resValues\debug
+com.pmdm.adogtale.app-packageDebugResources-97 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.pmdm.adogtale.app-packageDebugResources-98 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.pmdm.adogtale.app-merged_res-99 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\build\intermediates\merged_res\debug
+com.pmdm.adogtale.app-debug-100 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\src\debug\res
+com.pmdm.adogtale.app-main-101 C:\Users\Javier\Documents\GitHub\ADogTale_FINAL\app\src\main\res

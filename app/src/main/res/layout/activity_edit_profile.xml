@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,7 +23,7 @@
             android:layout_height="wrap_content"
             android:elevation="4dp"
             android:fontFamily="@font/londrina_shadow"
-            android:text="ADT"
+            android:text="@string/adt"
             android:textSize="48sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:fontFamily="@font/londrina_solid"
-                android:text="Edit profile"
+                android:text="@string/edit_profile"
                 android:textSize="25sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -105,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Preferred distance"
+        android:text="@string/prefDistance"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/llDistance"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,16 +124,16 @@
         app:layout_constraintTop_toBottomOf="@id/tvPrefDistance">
 
         <com.google.android.material.slider.Slider
-            android:contentDescription="preferred distance"
             android:id="@+id/sPrefDistance"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
+            android:contentDescription="preferred distance"
             android:stepSize="5"
             android:valueFrom="5"
             android:valueTo="200"
             app:haloColor="@color/slider_halo_color"
-            app:thumbColor="@color/slider_thumb_color"
-            app:trackColorActive="@color/slider_active_color" />
+            app:thumbColor="@color/backgroundGreen"
+            app:trackColorActive="@color/chat_color_sender" />
 
         <TextView
             android:id="@+id/tvDistance"
@@ -156,7 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Preferred age range"
+        android:text="@string/prefAge"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/llAgeRange"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +169,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/tvSomething"
+        app:layout_constraintBottom_toTopOf="@id/tilSomething"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPrefAgeRange">
@@ -189,16 +188,16 @@
             android:textSize="14sp" />
 
         <com.google.android.material.slider.RangeSlider
-            android:contentDescription="preferred age"
             android:id="@+id/rSAge"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
+            android:contentDescription="preferred age"
             android:stepSize="1"
             android:valueFrom="1"
             android:valueTo="15"
             app:haloColor="@color/slider_halo_color"
-            app:thumbColor="@color/slider_thumb_color"
-            app:trackColorActive="@color/slider_active_color"
+            app:thumbColor="@color/backgroundGreen"
+            app:trackColorActive="@color/chat_color_sender"
             app:values="@array/ranger_slider_values" />
 
         <TextView
@@ -215,31 +214,24 @@
             android:textSize="14sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
-        android:id="@+id/tvSomething"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSomething"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Something about me"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/etSomething"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@id/llAgeRange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llAgeRange" />
+        app:layout_constraintTop_toBottomOf="@id/tvChoosePic">
 
-    <EditText
-        android:id="@+id/etSomething"
-        android:layout_width="300dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_rounded_corner"
-        android:elevation="4dp"
-        android:text="Bone lover"
-        app:layout_constraintBottom_toTopOf="@id/tvChoosePic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSomething" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSomething"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:hint="@string/something"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tvChoosePic"
@@ -247,12 +239,12 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Choose your best pictures"
+        android:text="@string/choosePics"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/llChoosePic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etSomething" />
+        app:layout_constraintTop_toBottomOf="@id/tilSomething" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llChoosePic"
@@ -266,32 +258,32 @@
         app:layout_constraintTop_toBottomOf="@id/tvChoosePic">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:contentDescription="picture 1"
             android:id="@+id/ibPic1"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginHorizontal="5dp" />
+            android:layout_marginHorizontal="5dp"
+            android:contentDescription="picture 1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ibPic2"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:contentDescription="picture 2"
-            android:layout_marginHorizontal="5dp" />
+            android:layout_marginHorizontal="5dp"
+            android:contentDescription="picture 2" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:contentDescription="picture 3"
             android:id="@+id/ibPic3"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginHorizontal="5dp" />
+            android:layout_marginHorizontal="5dp"
+            android:contentDescription="picture 3" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ibPic4"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:contentDescription="picture 4"
-            android:layout_marginHorizontal="5dp" />
+            android:layout_marginHorizontal="5dp"
+            android:contentDescription="picture 4" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -303,7 +295,7 @@
         android:background="@drawable/edit_text_rounded_corner"
         android:backgroundTint="@color/backgroundGreen"
         android:elevation="4dp"
-        android:text="Save"
+        android:text="@string/save"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
