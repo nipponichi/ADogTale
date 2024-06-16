@@ -31,6 +31,7 @@ drawable badge
 drawable bell_solid
 drawable btn_gustar
 drawable btn_rechazar
+drawable btnmenu
 drawable cardswipeicon
 drawable circle_background
 drawable edit_text_rounded_corner
@@ -42,6 +43,7 @@ drawable heartdog2_2
 drawable heartdog2_2_old
 drawable huella
 drawable ic_arrow_back_black_24dp
+drawable ic_arrow_back_black_24dp1
 drawable ic_arrow_downward_black_24dp
 drawable ic_arrow_forward_black_24dp
 drawable ic_arrow_upward_black_24dp
@@ -52,7 +54,7 @@ drawable icon_back
 drawable icon_send
 drawable ladrido3_2
 drawable logoadogtale
-drawable logoadogtale1
+drawable mediamodifier_design
 drawable menu_bars
 drawable menu_bars_old
 drawable overlay_black
@@ -78,8 +80,10 @@ id back_btn
 id bottom_layout
 id btnChatLater
 id btnChatNow
+id btnDelete
 id btnDone
 id btnLogin
+id btnLogout
 id btnNext
 id btnRemember
 id btnSignUp
@@ -205,9 +209,13 @@ id tv1
 id tv2
 id tvADT
 id tvChoosePic
+id tvConfirmPassword
 id tvDistance
+id tvEmail
 id tvMatch
+id tvName
 id tvPassword
+id tvPhone
 id tvPrefAgeRange
 id tvPrefDistance
 id tvPreferedHighAge
@@ -218,6 +226,9 @@ id tvRights
 id tvSeeyou
 id tvSignup
 id tvSingup
+id tvSurname
+id tvTest
+id tvTown
 id tvUsername
 id user_name_text
 layout activity_auth
@@ -232,11 +243,13 @@ layout activity_description
 layout activity_edit_profile
 layout activity_edit_user
 layout activity_forgot_pass
+layout activity_list_test
 layout activity_matches_list
 layout activity_options
 layout activity_signup
 layout activity_sing_up2
 layout activity_splash_screen
+layout activity_user_profile
 layout chat_message_recycler_row
 layout dropdown_menu
 layout fragment_chat

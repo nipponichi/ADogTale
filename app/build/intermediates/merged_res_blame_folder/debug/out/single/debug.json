@@ -8,6 +8,10 @@
         "source": "com.pmdm.adogtale.app-main-101:/drawable/fondo_degradado.xml"
     },
     {
+        "merged": "com.pmdm.adogtale.app-merged_res-99:/layout_activity_list_test.xml.flat",
+        "source": "com.pmdm.adogtale.app-main-101:/layout/activity_list_test.xml"
+    },
+    {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/layout_activity_checkout.xml.flat",
         "source": "com.pmdm.adogtale.app-main-101:/layout/activity_checkout.xml"
     },
@@ -56,8 +60,8 @@
         "source": "com.pmdm.adogtale.app-main-101:/drawable/bell_solid.png"
     },
     {
-        "merged": "com.pmdm.adogtale.app-merged_res-99:/drawable_logoadogtale1.png.flat",
-        "source": "com.pmdm.adogtale.app-main-101:/drawable/logoadogtale1.png"
+        "merged": "com.pmdm.adogtale.app-merged_res-99:/drawable_ic_arrow_back_black_24dp1.xml.flat",
+        "source": "com.pmdm.adogtale.app-main-101:/drawable/ic_arrow_back_black_24dp1.xml"
     },
     {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
@@ -102,6 +106,10 @@
     {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/mipmap-xxhdpi_ic_launcher.webp.flat",
         "source": "com.pmdm.adogtale.app-main-101:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.pmdm.adogtale.app-merged_res-99:/drawable_mediamodifier_design.xml.flat",
+        "source": "com.pmdm.adogtale.app-main-101:/drawable/mediamodifier_design.xml"
     },
     {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/drawable_menu_bars.png.flat",
@@ -154,6 +162,10 @@
     {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/layout_dropdown_menu.xml.flat",
         "source": "com.pmdm.adogtale.app-main-101:/layout/dropdown_menu.xml"
+    },
+    {
+        "merged": "com.pmdm.adogtale.app-merged_res-99:/drawable_btnmenu.png.flat",
+        "source": "com.pmdm.adogtale.app-main-101:/drawable/btnmenu.png"
     },
     {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/drawable_ic_arrow_upward_black_24dp.xml.flat",
@@ -230,6 +242,10 @@
     {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/layout_activity_delete_account.xml.flat",
         "source": "com.pmdm.adogtale.app-main-101:/layout/activity_delete_account.xml"
+    },
+    {
+        "merged": "com.pmdm.adogtale.app-merged_res-99:/layout_activity_user_profile.xml.flat",
+        "source": "com.pmdm.adogtale.app-main-101:/layout/activity_user_profile.xml"
     },
     {
         "merged": "com.pmdm.adogtale.app-merged_res-99:/drawable-v24_ic_launcher_foreground.xml.flat",

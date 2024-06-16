@@ -228,8 +228,7 @@ class CardSwipeActivity : AppCompatActivity() {
                     }
 
                     else -> {
-                        Toast.makeText(this@CardSwipeActivity, "Take care", Toast.LENGTH_SHORT)
-                            .show()
+
                     }
                 }
 
@@ -303,7 +302,7 @@ class CardSwipeActivity : AppCompatActivity() {
         db.collection("profiles_matching")
             .add(data)
             .addOnSuccessListener { documentReference ->
-                Toast.makeText(this, "Like guardado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Like!", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al guardar el like: ${e.message}", Toast.LENGTH_SHORT)
